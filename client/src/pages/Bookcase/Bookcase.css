@@ -1,3 +1,145 @@
 section#bookcase {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  width: 320px;
 }
+
+section#bookcase div.shelf {
+  width: 300px;
+  height: 200px;
+  background-color: rgb(241, 181, 91);
+  border: 10px solid rgb(195, 140, 45);
+  display: flex;
+  direction: row;
+  align-items: end;
+  justify-content: space-between;
+}
+
+section#bookcase ul.stack,
+section#bookcase ul.stack li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+section#bookcase ul.stack {
+  height: 175px;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: start;
+  align-items: end;
+}
+
+section#bookcase ul.stack.center {
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+}
+
+section#bookcase ul.stack.right {
+  justify-content: end;
+}
+
+section#bookcase ul.stack li {
+  height: 150px;
+  width: 30px;
+  writing-mode: vertical-rl;
+  line-height: 13px;
+  vertical-align: middle;
+  border: 1px solid gray;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+section#bookcase ul.stack.center li {
+  height: 30px;
+  width: 150px;
+  writing-mode: horizontal-tb;
+}
+
+section#bookcase ul.stack li span {
+  display: block;
+}
+
+section#bookcase ul.stack li span.title {
+  font-weight: bold;
+  font-size: 12px;
+}
+section#bookcase ul.stack li span.author {
+  font-size: 10px;
+}
+
+section#bookcase li.red {
+  background-color: red;
+  color: white;
+}
+section#bookcase li.blue {
+  background-color: blue;
+  color: white;
+}
+section#bookcase li.yellow {
+  background-color: yellow;
+  color: black;
+}
+section#bookcase li.white {
+  background-color: white;
+  color: black;
+}
+section#bookcase li.purple {
+  background-color: purple;
+  color: white;
+}
+section#bookcase li.orange {
+  background-color: orange;
+}
+section#bookcase li.green {
+  background-color: green;
+  color: white;
+}
+section#bookcase li.black {
+  background-color: black;
+  color: yellow;
+}
+section#bookcase li.red {
+  background-color: red;
+}
+section#bookcase li.red {
+  background-color: red;
+}
+
+/* section#bookcase ul {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  min-height: 50px;
+  min-width: 200px;
+}
+
+section#bookcase ul.stack {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+  min-width: 50px;
+}
+
+#bookcase li {
+  list-style-type: none;
+  border: 1px solid purple;
+  background-color: yellow;
+  width: 30px;
+  height: 150px;
+  font-size: 13px;
+  line-height: 14px;
+  position: relative;
+  writing-mode: vertical-rl;
+}
+
+#bookcase .stack li {
+  width: 150px;
+  height: 30px;
+} */
