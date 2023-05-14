@@ -1,3 +1,17 @@
-div.stack {
+section#bookcase ul.stack {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  height: 175px;
   display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: start;
+  align-items: end;
+}
+
+section#bookcase ul.stack.right {
+  justify-content: end;
+  flex-direction: row-reverse;
 }
