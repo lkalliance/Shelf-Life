@@ -13,14 +13,16 @@ function Shelf({ shelfIndex, books, items }) {
       id={`shelf-${shelfIndex}`}
     >
       <Stack
-        postion="left"
+        position="left"
+        key={`shelf-left-${shelfIndex}`}
         books={books.left}
         items={items}
         shelf={shelfIndex}
         bookItems={leftItem}
       />
       <Stack
-        postion="right"
+        position="right"
+        key={`shelf-right-${shelfIndex}`}
         books={books.right}
         items={items}
         shelf={shelfIndex}

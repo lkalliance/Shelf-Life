@@ -1,13 +1,12 @@
 import "./Book.css";
 import { Draggable } from "@hello-pangea/dnd";
 
-function Book({ bookItem, book, bookIndex }) {
+function Book({ bookId, book, bookIndex }) {
   return (
-    <Draggable key={bookItem.id} draggableId={bookItem.id} index={bookIndex}>
+    <Draggable key={bookId} draggableId={bookId} index={bookIndex}>
       {(provided) => (
         <li
           className={`book ${book.color}`}
-          key={book.id}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}

@@ -10,6 +10,8 @@ function Bookcase() {
   const [items, setItems] = useState(control);
 
   function onDragEnd({ source, destination }) {
+    console.log(source);
+    console.log(destination);
     const newItems = { ...items };
     const newBooks = { ...books };
 
@@ -55,6 +57,7 @@ function Bookcase() {
           // const centerItem = items[`shelf-center-${shelfIndex}`];
           return (
             <Shelf
+              key={shelfIndex}
               shelfIndex={shelfIndex}
               books={books.shelves[shelfIndex]}
               items={items}

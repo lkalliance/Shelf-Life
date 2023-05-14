@@ -19,7 +19,12 @@ function Stack({ position, books, items, shelf, bookItems }) {
         >
           {books.map((book, bookIndex) => {
             return (
-              <Book book={book} bookIndex={bookIndex} bookItem={bookItems} />
+              <Book
+                key={book.id}
+                book={book}
+                bookIndex={bookIndex}
+                bookId={bookItems[bookIndex].id}
+              />
             );
           })}
           {provided.placeholder}

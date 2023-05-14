@@ -9,10 +9,10 @@ const convert = (data) => {
   const converted = {};
 
   data.shelves.map((shelf, index) => {
-    converted[`shelf-left-${index}`] = shelf.left.map((book) => {
+    converted[`shelf-left-${index}`] = shelf.left.map((book, bookIndex) => {
       return { id: book.id.toString(), name: `Drag-${book.id}` };
     });
-    converted[`shelf-right-${index}`] = shelf.right.map((book) => {
+    converted[`shelf-right-${index}`] = shelf.right.map((book, bookIndex) => {
       return { id: book.id.toString(), name: `Drag-${book.id}` };
     });
   });
