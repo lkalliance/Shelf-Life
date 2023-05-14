@@ -22,9 +22,6 @@ const convert = (data) => {
     converted[`shelf-left-${index}`] = shelf.left.map((book) => {
       return { id: book.id.toString(), name: `Drag-${book.id}` };
     });
-    converted[`shelf-center-${index}`] = shelf.center.map((book) => {
-      return { id: book.id.toString(), name: `Drag-${book.id}` };
-    });
     converted[`shelf-right-${index}`] = shelf.right.map((book) => {
       return { id: book.id.toString(), name: `Drag-${book.id}` };
     });
@@ -37,6 +34,12 @@ export const fakedata = {
   shelves: [
     {
       left: [
+        {
+          title: "The Silmarillion",
+          author: "J.R.R. Tolkien",
+          color: "white",
+          id: 4,
+        },
         {
           title: "FOTR",
           author: "J.R.R. Tolkien",
@@ -54,26 +57,6 @@ export const fakedata = {
           author: "J.R.R. Tolkien",
           color: "green",
           id: 3,
-        },
-      ],
-      center: [
-        {
-          title: "The Silmarillion",
-          author: "J.R.R. Tolkien",
-          color: "white",
-          id: 4,
-        },
-        {
-          title: "The Sword of Shannara",
-          author: "Terry Brooks",
-          color: "black",
-          id: 5,
-        },
-        {
-          title: "The Hobbit",
-          author: "J.R.R. Tolkien",
-          color: "white",
-          id: 6,
         },
       ],
       right: [
@@ -112,20 +95,26 @@ export const fakedata = {
           id: 11,
         },
         {
-          title: "The One Tree",
-          author: "Stephen R. Donaldson",
-          color: "blue",
-          id: 12,
-        },
-        {
           title: "White Gold Wielder",
           author: "Stephen R. Donaldson",
           color: "yellow",
           id: 13,
         },
       ],
-      center: [],
-      right: [],
+      right: [
+        {
+          title: "The Hobbit",
+          author: "J.R.R. Tolkien",
+          color: "white",
+          id: 6,
+        },
+        {
+          title: "The Sword of Shannara",
+          author: "Terry Brooks",
+          color: "black",
+          id: 5,
+        },
+      ],
     },
     {
       left: [
@@ -148,7 +137,6 @@ export const fakedata = {
           id: 16,
         },
       ],
-      center: [],
       right: [
         {
           title: "The Big Short",
@@ -156,6 +144,13 @@ export const fakedata = {
           color: "black",
           id: 17,
         },
+        {
+          title: "The One Tree",
+          author: "Stephen R. Donaldson",
+          color: "blue",
+          id: 12,
+        },
+
         {
           title: "I, Robot",
           author: "Isaac Asimov",
@@ -197,19 +192,4 @@ export function dropHandler(result, state, set) {
   newItems.splice(destination.index, 0, removed);
   const newObject = { items: newItems };
   set(newObject);
-}
-
-export function convertToDragGuide(data) {
-  const dragGuide = [];
-  for (const [index, shelf] in data.shelves) {
-    const leftLabel = `left-${index}`;
-    const centerLabel = `center-${index}`;
-    const rightLabel = `right-${index}`;
-    const left = {},
-      right = {},
-      center = {};
-    left[leftLabel] = {};
-    right[rightLabel] = {};
-    center[centerLabel] = {};
-  }
 }
