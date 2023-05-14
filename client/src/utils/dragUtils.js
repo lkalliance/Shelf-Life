@@ -5,16 +5,6 @@ export const dimensions = {
   dragHeight: "30px",
 };
 
-const draggableSamples = [
-  { id: "1", name: "Drag-1" },
-  { id: "2", name: "Drag-2" },
-  { id: "3", name: "Drag-3" },
-  { id: "4", name: "Drag-4" },
-  { id: "5", name: "Drag-5" },
-  { id: "6", name: "Drag-6" },
-  { id: "7", name: "Drag-7" },
-];
-
 const convert = (data) => {
   const converted = {};
 
