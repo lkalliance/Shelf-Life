@@ -6,7 +6,9 @@ function Book({ bookId, book, bookIndex }) {
     <Draggable key={bookId} draggableId={bookId} index={bookIndex}>
       {(provided) => (
         <li
-          className={`book ${book.color}`}
+          className={`book ${book.color} ${book.thickness} ${book.height}${
+            book.paperback ? " paperback" : ""
+          }`}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}

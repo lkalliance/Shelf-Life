@@ -1,3 +1,10 @@
-div.shelf {
+section#bookcase div.shelf {
+  width: 300px;
+  height: 200px;
+  background-color: rgb(241, 181, 91);
+  border: 10px solid rgb(195, 140, 45);
   display: flex;
+  direction: row;
+  align-items: end;
+  justify-content: space-between;
 }
