@@ -2,16 +2,16 @@ import "./Bookcase.css";
 import { Shelf } from "../../compontents";
 import { useState } from "react";
 
-import { fakedata, control } from "../../utils/dragUtils";
+import { fakedata, control, convert } from "../../utils/dragUtils";
 import { DragDropContext } from "@hello-pangea/dnd";
 
 function Bookcase() {
   const [books, setBooks] = useState(fakedata);
-  const [items, setItems] = useState(control);
+  const [items, setItems] = useState(convert(fakedata));
 
   function onDragEnd({ source, destination }) {
-    console.log(source);
-    console.log(destination);
+    // console.log(source);
+    // console.log(destination);
     const newItems = { ...items };
     const newBooks = { ...books };
 
@@ -27,25 +27,25 @@ function Bookcase() {
         ? bSourceStack
         : [...books.shelves[destShelfNum][destStackId]];
 
-    const iSourceStack = [...items[source.droppableId]];
-    const iDestStack =
-      source.droppableId === destination.droppableId
-        ? iSourceStack
-        : [...items[destination.droppableId]];
+    // const iSourceStack = [...items[source.droppableId]];
+    // const iDestStack =
+    //   source.droppableId === destination.droppableId
+    //     ? iSourceStack
+    //     : [...items[destination.droppableId]];
 
-    const [removedItem] = iSourceStack.splice(source.index, 1);
+    // const [removedItem] = iSourceStack.splice(source.index, 1);
     const [removedBook] = bSourceStack.splice(source.index, 1);
 
-    iDestStack.splice(destination.index, 0, removedItem);
+    // iDestStack.splice(destination.index, 0, removedItem);
     bDestStack.splice(destination.index, 0, removedBook);
 
-    newItems[source.droppableId] = iSourceStack;
+    // newItems[source.droppableId] = iSourceStack;
     newBooks.shelves[sourceShelfNum][sourceStackId] = bSourceStack;
-    newItems[destination.droppableId] = iDestStack;
+    // newItems[destination.droppableId] = iDestStack;
     newBooks.shelves[destShelfNum][destStackId] = bDestStack;
 
-    setItems(newItems);
     setBooks(newBooks);
+    setItems(convert(newBooks));
   }
 
   return (
