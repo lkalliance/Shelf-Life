@@ -27,21 +27,10 @@ function Bookcase() {
         ? bSourceStack
         : [...books.shelves[destShelfNum][destStackId]];
 
-    // const iSourceStack = [...items[source.droppableId]];
-    // const iDestStack =
-    //   source.droppableId === destination.droppableId
-    //     ? iSourceStack
-    //     : [...items[destination.droppableId]];
-
-    // const [removedItem] = iSourceStack.splice(source.index, 1);
     const [removedBook] = bSourceStack.splice(source.index, 1);
-
-    // iDestStack.splice(destination.index, 0, removedItem);
     bDestStack.splice(destination.index, 0, removedBook);
 
-    // newItems[source.droppableId] = iSourceStack;
     newBooks.shelves[sourceShelfNum][sourceStackId] = bSourceStack;
-    // newItems[destination.droppableId] = iDestStack;
     newBooks.shelves[destShelfNum][destStackId] = bDestStack;
 
     setBooks(newBooks);
@@ -52,9 +41,6 @@ function Bookcase() {
     <section id="bookcase">
       <DragDropContext onDragEnd={onDragEnd}>
         {books.shelves.map((shelf, shelfIndex) => {
-          // const leftItem = items[`shelf-left-${shelfIndex}`];
-          // const rightItem = items[`shelf-right-${shelfIndex}`];
-          // const centerItem = items[`shelf-center-${shelfIndex}`];
           return (
             <Shelf
               key={shelfIndex}

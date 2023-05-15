@@ -19,13 +19,13 @@ function Stack({ drop, position, books, items, shelf, bookItems }) {
               }}
               {...provided.droppableProps}
             >
-              {books.map((book, bookIndex) => {
+              {books.map((book, index) => {
                 return (
                   <Book
                     key={book.id}
                     book={book}
-                    bookIndex={bookIndex}
-                    bookId={bookItems[bookIndex].id}
+                    bookIndex={index}
+                    bookId={bookItems[index].id}
                   />
                 );
               })}

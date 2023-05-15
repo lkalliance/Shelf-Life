@@ -5,7 +5,6 @@ import { Stack } from "../../compontents";
 function Shelf({ shelfIndex, books, items }) {
   const leftItem = items[`shelf-left-${shelfIndex}`];
   const rightItem = items[`shelf-right-${shelfIndex}`];
-
   return (
     <div
       className="shelf"
