@@ -5,18 +5,22 @@ export const dimensions = {
   dragHeight: "30px",
 };
 
-const convert = (data) => {
+export const convert = (data) => {
   const converted = {};
+  let counter = 0;
 
   data.shelves.map((shelf, index) => {
-    converted[`shelf-left-${index}`] = shelf.left.map((book, bookIndex) => {
-      return { id: book.id.toString(), name: `Drag-${book.id}` };
+    converted[`shelf-left-${index}`] = shelf.left.map((book) => {
+      counter++;
+      return { id: counter.toString(), name: `Drag-${counter}` };
     });
-    converted[`shelf-right-${index}`] = shelf.right.map((book, bookIndex) => {
-      return { id: book.id.toString(), name: `Drag-${book.id}` };
+    converted[`shelf-right-${index}`] = shelf.right.map((book) => {
+      counter++;
+      return { id: counter.toString(), name: `Drag-${counter}` };
     });
   });
 
+  // console.log(converted);
   return converted;
 };
 
@@ -103,15 +107,6 @@ export const fakedata = {
           id: 10,
         },
         {
-          title: "The Wounded Land",
-          author: "Stephen R. Donaldson",
-          color: "purple",
-          thickness: "thick",
-          height: "tall",
-          paperback: false,
-          id: 11,
-        },
-        {
           title: "White Gold Wielder",
           author: "Stephen R. Donaldson",
           color: "yellow",
@@ -119,6 +114,15 @@ export const fakedata = {
           height: "tall",
           paperback: false,
           id: 13,
+        },
+        {
+          title: "The Wounded Land",
+          author: "Stephen R. Donaldson",
+          color: "purple",
+          thickness: "thick",
+          height: "tall",
+          paperback: false,
+          id: 100,
         },
       ],
       right: [
