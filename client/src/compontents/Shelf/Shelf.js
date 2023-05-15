@@ -13,6 +13,7 @@ function Shelf({ shelfIndex, books, items }) {
       id={`shelf-${shelfIndex}`}
     >
       <Stack
+        drop="true"
         position="left"
         key={`shelf-left-${shelfIndex}`}
         books={books.left}
@@ -21,6 +22,7 @@ function Shelf({ shelfIndex, books, items }) {
         bookItems={leftItem}
       />
       <Stack
+        drop="false"
         position="right"
         key={`shelf-right-${shelfIndex}`}
         books={books.right}
