@@ -13,5 +13,4 @@ section#bookcase ul.stack {
 
 section#bookcase ul.stack.right {
   justify-content: end;
-  flex-direction: row-reverse;
 }
