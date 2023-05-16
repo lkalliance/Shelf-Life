@@ -2,57 +2,50 @@ import "./Bookcase.css";
 import { Shelf } from "../../compontents";
 import { useState } from "react";
 
-import {
-  fakedata,
-  convert,
-  calculateUsed,
-  thicknesses,
-} from "../../utils/dragUtils";
+import { fakedata, convert, noSpace } from "../../utils/dragUtils";
 import { DragDropContext } from "@hello-pangea/dnd";
 
 function Bookcase() {
   const [books, setBooks] = useState(fakedata);
   const [items, setItems] = useState(convert(fakedata));
 
-  function onDragEnd({ source, destination }) {
-    // all the things we do when the book is dropped onto the stack
+  function handleDrop({ source, destination }) {
+    // All the things we do when the book is dropped onto the stack
 
     // first, check to see if the there is even a destination
     if (!destination) return;
 
-    // now, determine if there is room for the dropped book
+    // second, determine if there is room for the dropped book
     const { 1: fromStack, 2: fromShelf } = source.droppableId.split("-");
-    const { 2: toShelf } = destination.droppableId.split("-");
+    const { 1: toStack, 2: toShelf } = destination.droppableId.split("-");
+    if (
+      // only check if a book is being moved from a different shelf
+      !(fromShelf === toShelf) &&
+      noSpace(
+        books.shelves[toShelf],
+        books.shelves[fromShelf][fromStack][source.index]
+      )
+    )
+      return;
 
-    if (!(fromShelf === toShelf)) {
-      const shelfUsed = calculateUsed(books.shelves[toShelf]);
-      const thisWidth =
-        thicknesses[
-          books.shelves[fromShelf][fromStack][source.index].thickness
-        ];
-      // if there is not enough room for the book, return
-      if (shelfUsed + thisWidth > 300) return;
-    }
-
+    // ok to drop it here, handle the drop
     const newBooks = { ...books };
 
-    // determine source and destination shelf, stack
-    const { 1: sourceStackId, 2: sourceShelfNum } =
-      source.droppableId.split("-");
-    const { 1: destStackId, 2: destShelfNum } =
-      destination.droppableId.split("-");
-
-    const bSourceStack = [...books.shelves[sourceShelfNum][sourceStackId]];
+    // create a copy of the source and destination stacks
+    const bSourceStack = [...books.shelves[fromShelf][fromStack]];
     const bDestStack =
       source.droppableId === destination.droppableId
         ? bSourceStack
-        : [...books.shelves[destShelfNum][destStackId]];
+        : [...books.shelves[toShelf][toStack]];
 
+    // remove the book from the source...
     const [removedBook] = bSourceStack.splice(source.index, 1);
+    // ...and add it to the specified place in the destination
     bDestStack.splice(destination.index, 0, removedBook);
 
-    newBooks.shelves[sourceShelfNum][sourceStackId] = bSourceStack;
-    newBooks.shelves[destShelfNum][destStackId] = bDestStack;
+    // place the edited stacks into the copy of the state, and set states
+    newBooks.shelves[fromShelf][fromStack] = bSourceStack;
+    newBooks.shelves[toShelf][toStack] = bDestStack;
 
     setBooks(newBooks);
     setItems(convert(newBooks));
@@ -60,7 +53,7 @@ function Bookcase() {
 
   return (
     <section id="bookcase">
-      <DragDropContext onDragEnd={onDragEnd}>
+      <DragDropContext onDragEnd={handleDrop}>
         {books.shelves.map((shelf, shelfIndex) => {
           return (
             <Shelf
