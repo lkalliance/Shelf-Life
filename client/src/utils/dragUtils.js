@@ -1,11 +1,7 @@
-import { Draggable } from "@hello-pangea/dnd";
-
-export const dimensions = {
-  dragWidth: "30px",
-  dragHeight: "30px",
-};
-
 export const convert = (data) => {
+  // This utility takes the stored bookcase data and converts
+  // it to a form that react-beautiful-dnd can use
+
   const converted = {};
   let counter = 0;
 
@@ -20,8 +16,33 @@ export const convert = (data) => {
     });
   });
 
-  // console.log(converted);
   return converted;
+};
+
+export const thicknesses = {
+  // This is a reference to pixel widths of book types
+  thin: 20,
+  mid: 30,
+  thick: 45,
+};
+
+export const calculateUsed = (data) => {
+  // This utility calculates the pixes in use on the given shelf
+
+  let pixels = 0;
+  data.left.map((book) => (pixels += thicknesses[book.thickness]));
+  data.right.map((book) => (pixels += thicknesses[book.thickness]));
+
+  return pixels;
+};
+
+export const isTight = (book) => {
+  return (
+    book.thickness === "thin" ||
+    book.title.length >= 24 ||
+    (book.title.length > 18 && book.thickness === "mid") ||
+    (book.title.length > 12 && book.style === "leather")
+  );
 };
 
 export const fakedata = {
@@ -34,34 +55,34 @@ export const fakedata = {
           color: "white",
           thickness: "mid",
           height: "short",
-          paperback: true,
+          style: "paperback",
           id: 4,
         },
         {
-          title: "FOTR",
+          title: "The Fellowship of the Ring",
           author: "J.R.R. Tolkien",
           color: "blue",
           thickness: "mid",
           height: "short",
-          paperback: true,
+          style: "paperback",
           id: 1,
         },
         {
-          title: "TTT",
+          title: "Tne Two Towers",
           author: "J.R.R. Tolkien",
           color: "green",
           thickness: "mid",
           height: "short",
-          paperback: true,
+          style: "paperback",
           id: 2,
         },
         {
-          title: "ROTK",
+          title: "The Return of the King",
           author: "J.R.R. Tolkien",
           color: "green",
           thickness: "mid",
           height: "short",
-          paperback: true,
+          style: "paperback",
           id: 3,
         },
       ],
@@ -72,7 +93,7 @@ export const fakedata = {
           color: "red",
           thickness: "thin",
           height: "short",
-          paperback: true,
+          style: "paperback",
           id: 7,
         },
         {
@@ -81,7 +102,7 @@ export const fakedata = {
           color: "orange",
           thickness: "thick",
           height: "tall",
-          paperback: false,
+          style: "hardcover",
           id: 8,
         },
       ],
@@ -94,16 +115,16 @@ export const fakedata = {
           color: "blue",
           thickness: "thick",
           height: "tall",
-          paperback: false,
+          style: "hardcover",
           id: 9,
         },
         {
-          title: "TPTP",
+          title: "The Power that Preserves",
           author: "Stephen R. Donaldson",
           color: "green",
           thickness: "thick",
           height: "tall",
-          paperback: false,
+          style: "hardcover",
           id: 10,
         },
         {
@@ -112,7 +133,7 @@ export const fakedata = {
           color: "yellow",
           thickness: "thick",
           height: "tall",
-          paperback: false,
+          style: "hardcover",
           id: 13,
         },
         {
@@ -121,7 +142,7 @@ export const fakedata = {
           color: "purple",
           thickness: "thick",
           height: "tall",
-          paperback: false,
+          style: "hardcover",
           id: 100,
         },
       ],
@@ -132,7 +153,7 @@ export const fakedata = {
           color: "white",
           thickness: "mid",
           height: "short",
-          paperback: true,
+          style: "paperback",
           id: 6,
         },
         {
@@ -141,7 +162,7 @@ export const fakedata = {
           color: "black",
           thickness: "thick",
           height: "short",
-          paperback: true,
+          style: "paperback",
           id: 5,
         },
       ],
@@ -154,16 +175,16 @@ export const fakedata = {
           color: "white",
           thickness: "mid",
           height: "medium",
-          paperback: false,
+          style: "hardcover",
           id: 14,
         },
         {
-          title: "Adv. in the Scr. Trade",
+          title: "Adventures in the Screen Trade",
           author: "William Goldman",
           color: "red",
           thickness: "mid",
           height: "medium",
-          paperback: true,
+          style: "hardcover",
           id: 15,
         },
         {
@@ -172,7 +193,7 @@ export const fakedata = {
           color: "green",
           thickness: "mid",
           height: "medium",
-          paperback: false,
+          style: "hardcover",
           id: 16,
         },
       ],
@@ -183,7 +204,7 @@ export const fakedata = {
           color: "black",
           thickness: "mid",
           height: "short",
-          paperback: true,
+          style: "paperback",
           id: 17,
         },
         {
@@ -192,7 +213,7 @@ export const fakedata = {
           color: "blue",
           thickness: "thick",
           height: "tall",
-          paperback: false,
+          style: "hardcover",
           id: 12,
         },
 
@@ -202,7 +223,7 @@ export const fakedata = {
           color: "red",
           thickness: "mid",
           height: "medium",
-          paperback: false,
+          style: "leather",
           id: 11,
         },
       ],
@@ -215,7 +236,7 @@ export const fakedata = {
           color: "red",
           thickness: "mid",
           height: "medium",
-          paperback: false,
+          style: "paperback",
           id: 18,
         },
         {
@@ -224,7 +245,7 @@ export const fakedata = {
           color: "blue",
           thickness: "thick",
           height: "tall",
-          paperback: true,
+          style: "hardcover",
           id: 19,
         },
       ],
@@ -235,7 +256,7 @@ export const fakedata = {
           color: "blue",
           thickness: "mid",
           height: "medium",
-          paperback: false,
+          style: "paperback",
           id: 20,
         },
         {
@@ -244,7 +265,7 @@ export const fakedata = {
           color: "red",
           thickness: "mid",
           height: "medium",
-          paperback: false,
+          style: "paperback",
           id: 21,
         },
 
@@ -252,44 +273,12 @@ export const fakedata = {
           title: "The Great Gatsby",
           author: "F. Scott Fitz.",
           color: "black",
-          thickness: "thin",
-          height: "short",
-          paperback: true,
+          thickness: "mid",
+          height: "medium",
+          style: "leather",
           id: 22,
         },
       ],
     },
   ],
 };
-
-export const control = convert(fakedata);
-
-export function SampleDrag(Props) {
-  const draggables = Props.elements.map((draggable, index) => {
-    return (
-      <Draggable draggableId={draggable.id} key={draggable.id} index={index}>
-        {(provided, snapshot) => (
-          <li
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-          >
-            {draggable.name}
-          </li>
-        )}
-      </Draggable>
-    );
-  });
-  return draggables;
-}
-
-export function dropHandler(result, state, set) {
-  console.log(state);
-  if (!result.destination) return;
-  const { source, destination } = result;
-  const newItems = [...state.items];
-  const [removed] = newItems.splice(source.index, 1);
-  newItems.splice(destination.index, 0, removed);
-  const newObject = { items: newItems };
-  set(newObject);
-}

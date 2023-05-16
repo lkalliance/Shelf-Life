@@ -2,7 +2,12 @@ import "./Bookcase.css";
 import { Shelf } from "../../compontents";
 import { useState } from "react";
 
-import { fakedata, control, convert } from "../../utils/dragUtils";
+import {
+  fakedata,
+  convert,
+  calculateUsed,
+  thicknesses,
+} from "../../utils/dragUtils";
 import { DragDropContext } from "@hello-pangea/dnd";
 
 function Bookcase() {
@@ -10,9 +15,25 @@ function Bookcase() {
   const [items, setItems] = useState(convert(fakedata));
 
   function onDragEnd({ source, destination }) {
-    // console.log(source);
-    // console.log(destination);
-    const newItems = { ...items };
+    // all the things we do when the book is dropped onto the stack
+
+    // first, check to see if the there is even a destination
+    if (!destination) return;
+
+    // now, determine if there is room for the dropped book
+    const { 1: fromStack, 2: fromShelf } = source.droppableId.split("-");
+    const { 2: toShelf } = destination.droppableId.split("-");
+
+    if (!(fromShelf === toShelf)) {
+      const shelfUsed = calculateUsed(books.shelves[toShelf]);
+      const thisWidth =
+        thicknesses[
+          books.shelves[fromShelf][fromStack][source.index].thickness
+        ];
+      // if there is not enough room for the book, return
+      if (shelfUsed + thisWidth > 300) return;
+    }
+
     const newBooks = { ...books };
 
     // determine source and destination shelf, stack
