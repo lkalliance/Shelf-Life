@@ -19,6 +19,13 @@ export const convert = (data) => {
   return converted;
 };
 
+export const thicknesses = {
+  // This is a reference to pixel widths of book types
+  thin: 20,
+  mid: 30,
+  thick: 45,
+};
+
 export const calculateUsed = (data) => {
   // This utility calculates the pixes in use on the given shelf
 
@@ -29,11 +36,12 @@ export const calculateUsed = (data) => {
   return pixels;
 };
 
-export const thicknesses = {
-  // This is a reference to pixel widths of book types
-  thin: 20,
-  mid: 30,
-  thick: 45,
+export const isTight = (book) => {
+  return (
+    book.thickness === "thin" ||
+    book.title.length >= 24 ||
+    (book.title.length > 18 && book.thickness === "mid")
+  );
 };
 
 export const fakedata = {
@@ -50,7 +58,7 @@ export const fakedata = {
           id: 4,
         },
         {
-          title: "FOTR",
+          title: "The Fellowship of the Ring",
           author: "J.R.R. Tolkien",
           color: "blue",
           thickness: "mid",
@@ -59,7 +67,7 @@ export const fakedata = {
           id: 1,
         },
         {
-          title: "TTT",
+          title: "Tne Two Towers",
           author: "J.R.R. Tolkien",
           color: "green",
           thickness: "mid",
@@ -68,7 +76,7 @@ export const fakedata = {
           id: 2,
         },
         {
-          title: "ROTK",
+          title: "The Return of the King",
           author: "J.R.R. Tolkien",
           color: "green",
           thickness: "mid",
@@ -110,7 +118,7 @@ export const fakedata = {
           id: 9,
         },
         {
-          title: "TPTP",
+          title: "The Power that Preserves",
           author: "Stephen R. Donaldson",
           color: "green",
           thickness: "thick",
@@ -170,7 +178,7 @@ export const fakedata = {
           id: 14,
         },
         {
-          title: "Adv. in the Scr. Trade",
+          title: "Adventures in the Screen Trade",
           author: "William Goldman",
           color: "red",
           thickness: "mid",
