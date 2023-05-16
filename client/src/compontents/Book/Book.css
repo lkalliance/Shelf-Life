@@ -28,10 +28,6 @@
   width: 20px;
 }
 
-.book.thin .author {
-  display: none;
-}
-
 .book.mid {
   width: 30px;
 }
@@ -44,7 +40,24 @@
   border-radius: 0;
 }
 
+.book.tight .author {
+  display: none;
+}
+
+.book.tight .title {
+  font-size: 11px;
+  line-height: 11px;
+}
+
 /* TEXT */
+
+.book .spineText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6px 0 6px;
+  width: 100%;
+}
 
 .book .title {
   display: block;
@@ -56,18 +69,6 @@
   display: block;
   font-size: 10px;
   line-height: 10px;
-}
-
-.book.thin .title {
-  margin-right: 3px;
-}
-
-.book.mid .title {
-  margin-right: 3px;
-}
-
-.book.thick .title {
-  margin-right: 9px;
 }
 
 /* COLOR */
@@ -102,4 +103,21 @@
 .book.black {
   background-color: black;
   color: yellow;
+}
+
+/* ACCENTS */
+
+.book.leather {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.book div.accent {
+  /* background-color: rgb(220, 155, 34); */
+  width: 100%;
+  height: 5px;
+  border: none;
+
+  background-image: linear-gradient(rgba(255, 255, 255, 0.3), transparent);
 }

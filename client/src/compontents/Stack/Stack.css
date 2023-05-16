@@ -14,3 +14,8 @@ section#bookcase ul.stack {
 section#bookcase ul.stack.right {
   justify-content: end;
 }
+
+section#bookcase ul.stack li {
+  display: flex;
+  align-items: end;
+}

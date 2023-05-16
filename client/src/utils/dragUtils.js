@@ -1,4 +1,8 @@
-import { Draggable } from "@hello-pangea/dnd";
+export const thicknesses = {
+  thin: 20,
+  mid: 30,
+  thick: 45,
+};
 
 export const dimensions = {
   dragWidth: "30px",
@@ -12,15 +16,14 @@ export const convert = (data) => {
   data.shelves.map((shelf, index) => {
     converted[`shelf-left-${index}`] = shelf.left.map((book) => {
       counter++;
-      return { id: counter.toString(), name: `Drag-${counter}` };
+      return { id: counter.toString(), name: `${book.thickness}` };
     });
     converted[`shelf-right-${index}`] = shelf.right.map((book) => {
       counter++;
-      return { id: counter.toString(), name: `Drag-${counter}` };
+      return { id: counter.toString(), name: `${book.thickness}` };
     });
   });
 
-  // console.log(converted);
   return converted;
 };
 
@@ -38,7 +41,7 @@ export const fakedata = {
           id: 4,
         },
         {
-          title: "FOTR",
+          title: "The Fellowship of the Ring",
           author: "J.R.R. Tolkien",
           color: "blue",
           thickness: "mid",
@@ -47,7 +50,7 @@ export const fakedata = {
           id: 1,
         },
         {
-          title: "TTT",
+          title: "The Two Towers",
           author: "J.R.R. Tolkien",
           color: "green",
           thickness: "mid",
@@ -56,7 +59,7 @@ export const fakedata = {
           id: 2,
         },
         {
-          title: "ROTK",
+          title: "The Return of the King",
           author: "J.R.R. Tolkien",
           color: "green",
           thickness: "mid",
@@ -98,7 +101,7 @@ export const fakedata = {
           id: 9,
         },
         {
-          title: "TPTP",
+          title: "The Power that Preserves",
           author: "Stephen R. Donaldson",
           color: "green",
           thickness: "thick",
@@ -158,7 +161,7 @@ export const fakedata = {
           id: 14,
         },
         {
-          title: "Adv. in the Scr. Trade",
+          title: "Adventures in the Screen Trade",
           author: "William Goldman",
           color: "red",
           thickness: "mid",
@@ -172,7 +175,7 @@ export const fakedata = {
           color: "green",
           thickness: "mid",
           height: "medium",
-          paperback: false,
+          paperback: "leather",
           id: 16,
         },
       ],
@@ -263,25 +266,6 @@ export const fakedata = {
 };
 
 export const control = convert(fakedata);
-
-export function SampleDrag(Props) {
-  const draggables = Props.elements.map((draggable, index) => {
-    return (
-      <Draggable draggableId={draggable.id} key={draggable.id} index={index}>
-        {(provided, snapshot) => (
-          <li
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-          >
-            {draggable.name}
-          </li>
-        )}
-      </Draggable>
-    );
-  });
-  return draggables;
-}
 
 export function dropHandler(result, state, set) {
   console.log(state);

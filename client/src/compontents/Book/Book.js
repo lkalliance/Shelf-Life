@@ -6,19 +6,43 @@ function Book({ bookId, book, bookIndex }) {
     <Draggable key={bookId} draggableId={bookId} index={bookIndex}>
       {(provided) => (
         <li
-          className={`book ${book.color} ${book.thickness} ${book.height}${
-            book.paperback ? " paperback" : ""
-          }`}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <span key="title" className="title">
-            {book.title}
-          </span>
-          <span key="author" className="author">
-            {book.author}
-          </span>
+          <div
+            className={`book ${book.color} ${book.thickness} ${book.height}${
+              book.paperback === "leather"
+                ? " leather"
+                : book.paperback
+                ? " paperback"
+                : ""
+            }${
+              book.thickness === "thin" ||
+              (book.height !== "tall" && book.title.length > 15)
+                ? " tight"
+                : ""
+            }`}
+          >
+            {book.paperback === "leather" ? (
+              <div className="accent top"></div>
+            ) : (
+              ""
+            )}
+            <div class="spineText">
+              <span key="title" className="title">
+                {book.title}
+              </span>
+              <span key="author" className="author">
+                {book.author}
+              </span>
+            </div>
+            {book.paperback === "leather" ? (
+              <div className="accent bottom"></div>
+            ) : (
+              ""
+            )}
+          </div>
         </li>
       )}
     </Draggable>
