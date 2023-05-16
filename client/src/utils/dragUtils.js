@@ -5,6 +5,7 @@ export const convert = (data) => {
   const converted = {};
   let counter = 0;
 
+  // Take each shelf.stack object and place it in the converted object
   data.shelves.map((shelf, index) => {
     converted[`shelf-left-${index}`] = shelf.left.map((book) => {
       counter++;
@@ -19,24 +20,24 @@ export const convert = (data) => {
   return converted;
 };
 
-export const thicknesses = {
+const thicknesses = {
   // This is a reference to pixel widths of book types
   thin: 20,
   mid: 30,
   thick: 45,
 };
 
-export const calculateUsed = (data) => {
-  // This utility calculates the pixes in use on the given shelf
-
+export const noSpace = (shelf, newBook) => {
+  // This utility determines if there is room on the shelf for a drop
   let pixels = 0;
-  data.left.map((book) => (pixels += thicknesses[book.thickness]));
-  data.right.map((book) => (pixels += thicknesses[book.thickness]));
+  shelf.left.map((book) => (pixels += thicknesses[book.thickness]));
+  shelf.right.map((book) => (pixels += thicknesses[book.thickness]));
 
-  return pixels;
+  return pixels + thicknesses[newBook.thickness] > 300;
 };
 
 export const isTight = (book) => {
+  // This utility performs logic to determine if the spine text needs shortening
   return (
     book.thickness === "thin" ||
     book.title.length >= 24 ||
