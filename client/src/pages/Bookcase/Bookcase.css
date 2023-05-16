@@ -3,5 +3,11 @@ section#bookcase {
   flex-direction: row;
   flex-wrap: wrap;
   margin: 0 auto;
-  max-width: 650px;
+  width: 640px;
+}
+
+@media screen and (max-width: 639px) {
+  section#bookcase {
+    width: 320px;
+  }
 }
