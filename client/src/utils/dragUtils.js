@@ -1,11 +1,9 @@
 import { Draggable } from "@hello-pangea/dnd";
 
-export const dimensions = {
-  dragWidth: "30px",
-  dragHeight: "30px",
-};
-
 export const convert = (data) => {
+  // This utility takes the stored bookcase data and converts
+  // it to a form that react-beautiful-dnd can use
+
   const converted = {};
   let counter = 0;
 
@@ -20,7 +18,6 @@ export const convert = (data) => {
     });
   });
 
-  // console.log(converted);
   return converted;
 };
 
@@ -261,35 +258,3 @@ export const fakedata = {
     },
   ],
 };
-
-export const control = convert(fakedata);
-
-export function SampleDrag(Props) {
-  const draggables = Props.elements.map((draggable, index) => {
-    return (
-      <Draggable draggableId={draggable.id} key={draggable.id} index={index}>
-        {(provided, snapshot) => (
-          <li
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-          >
-            {draggable.name}
-          </li>
-        )}
-      </Draggable>
-    );
-  });
-  return draggables;
-}
-
-export function dropHandler(result, state, set) {
-  console.log(state);
-  if (!result.destination) return;
-  const { source, destination } = result;
-  const newItems = [...state.items];
-  const [removed] = newItems.splice(source.index, 1);
-  newItems.splice(destination.index, 0, removed);
-  const newObject = { items: newItems };
-  set(newObject);
-}

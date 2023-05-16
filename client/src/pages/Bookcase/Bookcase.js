@@ -2,7 +2,7 @@ import "./Bookcase.css";
 import { Shelf } from "../../compontents";
 import { useState } from "react";
 
-import { fakedata, control, convert } from "../../utils/dragUtils";
+import { fakedata, convert } from "../../utils/dragUtils";
 import { DragDropContext } from "@hello-pangea/dnd";
 
 function Bookcase() {
@@ -10,9 +10,6 @@ function Bookcase() {
   const [items, setItems] = useState(convert(fakedata));
 
   function onDragEnd({ source, destination }) {
-    // console.log(source);
-    // console.log(destination);
-    const newItems = { ...items };
     const newBooks = { ...books };
 
     // determine source and destination shelf, stack
