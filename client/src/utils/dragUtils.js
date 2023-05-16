@@ -40,7 +40,8 @@ export const isTight = (book) => {
   return (
     book.thickness === "thin" ||
     book.title.length >= 24 ||
-    (book.title.length > 18 && book.thickness === "mid")
+    (book.title.length > 18 && book.thickness === "mid") ||
+    (book.title.length > 12 && book.style === "leather")
   );
 };
 
@@ -54,7 +55,7 @@ export const fakedata = {
           color: "white",
           thickness: "mid",
           height: "short",
-          paperback: true,
+          style: "paperback",
           id: 4,
         },
         {
@@ -63,7 +64,7 @@ export const fakedata = {
           color: "blue",
           thickness: "mid",
           height: "short",
-          paperback: true,
+          style: "paperback",
           id: 1,
         },
         {
@@ -72,7 +73,7 @@ export const fakedata = {
           color: "green",
           thickness: "mid",
           height: "short",
-          paperback: true,
+          style: "paperback",
           id: 2,
         },
         {
@@ -81,7 +82,7 @@ export const fakedata = {
           color: "green",
           thickness: "mid",
           height: "short",
-          paperback: true,
+          style: "paperback",
           id: 3,
         },
       ],
@@ -92,7 +93,7 @@ export const fakedata = {
           color: "red",
           thickness: "thin",
           height: "short",
-          paperback: true,
+          style: "paperback",
           id: 7,
         },
         {
@@ -101,7 +102,7 @@ export const fakedata = {
           color: "orange",
           thickness: "thick",
           height: "tall",
-          paperback: false,
+          style: "hardcover",
           id: 8,
         },
       ],
@@ -114,7 +115,7 @@ export const fakedata = {
           color: "blue",
           thickness: "thick",
           height: "tall",
-          paperback: false,
+          style: "hardcover",
           id: 9,
         },
         {
@@ -123,7 +124,7 @@ export const fakedata = {
           color: "green",
           thickness: "thick",
           height: "tall",
-          paperback: false,
+          style: "hardcover",
           id: 10,
         },
         {
@@ -132,7 +133,7 @@ export const fakedata = {
           color: "yellow",
           thickness: "thick",
           height: "tall",
-          paperback: false,
+          style: "hardcover",
           id: 13,
         },
         {
@@ -141,7 +142,7 @@ export const fakedata = {
           color: "purple",
           thickness: "thick",
           height: "tall",
-          paperback: false,
+          style: "hardcover",
           id: 100,
         },
       ],
@@ -152,7 +153,7 @@ export const fakedata = {
           color: "white",
           thickness: "mid",
           height: "short",
-          paperback: true,
+          style: "paperback",
           id: 6,
         },
         {
@@ -161,7 +162,7 @@ export const fakedata = {
           color: "black",
           thickness: "thick",
           height: "short",
-          paperback: true,
+          style: "paperback",
           id: 5,
         },
       ],
@@ -174,7 +175,7 @@ export const fakedata = {
           color: "white",
           thickness: "mid",
           height: "medium",
-          paperback: false,
+          style: "hardcover",
           id: 14,
         },
         {
@@ -183,7 +184,7 @@ export const fakedata = {
           color: "red",
           thickness: "mid",
           height: "medium",
-          paperback: true,
+          style: "hardcover",
           id: 15,
         },
         {
@@ -192,7 +193,7 @@ export const fakedata = {
           color: "green",
           thickness: "mid",
           height: "medium",
-          paperback: false,
+          style: "hardcover",
           id: 16,
         },
       ],
@@ -203,7 +204,7 @@ export const fakedata = {
           color: "black",
           thickness: "mid",
           height: "short",
-          paperback: true,
+          style: "paperback",
           id: 17,
         },
         {
@@ -212,7 +213,7 @@ export const fakedata = {
           color: "blue",
           thickness: "thick",
           height: "tall",
-          paperback: false,
+          style: "hardcover",
           id: 12,
         },
 
@@ -222,7 +223,7 @@ export const fakedata = {
           color: "red",
           thickness: "mid",
           height: "medium",
-          paperback: false,
+          style: "leather",
           id: 11,
         },
       ],
@@ -235,7 +236,7 @@ export const fakedata = {
           color: "red",
           thickness: "mid",
           height: "medium",
-          paperback: false,
+          style: "paperback",
           id: 18,
         },
         {
@@ -244,7 +245,7 @@ export const fakedata = {
           color: "blue",
           thickness: "thick",
           height: "tall",
-          paperback: true,
+          style: "hardcover",
           id: 19,
         },
       ],
@@ -255,7 +256,7 @@ export const fakedata = {
           color: "blue",
           thickness: "mid",
           height: "medium",
-          paperback: false,
+          style: "paperback",
           id: 20,
         },
         {
@@ -264,7 +265,7 @@ export const fakedata = {
           color: "red",
           thickness: "mid",
           height: "medium",
-          paperback: false,
+          style: "paperback",
           id: 21,
         },
 
@@ -272,9 +273,9 @@ export const fakedata = {
           title: "The Great Gatsby",
           author: "F. Scott Fitz.",
           color: "black",
-          thickness: "thin",
-          height: "short",
-          paperback: true,
+          thickness: "mid",
+          height: "medium",
+          style: "leather",
           id: 22,
         },
       ],

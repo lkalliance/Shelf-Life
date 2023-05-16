@@ -12,10 +12,11 @@ function Book({ bookId, book, bookIndex }) {
           {...provided.dragHandleProps}
         >
           <div
-            className={`book ${book.color} ${book.thickness} ${book.height}${
-              book.paperback ? " paperback" : ""
-            }${isTight(book) ? " tight" : ""}`}
+            className={`book ${book.color} ${book.thickness} ${book.height} ${
+              book.style
+            } ${isTight(book) ? " tight" : ""}`}
           >
+            <div className="accent top"></div>
             <div className="spineText">
               <span key="title" className="title">
                 {book.title}
@@ -24,6 +25,7 @@ function Book({ bookId, book, bookIndex }) {
                 {book.author}
               </span>
             </div>
+            <div className="accent bottom"></div>
           </div>
         </li>
       )}
