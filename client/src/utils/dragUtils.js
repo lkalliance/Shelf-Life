@@ -1,5 +1,3 @@
-import { Draggable } from "@hello-pangea/dnd";
-
 export const convert = (data) => {
   // This utility takes the stored bookcase data and converts
   // it to a form that react-beautiful-dnd can use
@@ -19,6 +17,23 @@ export const convert = (data) => {
   });
 
   return converted;
+};
+
+export const calculateUsed = (data) => {
+  // This utility calculates the pixes in use on the given shelf
+
+  let pixels = 0;
+  data.left.map((book) => (pixels += thicknesses[book.thickness]));
+  data.right.map((book) => (pixels += thicknesses[book.thickness]));
+
+  return pixels;
+};
+
+export const thicknesses = {
+  // This is a reference to pixel widths of book types
+  thin: 20,
+  mid: 30,
+  thick: 45,
 };
 
 export const fakedata = {
