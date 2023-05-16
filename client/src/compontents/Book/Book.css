@@ -72,7 +72,7 @@
 
 .book.leather .accent {
   display: block;
-  background-color: rgb(220, 155, 34);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.3), transparent);
 }
 
 .book.leather {
