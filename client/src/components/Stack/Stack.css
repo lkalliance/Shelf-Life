@@ -20,14 +20,3 @@ ul.stack li {
   display: flex;
   align-items: end;
 }
-
-div.unshelved ul.stack {
-  height: auto;
-  min-height: 160px;
-  flex-wrap: wrap;
-}
-
-div.unshelved ul.stack li {
-  /* height: 100%; */
-  margin: 10px 0;
-}
