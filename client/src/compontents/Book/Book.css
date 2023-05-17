@@ -5,8 +5,7 @@
   writing-mode: vertical-rl;
   line-height: 13px;
   vertical-align: middle;
-  /* border: 1px solid gray; */
-  border-radius: 3px;
+  border-radius: 1px;
   box-sizing: border-box;
 }
 
@@ -54,6 +53,7 @@
 .book .accent {
   display: none;
   height: 5px;
+  width: 100%;
   position: absolute;
   right: 0;
 }
@@ -64,18 +64,6 @@
 
 .book .accent.bottom {
   bottom: 10px;
-}
-
-.book.thin .accent {
-  width: 18px;
-}
-
-.book.mid .accent {
-  width: 28px;
-}
-
-.book.thick .accent {
-  width: 43px;
 }
 
 .book.leather .accent {
@@ -158,7 +146,7 @@
   color: white;
 }
 .book.leather.red {
-  backgroun-color: rgb(30, 1, 1);
+  background-color: rgb(97, 3, 3);
   color: gold;
 }
 .book.blue {
