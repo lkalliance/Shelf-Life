@@ -2,7 +2,7 @@ ul.stack {
   list-style-type: none;
   padding: 0;
   margin: 0;
-  height: 175px;
+  height: 100%;
   display: flex;
   flex-grow: 1;
   flex-direction: row;
@@ -23,7 +23,7 @@ ul.stack li {
 
 div.unshelved ul.stack {
   height: auto;
-  min-height: 175px;
+  min-height: 160px;
   flex-wrap: wrap;
 }
 
