@@ -1,4 +1,4 @@
-section#bookcase ul.stack {
+ul.stack {
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -11,6 +11,23 @@ section#bookcase ul.stack {
   align-items: end;
 }
 
-section#bookcase ul.stack.right {
+ul.stack.right {
   justify-content: end;
+}
+
+ul.stack li {
+  height: 100%;
+  display: flex;
+  align-items: end;
+}
+
+div.unshelved ul.stack {
+  height: auto;
+  min-height: 175px;
+  flex-wrap: wrap;
+}
+
+div.unshelved ul.stack li {
+  /* height: 100%; */
+  margin: 10px 0;
 }

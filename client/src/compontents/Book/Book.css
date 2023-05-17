@@ -144,3 +144,14 @@
   background-color: black;
   color: yellow;
 }
+
+/* UNSHELVED BOOKS */
+
+/* div.unshelved .book.thin,
+div.unshelved .book.mid,
+div.unshelved .book.thick {
+  padding-left: 12px;
+  width: 90px;
+  height: 120px;
+  writing-mode: horizontal-tb;
+} */
