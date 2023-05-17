@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
-const Year = require('./Year');
+const yearSchema = require('./Year');
+const Booklist = require("./Booklist");
 
 const userSchema = new Schema({
   userName: {
@@ -20,7 +21,9 @@ const userSchema = new Schema({
     required: true,
     minlength: 5
   },
-  years: [Year.schema]
+  years: [yearSchema],
+  bookList: [Booklist],
+  
 });
 
 // set up pre-save middleware to create password
