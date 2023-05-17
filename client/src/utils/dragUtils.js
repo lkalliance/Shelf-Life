@@ -17,6 +17,12 @@ export const convert = (data) => {
     });
   });
 
+  // now map the unshelved section
+  converted[`shelf-unshelved-unshelved`] = data.unshelved.map((book) => {
+    counter++;
+    return { id: counter.toString(), name: `Drag-${counter}` };
+  });
+
   return converted;
 };
 
@@ -28,6 +34,8 @@ const thicknesses = {
 };
 
 export const noSpace = (shelf, newBook) => {
+  // If the destination is the unshelved, then everything's cool
+  console.log(shelf);
   // This utility determines if there is room on the shelf for a drop
   let pixels = 0;
   shelf.left.map((book) => (pixels += thicknesses[book.thickness]));
@@ -280,6 +288,53 @@ export const fakedata = {
           id: 22,
         },
       ],
+    },
+  ],
+  unshelved: [
+    {
+      title: "The Catcher in the Rye",
+      author: "J.D.Salinger",
+      color: "green",
+      thickness: "thin",
+      height: "short",
+      style: "paperback",
+      id: 104,
+    },
+    {
+      title: "The Long Way to a Small, Angry Planet",
+      author: "Becky Chambers",
+      color: "black",
+      thickness: "mid",
+      height: "short",
+      style: "hardcover",
+      id: 436,
+    },
+    {
+      title: "Steve Jobs",
+      author: "Walter Isaacson",
+      color: "white",
+      thickness: "thick",
+      height: "tall",
+      style: "hardcover",
+      id: 224,
+    },
+    {
+      title: "Hamlet",
+      author: "William Shakespeare",
+      color: "blue",
+      thickness: "thin",
+      height: "short",
+      style: "paperback",
+      id: 367,
+    },
+    {
+      title: "Book of Spells",
+      author: "S. Beelzebub",
+      color: "purple",
+      thickness: "thick",
+      height: "tall",
+      style: "leather",
+      id: 666,
     },
   ],
 };

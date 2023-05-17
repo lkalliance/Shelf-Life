@@ -18,24 +18,37 @@ function Bookcase() {
     // second, determine if there is room for the dropped book
     const { 1: fromStack, 2: fromShelf } = source.droppableId.split("-");
     const { 1: toStack, 2: toShelf } = destination.droppableId.split("-");
-    if (
-      // only check if a book is being moved from a different shelf
-      !(fromShelf === toShelf) &&
-      noSpace(
-        books.shelves[toShelf],
-        books.shelves[fromShelf][fromStack][source.index]
+
+    console.log({ fromStack });
+    console.log({ toStack });
+    console.log({ fromShelf });
+    console.log({ toShelf });
+    if (!(toShelf === "unshelved" || fromShelf === toShelf)) {
+      console.log("I'm checking!");
+      if (
+        noSpace(
+          books.shelves[toShelf],
+          fromShelf === "unshelved"
+            ? books.unshelved[source.index]
+            : books.shelves[fromShelf][fromStack][source.index]
+        )
       )
-    )
-      return;
+        return;
+    }
 
     // ok to drop it here, handle the drop
     const newBooks = { ...books };
 
     // create a copy of the source and destination stacks
-    const bSourceStack = [...books.shelves[fromShelf][fromStack]];
+    const bSourceStack =
+      fromStack === "unshelved"
+        ? [...books.unshelved]
+        : [...books.shelves[fromShelf][fromStack]];
     const bDestStack =
       source.droppableId === destination.droppableId
         ? bSourceStack
+        : toStack === "unshelved"
+        ? [...books.unshelved]
         : [...books.shelves[toShelf][toStack]];
 
     // remove the book from the source...
@@ -44,8 +57,12 @@ function Bookcase() {
     bDestStack.splice(destination.index, 0, removedBook);
 
     // place the edited stacks into the copy of the state, and set states
-    newBooks.shelves[fromShelf][fromStack] = bSourceStack;
-    newBooks.shelves[toShelf][toStack] = bDestStack;
+    fromShelf === "unshelved"
+      ? (newBooks.unshelved = bSourceStack)
+      : (newBooks.shelves[fromShelf][fromStack] = bSourceStack);
+    toShelf === "unshelved"
+      ? (newBooks.unshelved = bDestStack)
+      : (newBooks.shelves[toShelf][toStack] = bDestStack);
 
     setBooks(newBooks);
     setItems(convert(newBooks));
@@ -64,6 +81,12 @@ function Bookcase() {
             />
           );
         })}
+        <Shelf
+          key="unshelved"
+          shelfIndex="unshelved"
+          books={books.unshelved}
+          items={items}
+        />
       </DragDropContext>
     </section>
   );
