@@ -1,13 +1,69 @@
 section#bookcase {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
+  flex-wrap: no-wrap;
   margin: 0 auto;
   width: 640px;
+  /* border: 1px solid purple; */
+  /* width: 640px; */
+}
+
+div#shelves {
+  width: 640px;
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+div#shelf-unshelved {
+  border: none;
+  align-items: start;
+  background-color: #dddddd;
+  height: auto;
+  padding: 10px 20px 0;
+  width: 640px;
+  margin: 10px 0;
+}
+
+div#shelf-unshelved ul.stack {
+  width: auto;
+  min-height: 180px;
+  flex-wrap: wrap;
+}
+
+div#shelf-unshelved li {
+  margin-bottom: 10px;
+  height: 180px;
 }
 
 @media screen and (max-width: 639px) {
   section#bookcase {
+    flex-direction: row;
+    width: 530px;
+  }
+
+  div#shelves {
     width: 320px;
+  }
+
+  div#shelf-unshelved {
+    width: 200px;
+    margin: 0 0 0 10px;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 529px) {
+  section#bookcase {
+    flex-direction: column;
+    width: 320px;
+  }
+
+  div#shelf-unshelved {
+    align-items: start;
+    height: auto;
+    width: 320px;
+    margin: 10px 0;
   }
 }

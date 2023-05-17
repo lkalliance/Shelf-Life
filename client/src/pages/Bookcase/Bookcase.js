@@ -71,16 +71,18 @@ function Bookcase() {
   return (
     <section id="bookcase">
       <DragDropContext onDragEnd={handleDrop}>
-        {books.shelves.map((shelf, shelfIndex) => {
-          return (
-            <Shelf
-              key={shelfIndex}
-              shelfIndex={shelfIndex}
-              books={books.shelves[shelfIndex]}
-              items={items}
-            />
-          );
-        })}
+        <div id="shelves">
+          {books.shelves.map((shelf, shelfIndex) => {
+            return (
+              <Shelf
+                key={shelfIndex}
+                shelfIndex={shelfIndex}
+                books={books.shelves[shelfIndex]}
+                items={items}
+              />
+            );
+          })}
+        </div>
         <Shelf
           key="unshelved"
           shelfIndex="unshelved"

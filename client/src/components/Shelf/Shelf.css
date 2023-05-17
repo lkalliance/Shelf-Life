@@ -8,10 +8,3 @@ div.shelf {
   align-items: end;
   justify-content: space-between;
 }
-
-div.shelf.unshelved {
-  width: 100%;
-  border: none;
-  background-color: transparent;
-  height: auto;
-}
