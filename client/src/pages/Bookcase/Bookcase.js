@@ -1,5 +1,5 @@
 import "./Bookcase.css";
-import { Shelf } from "../../compontents";
+import { Shelf } from "../../components";
 import { useState } from "react";
 
 import { fakedata, convert, noSpace } from "../../utils/dragUtils";

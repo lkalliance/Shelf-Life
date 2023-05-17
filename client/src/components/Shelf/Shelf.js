@@ -1,6 +1,6 @@
 import "./Shelf.css";
 
-import { Stack } from "../../compontents";
+import { Stack } from "../../components";
 
 function Shelf({ shelfIndex, books, items }) {
   const leftItem = items[`shelf-left-${shelfIndex}`];

@@ -1,6 +1,6 @@
 import "./Stack.css";
 import { Droppable } from "@hello-pangea/dnd";
-import { Book } from "../../compontents";
+import { Book } from "../../components";
 
 function Stack({ drop, position, books, items, shelf, bookItems }) {
   return (
