@@ -9,6 +9,10 @@
   box-sizing: border-box;
 }
 
+.unshelved .book {
+  margin: 0 1px;
+}
+
 /* SIZE */
 
 .book.tall {
@@ -68,7 +72,11 @@
 
 .book.leather .accent {
   display: block;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.3), transparent);
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
 }
 
 .book.leather .spineText {
@@ -129,13 +137,20 @@
   line-height: 11px;
 }
 
+.book.tighter .title {
+  font-size: 10px;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
 .book .author {
   display: block;
   font-size: 10px;
   line-height: 10px;
 }
 
-.book.tight .author {
+.book.tight .author,
+.book.tighter .author {
   display: none;
 }
 

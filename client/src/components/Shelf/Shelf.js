@@ -13,7 +13,7 @@ function Shelf({ shelfIndex, books, items }) {
       id={`shelf-${shelfIndex}`}
     >
       {shelfIndex !== "unshelved" ? (
-        <>
+        <div className="stacks">
           <Stack
             drop="true"
             position="left"
@@ -32,7 +32,7 @@ function Shelf({ shelfIndex, books, items }) {
             shelf={shelfIndex}
             bookItems={rightItem}
           />
-        </>
+        </div>
       ) : (
         <Stack
           drop="true"
