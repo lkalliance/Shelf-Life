@@ -255,7 +255,7 @@ export const fakedata = {
         {
           title: "The Fifties",
           author: "David Halberstam",
-          color: "blue",
+          color: "navy",
           thickness: "thick",
           height: "tall",
           style: "hardcover",
