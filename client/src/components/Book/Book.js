@@ -14,7 +14,7 @@ function Book({ bookId, book, bookIndex }) {
           <div
             className={`book ${book.color} ${book.thickness} ${book.height} ${
               book.style
-            } ${isTight(book) ? " tight" : ""}`}
+            } ${isTight(book)}`}
           >
             <div className="accent top"></div>
             <div className="spineText">

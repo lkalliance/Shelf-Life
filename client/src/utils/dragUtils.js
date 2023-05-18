@@ -46,12 +46,16 @@ export const noSpace = (shelf, newBook) => {
 
 export const isTight = (book) => {
   // This utility performs logic to determine if the spine text needs shortening
-  return (
-    book.thickness === "thin" ||
+  if (book.thickness === "thin") {
+    return "tighter";
+  } else if (
     book.title.length >= 24 ||
     (book.title.length > 18 && book.thickness === "mid") ||
     (book.title.length > 12 && book.style === "leather")
-  );
+  ) {
+    return "tight";
+  }
+  return "";
 };
 
 export const fakedata = {
@@ -324,7 +328,7 @@ export const fakedata = {
       color: "blue",
       thickness: "thin",
       height: "short",
-      style: "paperback",
+      style: "leather",
       id: 367,
     },
     {

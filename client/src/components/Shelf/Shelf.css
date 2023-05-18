@@ -1,10 +1,24 @@
 div.shelf {
   width: 320px;
   height: 190px;
-  background-color: rgb(241, 181, 91);
-  border: 10px solid rgb(195, 140, 45);
+  background-color: rgb(118, 76, 5);
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.3),
+    transparent 0.5%,
+    transparent 99.5%,
+    rgba(0, 0, 0, 0.2)
+  );
+  padding: 10px;
+  /* border: 10px solid rgb(195, 140, 45); */
+}
+
+div.shelf div.stacks {
   display: flex;
   direction: row;
   align-items: end;
   justify-content: space-between;
+  height: 100%;
+  background-color: rgb(220, 177, 75);
+  background-image: url("./wood.png");
 }

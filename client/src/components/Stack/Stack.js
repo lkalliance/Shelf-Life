@@ -14,9 +14,9 @@ function Stack({ drop, position, books, items, shelf, bookItems }) {
             <ul
               className={`stack ${position}`}
               ref={provided.innerRef}
-              style={{
-                opacity: snapshot.isDraggingOver ? "0.5" : "1",
-              }}
+              // style={{
+              //   opacity: snapshot.isDraggingOver ? "0.5" : "1",
+              // }}
               {...provided.droppableProps}
             >
               {books.map((book, index) => {
