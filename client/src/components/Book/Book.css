@@ -149,7 +149,8 @@
 }
 
 .book.tight .author,
-.book.tighter .author {
+.book.tighter .author,
+.book.tightest .author {
   display: none;
 }
 

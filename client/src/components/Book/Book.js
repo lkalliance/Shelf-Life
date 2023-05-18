@@ -1,8 +1,9 @@
 import "./Book.css";
 import { Draggable } from "@hello-pangea/dnd";
-import { isTight } from "../../utils/dragUtils";
+import { isTight, abbreviateTitle } from "../../utils/dragUtils";
 
 function Book({ bookId, book, bookIndex }) {
+  const textStyle = isTight(book);
   return (
     <Draggable key={bookId} draggableId={bookId} index={bookIndex}>
       {(provided) => (
@@ -12,14 +13,14 @@ function Book({ bookId, book, bookIndex }) {
           {...provided.dragHandleProps}
         >
           <div
-            className={`book ${book.color} ${book.thickness} ${book.height} ${
-              book.style
-            } ${isTight(book)}`}
+            className={`book ${book.color} ${book.thickness} ${book.height} ${book.style} ${textStyle}`}
           >
             <div className="accent top"></div>
             <div className="spineText">
               <span key="title" className="title">
-                {book.title}
+                {textStyle === "tightest"
+                  ? abbreviateTitle(book.title)
+                  : book.title}
               </span>
               <span key="author" className="author">
                 {book.author}

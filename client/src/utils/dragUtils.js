@@ -40,6 +40,16 @@ export const booksDeepCopy = (data) => {
   return newBooks;
 };
 
+export const abbreviateTitle = (title) => {
+  let abbrev = "";
+  const words = title.split(" ");
+  words.map((word, index) => {
+    abbrev += `${word.charAt(0)}.`;
+    if (index === word.length - 1) abbrev += " ";
+  });
+  return abbrev;
+};
+
 const thicknesses = {
   // This is a reference to pixel widths of book types
   thin: 20,
@@ -58,7 +68,12 @@ export const noSpace = (shelf, newBook) => {
 
 export const isTight = (book) => {
   // This utility performs logic to determine if the spine text needs shortening
-  if (book.thickness === "thin") {
+  if (
+    book.title >= 30 ||
+    (book.title.length > 15 && book.thickness == "thin")
+  ) {
+    return "tightest";
+  } else if (book.thickness === "thin") {
     return "tighter";
   } else if (
     book.title.length >= 24 ||
