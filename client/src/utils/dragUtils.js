@@ -291,7 +291,7 @@ export const fakedata = {
       ],
       right: [
         {
-          title: "The House in the CC",
+          title: "The House in the Cerulean Sea",
           author: "T.J. Klune",
           color: "blue",
           thickness: "mid",

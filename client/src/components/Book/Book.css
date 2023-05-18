@@ -46,8 +46,17 @@
 /* STYLES */
 
 .book.leather {
+  font-family: "Bodoni Moda", serif;
   background-image: url("./leather.png");
   background-size: 175px 175px;
+}
+
+.book.leather .title,
+.book.leather.tight .title,
+.book.leather.tighter .title,
+.book.leather.tightest .title {
+  font-size: 13px;
+  white-space: nowrap;
 }
 
 .book.leather.thick {
@@ -124,6 +133,11 @@
   height: 100%;
 }
 
+.book .author,
+.book .title {
+  text-align: center;
+}
+
 .book .title {
   display: block;
   font-weight: bold;
@@ -131,9 +145,12 @@
   line-height: 12px;
 }
 
-.book.tight .title {
+.book.tight .title,
+.book.tighter .title,
+.book.tightest .title {
   font-size: 11px;
   line-height: 11px;
+  font-stretch: 80%;
 }
 
 .book.tighter .title {
@@ -150,7 +167,8 @@
 
 .book.tight .author,
 .book.tighter .author,
-.book.tightest .author {
+.book.tightest .author,
+.book.leather .author {
   display: none;
 }
 
