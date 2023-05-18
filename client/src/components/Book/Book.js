@@ -14,6 +14,10 @@ function Book({ bookId, book, bookIndex }) {
         >
           <div
             className={`book ${book.color} ${book.thickness} ${book.height} ${book.style} ${textStyle}`}
+            id={bookId}
+            onClick={() => {
+              alert(book.title);
+            }}
           >
             <div className="accent top"></div>
             <div className="spineText">
