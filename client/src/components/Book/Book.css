@@ -168,6 +168,10 @@
   background-color: rgb(67, 67, 212);
   color: white;
 }
+.book.navy {
+  background-color: rgb(10, 10, 75);
+  color: white;
+}
 .book.yellow {
   background-color: rgb(206, 206, 49);
   color: black;
