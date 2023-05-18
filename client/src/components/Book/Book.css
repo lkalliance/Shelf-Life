@@ -56,7 +56,7 @@
 
 .book .accent {
   display: none;
-  height: 5px;
+  height: 4px;
   width: 100%;
   position: absolute;
   right: 0;
@@ -73,9 +73,8 @@
 .book.leather .accent {
   display: block;
   background-image: linear-gradient(
-    to right,
     rgba(255, 255, 255, 0.3),
-    transparent
+    rgba(0, 0, 0, 0.4)
   );
 }
 
