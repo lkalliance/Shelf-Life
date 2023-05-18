@@ -1,13 +1,14 @@
 import "./Bookcase.css";
-import { Shelf } from "../../components";
-import { useState } from "react";
-
-import { fakedata, convert, noSpace } from "../../utils/dragUtils";
+import { useRecoilState } from "recoil";
 import { DragDropContext } from "@hello-pangea/dnd";
 
+import { booksDeepCopy, convert, noSpace } from "../../utils/dragUtils";
+import { userBooksAtom, userItemsAtom } from "../../recoil/atom/userBooksAtom";
+import { Shelf } from "../../components";
+
 function Bookcase() {
-  const [books, setBooks] = useState(fakedata);
-  const [items, setItems] = useState(convert(fakedata));
+  const [books, setBooks] = useRecoilState(userBooksAtom);
+  const [items, setItems] = useRecoilState(userItemsAtom);
 
   function handleDrop({ source, destination }) {
     // All the things we do when the book is dropped onto the stack
@@ -19,25 +20,20 @@ function Bookcase() {
     const { 1: fromStack, 2: fromShelf } = source.droppableId.split("-");
     const { 1: toStack, 2: toShelf } = destination.droppableId.split("-");
 
-    console.log({ fromStack });
-    console.log({ toStack });
-    console.log({ fromShelf });
-    console.log({ toShelf });
-    if (!(toShelf === "unshelved" || fromShelf === toShelf)) {
-      console.log("I'm checking!");
-      if (
-        noSpace(
-          books.shelves[toShelf],
-          fromShelf === "unshelved"
-            ? books.unshelved[source.index]
-            : books.shelves[fromShelf][fromStack][source.index]
-        )
+    if (
+      !(toShelf === "unshelved" || fromShelf === toShelf) &&
+      noSpace(
+        books.shelves[toShelf],
+        fromShelf === "unshelved"
+          ? books.unshelved[source.index]
+          : books.shelves[fromShelf][fromStack][source.index]
       )
-        return;
+    ) {
+      return;
     }
 
     // ok to drop it here, handle the drop
-    const newBooks = { ...books };
+    const newBooks = booksDeepCopy(books);
 
     // create a copy of the source and destination stacks
     const bSourceStack =
@@ -73,22 +69,10 @@ function Bookcase() {
       <DragDropContext onDragEnd={handleDrop}>
         <div id="shelves">
           {books.shelves.map((shelf, shelfIndex) => {
-            return (
-              <Shelf
-                key={shelfIndex}
-                shelfIndex={shelfIndex}
-                books={books.shelves[shelfIndex]}
-                items={items}
-              />
-            );
+            return <Shelf key={shelfIndex} shelfIndex={shelfIndex} />;
           })}
         </div>
-        <Shelf
-          key="unshelved"
-          shelfIndex="unshelved"
-          books={books.unshelved}
-          items={items}
-        />
+        <Shelf key="unshelved" shelfIndex="unshelved" items={items} />
       </DragDropContext>
     </section>
   );
