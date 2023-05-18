@@ -2,7 +2,7 @@ import "./Stack.css";
 import { Droppable } from "@hello-pangea/dnd";
 import { Book } from "../../components";
 
-function Stack({ position, books, shelf, bookItems }) {
+function Stack({ position, books, shelf, bookItems, clearHandler }) {
   return (
     <Droppable
       droppableId={`shelf-${position}-${shelf}`}
@@ -13,6 +13,7 @@ function Stack({ position, books, shelf, bookItems }) {
           className={`stack ${position}`}
           ref={provided.innerRef}
           {...provided.droppableProps}
+          onDoubleClick={clearHandler}
         >
           {books.map((book, index) => {
             return (

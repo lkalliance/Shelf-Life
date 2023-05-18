@@ -6,6 +6,8 @@ function Book({ bookId, book, bookIndex }) {
   let timer;
   function clickHandler(e) {
     clearTimeout(timer);
+    e.preventDefault();
+    e.stopPropagation();
 
     if (e.detail === 1) {
       timer = setTimeout(() => {
