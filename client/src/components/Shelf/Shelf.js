@@ -1,8 +1,18 @@
 import "./Shelf.css";
 
+import { useRecoilValue } from "recoil";
+import { userBooksAtom, userItemsAtom } from "../../recoil/atom/userBooksAtom";
 import { Stack } from "../../components";
 
-function Shelf({ shelfIndex, books, items }) {
+function Shelf({ shelfIndex }) {
+  const userBooks = useRecoilValue(userBooksAtom);
+  const items = useRecoilValue(userItemsAtom);
+
+  const books =
+    shelfIndex === "unshelved"
+      ? userBooks.unshelved
+      : userBooks.shelves[shelfIndex];
+
   const leftItem = items[`shelf-left-${shelfIndex}`];
   const rightItem = items[`shelf-right-${shelfIndex}`];
   const unshelvedItem = items[`shelf-unshelved-unshelved`];
@@ -15,11 +25,9 @@ function Shelf({ shelfIndex, books, items }) {
       {shelfIndex !== "unshelved" ? (
         <div className="stacks">
           <Stack
-            drop="true"
             position="left"
             key={`shelf-left-${shelfIndex}`}
             books={books.left}
-            items={items}
             shelf={shelfIndex}
             bookItems={leftItem}
           />
@@ -28,14 +36,12 @@ function Shelf({ shelfIndex, books, items }) {
             position="right"
             key={`shelf-right-${shelfIndex}`}
             books={books.right}
-            items={items}
             shelf={shelfIndex}
             bookItems={rightItem}
           />
         </div>
       ) : (
         <Stack
-          drop="true"
           position="unshelved"
           key={`shelf-unshelved-${shelfIndex}`}
           books={books}

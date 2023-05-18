@@ -26,6 +26,20 @@ export const convert = (data) => {
   return converted;
 };
 
+export const booksDeepCopy = (data) => {
+  // This utility returns an editable, deep copy of the books state
+  const newBooks = { shelves: [], unshelved: [] };
+  data.shelves.map((shelf) => {
+    const shelfCopy = { left: [], right: [] };
+    shelf.left.map((book) => shelfCopy.left.push({ ...book }));
+    shelf.right.map((book) => shelfCopy.right.push({ ...book }));
+    newBooks.shelves.push(shelfCopy);
+  });
+  data.unshelved.map((book) => newBooks.unshelved.push({ ...book }));
+
+  return newBooks;
+};
+
 const thicknesses = {
   // This is a reference to pixel widths of book types
   thin: 20,
@@ -34,8 +48,6 @@ const thicknesses = {
 };
 
 export const noSpace = (shelf, newBook) => {
-  // If the destination is the unshelved, then everything's cool
-  console.log(shelf);
   // This utility determines if there is room on the shelf for a drop
   let pixels = 0;
   shelf.left.map((book) => (pixels += thicknesses[book.thickness]));
