@@ -1,8 +1,18 @@
 import "./Book.css";
+import { useRecoilState } from "recoil";
 import { Draggable } from "@hello-pangea/dnd";
-import { isTight, abbreviateTitle } from "../../utils/dragUtils";
+import {
+  isTight,
+  abbreviateTitle,
+  booksDeepCopy,
+  convert,
+} from "../../utils/dragUtils";
+import { userBooksAtom, userItemsAtom } from "../../recoil/atom/userBooksAtom";
 
-function Book({ bookId, book, bookIndex }) {
+function Book({ bookId, book, bookIndex, stack }) {
+  const [userBooks, setUserBooks] = useRecoilState(userBooksAtom);
+  const [userItems, setUserItems] = useRecoilState(userItemsAtom);
+
   let timer;
   function clickHandler(e) {
     clearTimeout(timer);
@@ -14,8 +24,24 @@ function Book({ bookId, book, bookIndex }) {
         alert(book.title);
       }, 200);
     } else if (e.detail === 2) {
-      alert(`Remove ${book.title}`);
+      unshelveBook();
     }
+  }
+
+  function unshelveBook() {
+    const allBooks = booksDeepCopy(userBooks);
+    const unshelved = allBooks.unshelved;
+    const { 1: thisStack, 2: thisShelf } = stack.split("-");
+
+    const thisBook = allBooks.shelves[thisShelf][thisStack].splice(
+      bookIndex,
+      1
+    );
+
+    unshelved.push(thisBook[0]);
+
+    setUserBooks(allBooks);
+    setUserItems(convert(allBooks));
   }
 
   const textStyle = isTight(book);
