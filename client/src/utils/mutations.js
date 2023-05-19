@@ -1,45 +1,74 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
-export const ADD_PROFILE = gql`
-  mutation addProfile($name: String!, $email: String!, $password: String!) {
-    addProfile(name: $name, email: $email, password: $password) {
-      token
-      profile {
-        _id
-        name
-      }
-    }
-  }
-`;
-
-export const ADD_SKILL = gql`
-  mutation addSkill($profileId: ID!, $skill: String!) {
-    addSkill(profileId: $profileId, skill: $skill) {
-      _id
-      name
-      skills
-    }
-  }
-`;
-
-export const LOGIN_USER = gql`
-  mutation login($email: String!, $password: String!) {
+export const LOGIN = gql`
+  mutation Mutation($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
-      profile {
+      user {
         _id
-        name
+        userName
       }
     }
   }
 `;
 
-export const REMOVE_SKILL = gql`
-  mutation removeSkill($skill: String!) {
-    removeSkill(skill: $skill) {
+export const ADD_USER = gql`
+  mutation Mutation($userName: String!, $email: String!, $password: String!) {
+    addUser(userName: $userName, email: $email, password: $password) {
+      token
+      user {
+        userName
+        _id
+      }
+    }
+  }
+`;
+
+export const ADD_BOOK = gql`
+  mutation Mutation(
+    $title: String!
+    $bookId: String!
+    $authors: [String]
+    $color: String
+    $height: String
+    $thickness: String
+    $style: String
+    $rating: Int
+    $comment: String
+    $year: String
+  ) {
+    addBook(
+      title: $title
+      bookId: $bookId
+      authors: $authors
+      color: $color
+      height: $height
+      thickness: $thickness
+      style: $style
+      rating: $rating
+      comment: $comment
+    ) {
+      bookList {
+        bookId
+        title
+        year
+      }
+    }
+  }
+`;
+
+export const REMOVE_BOOK = gql`
+  mutation Mutation($bookId: ID!, $year: String!) {
+    removeBook(bookId: $bookId) {
       _id
-      name
-      skills
+    }
+  }
+`;
+
+export const ARRANGE_BOOKCASE = gql`
+  mutation ArrangeBookcase($bookcase: YearInput) {
+    arrangeBookcase(bookcase: $bookcase) {
+      _id
     }
   }
 `;

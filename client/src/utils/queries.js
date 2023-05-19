@@ -1,31 +1,51 @@
-import { gql } from '@apollo/client';
-
-export const QUERY_PROFILES = gql`
-  query allProfiles {
-    profiles {
-      _id
-      name
-      skills
-    }
-  }
-`;
-
-export const QUERY_SINGLE_PROFILE = gql`
-  query singleProfile($profileId: ID!) {
-    profile(profileId: $profileId) {
-      _id
-      name
-      skills
-    }
-  }
-`;
+import { gql } from "@apollo/client";
 
 export const QUERY_ME = gql`
-  query me {
+  query Me {
     me {
       _id
-      name
-      skills
+      bookList {
+        bookId
+        title
+        authors
+        rating
+        comment
+        year
+      }
+      years {
+        bookcase {
+          shelves {
+            left {
+              bookId
+              title
+              authors
+              style
+              height
+              thickness
+              color
+            }
+            right {
+              bookId
+              title
+              authors
+              style
+              height
+              thickness
+              color
+            }
+          }
+          unshelved {
+            bookId
+            title
+            authors
+            style
+            height
+            thickness
+            color
+          }
+        }
+        bookcaseYear
+      }
     }
   }
 `;
