@@ -21,7 +21,7 @@ const userSchema = new Schema({
     required: true,
   },
   years: [yearSchema],
-  bookList: [Booklist],
+  bookList: [Booklist.schema],
   
 });
 

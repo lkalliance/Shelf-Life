@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
 
 const booklistSchema = new Schema({
@@ -14,7 +15,7 @@ const booklistSchema = new Schema({
         type: String,
     },
     rating: {
-        type: String,
+        type: Number,
     },
     comment: {
         type: String,

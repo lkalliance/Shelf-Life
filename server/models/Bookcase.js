@@ -4,7 +4,7 @@ const Book = require('./Book')
 
 const bookcaseSchema = new Schema({
     shelves: [shelfSchema],
-    unshelved: [Book],
+    unshelved: [Book.schema],
 
   });
   
