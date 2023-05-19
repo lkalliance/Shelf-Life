@@ -1,3 +1,1 @@
-import { Template } from "./Template";
-
-export { Template };
+export { Template } from "./Template";

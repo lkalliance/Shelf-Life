@@ -8,7 +8,7 @@ const typeDefs = gql`
 
   type User {
     _id: ID
-    userName: String    
+    userName: String
     email: String
     password: String
     years: [Year]
@@ -21,16 +21,31 @@ const typeDefs = gql`
     bookcase: [Bookcase]
   }
 
+  input YearInput {
+    bookcaseYear: String
+    bookcase: BookcaseInput
+  }
+
   type Bookcase {
     _id: ID
     shelves: [Shelf]
     unshelved: [Book]
   }
 
+  input BookcaseInput {
+    shelves: [ShelfInput]
+    unshelved: [BookInput]
+  }
+
   type Shelf {
     _id: ID
     left: [Book]
     right: [Book]
+  }
+
+  input ShelfInput {
+    left: [BookInput]
+    right: [BookInput]
   }
 
   type Book {
@@ -45,6 +60,17 @@ const typeDefs = gql`
     bookId: String
   }
 
+  input BookInput {
+    bookId: String!
+    title: String!
+    shortTitle: String
+    authors: [String]
+    style: String
+    height: String
+    thickness: String
+    color: String
+  }
+
   type Booklist {
     _id: ID
     title: String
@@ -57,18 +83,27 @@ const typeDefs = gql`
 
   type Query {
     me: User
-
   }
 
   type Mutation {
     addUser(userName: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addBook(title: String!, shortTitle: String, authors: [String], color: String, height: String, thickness: String, style: String, bookId: String!, rating: Int, comment: String, year: String): User
+    addBook(
+      title: String!
+      shortTitle: String
+      authors: [String]
+      color: String
+      height: String
+      thickness: String
+      style: String
+      bookId: String!
+      rating: Int
+      comment: String
+      year: String
+    ): User
     removeBook(bookId: ID!): User
-
-  
+    arrangeBookcase(bookcase: YearInput): Bookcase
   }
-
 `;
 
 module.exports = typeDefs;

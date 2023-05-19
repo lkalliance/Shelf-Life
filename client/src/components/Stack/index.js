@@ -1,3 +1,1 @@
-import { Stack } from "./Stack";
-
-export { Stack };
+export { Stack } from "./Stack";

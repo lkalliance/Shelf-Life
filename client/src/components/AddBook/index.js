@@ -1,3 +1,1 @@
-import { AddBook } from "./AddBook";
-
-export { AddBook };
+export { AddBook } from "./AddBook";

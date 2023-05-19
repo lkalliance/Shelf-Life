@@ -10,7 +10,6 @@ div.shelf {
     rgba(0, 0, 0, 0.2)
   );
   padding: 10px;
-  /* border: 10px solid rgb(195, 140, 45); */
 }
 
 div.shelf div.stacks {
