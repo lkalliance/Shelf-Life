@@ -1,10 +1,8 @@
-import { Shelf } from "./Shelf";
-import { Stack } from "./Stack";
-import { Book } from "./Book";
-import { About } from "./About";
-// import { SearchModal} from "./SearchModal ";
-import { AddBook } from "./AddBook";
-import { Template } from "./Template";
-import { LoginForm, SignupForm } from "./Login";
-export {ViewModal} from "./ViewModal"
-export { Template, Shelf, Stack, Book, LoginForm, SignupForm, About,  AddBook };
+export { Shelf } from "./Shelf";
+export { Stack } from "./Stack";
+export { Book } from "./Book";
+export { About } from "./About";
+export { AddBook } from "./AddBook";
+export { Template } from "./Template";
+export { LoginForm, SignupForm } from "./Login";
+export { ViewModal } from "./ViewModal";

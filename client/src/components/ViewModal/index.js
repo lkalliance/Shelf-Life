@@ -1,5 +1,1 @@
-// import { SearchModal } from "./SearchModal";
-
-export { SearchModal } from "./ViewModal";
-
-
+export { ViewModal } from "./ViewModal";
