@@ -1,8 +1,50 @@
 import "./Book.css";
+import { useRecoilState } from "recoil";
 import { Draggable } from "@hello-pangea/dnd";
-import { isTight } from "../../utils/dragUtils";
+import {
+  isTight,
+  abbreviateTitle,
+  booksDeepCopy,
+  convert,
+} from "../../utils/dragUtils";
+import { userBooksAtom, userItemsAtom } from "../../recoil/atom/userBooksAtom";
 
-function Book({ bookId, book, bookIndex }) {
+function Book({ bookId, book, bookIndex, stack }) {
+  const [userBooks, setUserBooks] = useRecoilState(userBooksAtom);
+  const [userItems, setUserItems] = useRecoilState(userItemsAtom);
+
+  let timer;
+  function clickHandler(e) {
+    clearTimeout(timer);
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (e.detail === 1) {
+      timer = setTimeout(() => {
+        alert(book.title);
+      }, 200);
+    } else if (e.detail === 2) {
+      unshelveBook();
+    }
+  }
+
+  function unshelveBook() {
+    const allBooks = booksDeepCopy(userBooks);
+    const unshelved = allBooks.unshelved;
+    const { 1: thisStack, 2: thisShelf } = stack.split("-");
+
+    const thisBook = allBooks.shelves[thisShelf][thisStack].splice(
+      bookIndex,
+      1
+    );
+
+    unshelved.push(thisBook[0]);
+
+    setUserBooks(allBooks);
+    setUserItems(convert(allBooks));
+  }
+
+  const textStyle = isTight(book);
   return (
     <Draggable key={bookId} draggableId={bookId} index={bookIndex}>
       {(provided) => (
@@ -12,14 +54,16 @@ function Book({ bookId, book, bookIndex }) {
           {...provided.dragHandleProps}
         >
           <div
-            className={`book ${book.color} ${book.thickness} ${book.height} ${
-              book.style
-            } ${isTight(book)}`}
+            className={`book ${book.color} ${book.thickness} ${book.height} ${book.style} ${textStyle}`}
+            id={bookId}
+            onClick={clickHandler}
           >
             <div className="accent top"></div>
             <div className="spineText">
               <span key="title" className="title">
-                {book.title}
+                {textStyle === "tightest"
+                  ? abbreviateTitle(book.title)
+                  : book.title}
               </span>
               <span key="author" className="author">
                 {book.author}

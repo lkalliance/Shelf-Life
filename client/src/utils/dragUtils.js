@@ -26,6 +26,30 @@ export const convert = (data) => {
   return converted;
 };
 
+export const booksDeepCopy = (data) => {
+  // This utility returns an editable, deep copy of the books state
+  const newBooks = { shelves: [], unshelved: [] };
+  data.shelves.map((shelf) => {
+    const shelfCopy = { left: [], right: [] };
+    shelf.left.map((book) => shelfCopy.left.push({ ...book }));
+    shelf.right.map((book) => shelfCopy.right.push({ ...book }));
+    newBooks.shelves.push(shelfCopy);
+  });
+  data.unshelved.map((book) => newBooks.unshelved.push({ ...book }));
+
+  return newBooks;
+};
+
+export const abbreviateTitle = (title) => {
+  let abbrev = "";
+  const words = title.split(" ");
+  words.map((word, index) => {
+    abbrev += `${word.charAt(0)}.`;
+    if (index === word.length - 1) abbrev += " ";
+  });
+  return abbrev;
+};
+
 const thicknesses = {
   // This is a reference to pixel widths of book types
   thin: 20,
@@ -34,8 +58,6 @@ const thicknesses = {
 };
 
 export const noSpace = (shelf, newBook) => {
-  // If the destination is the unshelved, then everything's cool
-  console.log(shelf);
   // This utility determines if there is room on the shelf for a drop
   let pixels = 0;
   shelf.left.map((book) => (pixels += thicknesses[book.thickness]));
@@ -46,7 +68,12 @@ export const noSpace = (shelf, newBook) => {
 
 export const isTight = (book) => {
   // This utility performs logic to determine if the spine text needs shortening
-  if (book.thickness === "thin") {
+  if (
+    book.title >= 30 ||
+    (book.title.length > 15 && book.thickness == "thin")
+  ) {
+    return "tightest";
+  } else if (book.thickness === "thin") {
     return "tighter";
   } else if (
     book.title.length >= 24 ||
@@ -264,7 +291,7 @@ export const fakedata = {
       ],
       right: [
         {
-          title: "The House in the CC",
+          title: "The House in the Cerulean Sea",
           author: "T.J. Klune",
           color: "blue",
           thickness: "mid",

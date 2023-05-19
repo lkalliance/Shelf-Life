@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { RecoilRoot } from "recoil";
 import { Bookcase } from "./pages/Bookcase/Bookcase";
 import LoginForm from "./components/Login/LoginForm";
 import SignupForm from "./components/Login/SignupForm";
@@ -11,7 +11,8 @@ function App() {
   const [showSignupModal, setShowSignupModal] = useState(false)
   // const [showloginModal, setShowloginModal] = useState(false)
   return (
-    <SignupContext.Provider value={{ showSignupModal, setShowSignupModal }}>
+     <RecoilRoot>
+   <SignupContext.Provider value={{ showSignupModal, setShowSignupModal }}>
       <div className="App">
         <header>Starter code</header>
 
@@ -22,6 +23,9 @@ function App() {
 
       </div>
     </SignupContext.Provider>
+    </RecoilRoot>
+
+
   );
 }
 
