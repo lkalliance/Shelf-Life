@@ -77,7 +77,7 @@ export const abbreviateTitle = (title) => {
 const thicknesses = {
   // This is a reference to pixel widths of book types
   thin: 20,
-  mbookId: 30,
+  mid: 30,
   thick: 45,
 };
 
