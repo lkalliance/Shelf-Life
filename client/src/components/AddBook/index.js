@@ -1,3 +1,3 @@
-import { AddBook } from "./Template";
+import { AddBook } from "./AddBook";
 
 export { AddBook };
