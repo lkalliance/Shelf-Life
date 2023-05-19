@@ -56,7 +56,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    user: User
+    me: User
 
   }
 
@@ -65,7 +65,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addBook(title: String!, shortTitle: String, authors: [String], color: String, height: String, thickness: String, style: String, bookId: String!, rating: Int, comment: String, year: String): User
     removeBook(bookId: ID!): User
-    
+
   
   }
 
