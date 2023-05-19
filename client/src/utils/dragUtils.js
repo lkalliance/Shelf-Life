@@ -17,7 +17,37 @@ export const convert = (data) => {
     });
   });
 
+  // now map the unshelved section
+  converted[`shelf-unshelved-unshelved`] = data.unshelved.map((book) => {
+    counter++;
+    return { id: counter.toString(), name: `Drag-${counter}` };
+  });
+
   return converted;
+};
+
+export const booksDeepCopy = (data) => {
+  // This utility returns an editable, deep copy of the books state
+  const newBooks = { shelves: [], unshelved: [] };
+  data.shelves.map((shelf) => {
+    const shelfCopy = { left: [], right: [] };
+    shelf.left.map((book) => shelfCopy.left.push({ ...book }));
+    shelf.right.map((book) => shelfCopy.right.push({ ...book }));
+    newBooks.shelves.push(shelfCopy);
+  });
+  data.unshelved.map((book) => newBooks.unshelved.push({ ...book }));
+
+  return newBooks;
+};
+
+export const abbreviateTitle = (title) => {
+  let abbrev = "";
+  const words = title.split(" ");
+  words.map((word, index) => {
+    abbrev += `${word.charAt(0)}.`;
+    if (index === word.length - 1) abbrev += " ";
+  });
+  return abbrev;
 };
 
 const thicknesses = {
@@ -38,12 +68,21 @@ export const noSpace = (shelf, newBook) => {
 
 export const isTight = (book) => {
   // This utility performs logic to determine if the spine text needs shortening
-  return (
-    book.thickness === "thin" ||
+  if (
+    book.title >= 30 ||
+    (book.title.length > 15 && book.thickness == "thin")
+  ) {
+    return "tightest";
+  } else if (book.thickness === "thin") {
+    return "tighter";
+  } else if (
     book.title.length >= 24 ||
     (book.title.length > 18 && book.thickness === "mid") ||
     (book.title.length > 12 && book.style === "leather")
-  );
+  ) {
+    return "tight";
+  }
+  return "";
 };
 
 export const fakedata = {
@@ -243,7 +282,7 @@ export const fakedata = {
         {
           title: "The Fifties",
           author: "David Halberstam",
-          color: "blue",
+          color: "navy",
           thickness: "thick",
           height: "tall",
           style: "hardcover",
@@ -252,7 +291,7 @@ export const fakedata = {
       ],
       right: [
         {
-          title: "The House in the CC",
+          title: "The House in the Cerulean Sea",
           author: "T.J. Klune",
           color: "blue",
           thickness: "mid",
@@ -280,6 +319,53 @@ export const fakedata = {
           id: 22,
         },
       ],
+    },
+  ],
+  unshelved: [
+    {
+      title: "The Catcher in the Rye",
+      author: "J.D.Salinger",
+      color: "green",
+      thickness: "thin",
+      height: "short",
+      style: "paperback",
+      id: 104,
+    },
+    {
+      title: "The Long Way to a Small, Angry Planet",
+      author: "Becky Chambers",
+      color: "black",
+      thickness: "mid",
+      height: "short",
+      style: "hardcover",
+      id: 436,
+    },
+    {
+      title: "Steve Jobs",
+      author: "Walter Isaacson",
+      color: "white",
+      thickness: "thick",
+      height: "tall",
+      style: "hardcover",
+      id: 224,
+    },
+    {
+      title: "Hamlet",
+      author: "William Shakespeare",
+      color: "blue",
+      thickness: "thin",
+      height: "short",
+      style: "leather",
+      id: 367,
+    },
+    {
+      title: "Book of Spells",
+      author: "S. Beelzebub",
+      color: "purple",
+      thickness: "thick",
+      height: "tall",
+      style: "leather",
+      id: 666,
     },
   ],
 };

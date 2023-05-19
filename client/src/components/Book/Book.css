@@ -1,0 +1,226 @@
+.book {
+  list-style-type: none;
+  margin: 0;
+  position: relative;
+  writing-mode: vertical-rl;
+  line-height: 13px;
+  vertical-align: middle;
+  border-radius: 1px;
+  box-sizing: border-box;
+}
+
+.unshelved .book {
+  margin: 0 1px;
+}
+
+/* SIZE */
+
+.book.tall {
+  height: 160px;
+}
+
+.book.medium {
+  height: 145px;
+}
+
+.book.short {
+  height: 125px;
+}
+
+.book.thin {
+  width: 20px;
+}
+
+.book.mid {
+  width: 30px;
+}
+
+.book.thick {
+  width: 45px;
+}
+
+.book.paperback {
+  border-radius: 0;
+}
+
+/* STYLES */
+
+.book.leather {
+  font-family: "Bodoni Moda", serif;
+  background-image: url("./leather.png");
+  background-size: 175px 175px;
+}
+
+.book.leather .title,
+.book.leather.tight .title,
+.book.leather.tighter .title,
+.book.leather.tightest .title {
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.book.leather.thick {
+  backgroud-size: 200px 200px;
+}
+
+.book .accent {
+  display: none;
+  height: 4px;
+  width: 100%;
+  position: absolute;
+  right: 0;
+}
+
+.book .accent.top {
+  top: 10px;
+}
+
+.book .accent.bottom {
+  bottom: 10px;
+}
+
+.book.leather .accent {
+  display: block;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.3),
+    rgba(0, 0, 0, 0.4)
+  );
+}
+
+.book.leather .spineText {
+  padding: 20px 0;
+  box-sizing: border-box;
+}
+
+.book.leather .spineText {
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.2),
+    transparent 15%,
+    transparent 85%,
+    rgba(0, 0, 0, 0.3) 90%
+  );
+}
+
+.book.hardcover .spineText {
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.2),
+    transparent 30%,
+    rgba(0, 0, 0, 0.2) 70%
+  );
+}
+
+.book.paperback .spineText {
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.2),
+    transparent 5%,
+    transparent 92%,
+    rgba(0, 0, 0, 0.2) 95%
+  );
+}
+
+/* TEXT */
+
+.book .spineText {
+  padding: 6px 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.book .author,
+.book .title {
+  text-align: center;
+}
+
+.book .title {
+  display: block;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.book.tight .title,
+.book.tighter .title,
+.book.tightest .title {
+  font-size: 11px;
+  line-height: 11px;
+  font-stretch: 80%;
+}
+
+.book.tighter .title {
+  font-size: 10px;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+.book .author {
+  display: block;
+  font-size: 10px;
+  line-height: 10px;
+}
+
+.book.tight .author,
+.book.tighter .author,
+.book.tightest .author,
+.book.leather .author {
+  display: none;
+}
+
+/* COLOR */
+
+.book.red {
+  background-color: rgb(156, 34, 34);
+  color: white;
+}
+.book.leather.red {
+  background-color: rgb(97, 3, 3);
+  color: gold;
+}
+.book.blue {
+  background-color: rgb(67, 67, 212);
+  color: white;
+}
+.book.navy {
+  background-color: rgb(10, 10, 75);
+  color: white;
+}
+.book.yellow {
+  background-color: rgb(206, 206, 49);
+  color: black;
+}
+.book.white {
+  background-color: white;
+  color: black;
+}
+.book.purple {
+  background-color: rgb(86, 26, 86);
+  color: white;
+}
+.book.orange {
+  background-color: rgb(220, 155, 34);
+}
+.book.green {
+  background-color: rgb(26, 106, 26);
+  color: white;
+}
+.book.black {
+  background-color: black;
+  color: yellow;
+}
+
+/* UNSHELVED BOOKS */
+
+/* div.unshelved .book.thin,
+div.unshelved .book.mid,
+div.unshelved .book.thick {
+  padding-left: 12px;
+  width: 90px;
+  height: 120px;
+  writing-mode: horizontal-tb;
+} */
