@@ -14,7 +14,7 @@ const booklistSchema = new Schema({
         type: String,
     },
     rating: {
-        type: String,
+        type: Number,
     },
     comment: {
         type: String,
