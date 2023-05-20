@@ -47,13 +47,14 @@ const resolvers = {
       
             return { token, user };
         },
-        
+        // seperate addbook for book and addBookList for book list change args to object for the right ones
+        // add shelves 
+        // save shelves
         addBook: async (parent, args, context) => {
             if (context.user) {
               const updatedUser = await User.findOneAndUpdate(
                 { _id: context.user._id },
-                { $addToSet: { Booklist: args } },
-                { $addToSet: { Book: args } },
+                { $addToSet: ({ Booklist: args }, { "args.years.bookcase.unshelved": args }) },
                 { new: true }
               );
               
@@ -61,6 +62,7 @@ const resolvers = {
             }
             throw new AuthenticationError('You need to be logged in!');
         },
+        
       
         removeBook: async (parent, { bookId }, context) => {
           if (context.user) {
