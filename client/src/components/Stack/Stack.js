@@ -18,10 +18,10 @@ function Stack({ position, books, shelf, bookItems, clearHandler }) {
           {books.map((book, index) => {
             return (
               <Book
-                key={book.id}
+                key={book.bookId}
                 book={book}
                 bookIndex={index}
-                bookId={bookItems[index].id}
+                bookId={bookItems[index].bookId}
                 stack={`shelf-${position}-${shelf}`}
               />
             );
