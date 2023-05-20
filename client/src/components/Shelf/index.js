@@ -1,3 +1,1 @@
-import { Shelf } from "./Shelf";
-
-export { Shelf };
+export { Shelf } from "./Shelf";

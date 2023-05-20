@@ -7,10 +7,20 @@
   vertical-align: middle;
   border-radius: 1px;
   box-sizing: border-box;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.2),
+    transparent 2%,
+    transparent 98%,
+    rgba(0, 0, 0, 0.1)
+  );
+}
+
+.book.paperback {
+  background-image: none;
 }
 
 .unshelved .book {
-  margin: 0 1px;
+  margin: 0 2px;
 }
 
 /* SIZE */
@@ -117,7 +127,7 @@
     rgba(255, 255, 255, 0.2),
     transparent 5%,
     transparent 92%,
-    rgba(0, 0, 0, 0.2) 95%
+    rgba(0, 0, 0, 0.1) 95%
   );
 }
 
@@ -213,14 +223,3 @@
   background-color: black;
   color: yellow;
 }
-
-/* UNSHELVED BOOKS */
-
-/* div.unshelved .book.thin,
-div.unshelved .book.mid,
-div.unshelved .book.thick {
-  padding-left: 12px;
-  width: 90px;
-  height: 120px;
-  writing-mode: horizontal-tb;
-} */

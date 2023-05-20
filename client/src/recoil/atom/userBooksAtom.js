@@ -9,5 +9,5 @@ export const userBooksAtom = atom({
 
 export const userItemsAtom = atom({
   key: "userItems",
-  default: convert(fakedata),
+  default: convert(fakedata.years[0].bookcase),
 });
