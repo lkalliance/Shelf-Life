@@ -102,11 +102,8 @@ const typeDefs = gql`
       year: String
     ): User
     removeBook(bookId: ID!): User
-
-  
+    arrangeBookcase(bookcase: YearInput): Bookcase
   }
 `;
-
-
 
 module.exports = typeDefs;
