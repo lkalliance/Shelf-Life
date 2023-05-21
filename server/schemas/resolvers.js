@@ -9,17 +9,17 @@ const Booklist = require("../models/Booklist");
 
 
 const resolvers = {
-    Query: {
-        me: async (parent, args, context) => {
-            if (context.user) {
-              return User.findOne({ _id: context.user._id });
-            }
-            throw new AuthenticationError("You need to be logged in!");
-        },
+  Query: {
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id });
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
 
 
+    Mu
 
-            
 
     },
 
@@ -89,7 +89,7 @@ const resolvers = {
 
 
 
-    }
+  }
 };
 
 module.exports = resolvers;
