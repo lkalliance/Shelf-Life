@@ -1,13 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
+import { ApolloClient } from '@apollo/client';
+// import { useMutation } from 'react-query';
+import { useMutation } from "@apollo/client"
+import { LOGIN } from '../../utils/mutations';
+import Auth from '../../utils/auth';
 import "./login.css";
-// import { Link } from "react-router-dom";
 import { SignupContext } from "../../App";
 
 function LoginForm() {
   const { showSignupModal, setShowSignupModal, showloginModal, setShowloginModal } = useContext(SignupContext);
- 
+  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+  const [validated] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [login, { error, data }] = useMutation(LOGIN);
+
   const handleModalSubmit = () => {
-    // setShowModal(!showModal);
     setShowloginModal(true);
     setShowSignupModal(false);
   };
@@ -20,6 +27,54 @@ function LoginForm() {
   const handleClose = () => {
     setShowloginModal(false);
     setShowSignupModal(false);
+  }
+  useEffect(() => {
+    if (error) {
+      setShowAlert(true)
+    }
+    else {
+      setShowAlert(false)
+    }
+  }, [error])
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUserFormData({ ...userFormData, [name]: value });
+  };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    try {
+      const { data } = await login({
+        variables: { ...userFormData }
+      })
+      console.log(data);
+      Auth.login(data.login.token);
+    } catch (err) {
+      console.error(err);
+    }
+    setUserFormData({
+      username: '',
+      email: '',
+      password: '',
+    });
+  };
+
+  {
+    Auth.loggedIn() ? (
+      <>
+
+        <button onClick={Auth.logout}>Logout</button>
+      </>
+    ) : (
+      <button onClick={() => setShowloginModal(true)}>Login</button>
+    )
   }
 
   return (
@@ -71,7 +126,10 @@ function LoginForm() {
               <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
                 Sign in to our platform
               </h3>
-              <form class="space-y-6" action="#">
+              <form class="space-y-6" action="#" noValidate validated={validated} onSubmit={handleFormSubmit}>
+                {/* <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
+                  Something went wrong with your login credentials!
+                </Alert> */}
                 <div>
                   <label
                     for="email"
@@ -85,6 +143,8 @@ function LoginForm() {
                     id="email"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     placeholder="name@company.com"
+                    onChange={handleInputChange}
+                    value={userFormData.email}
                     required
                   />
                 </div>
@@ -101,12 +161,15 @@ function LoginForm() {
                     id="password"
                     placeholder="••••••••"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                    onChange={handleInputChange}
+                    value={userFormData.password}
                     required
                   />
                 </div>
 
                 <button
-                  type="submit"
+                  disabled={!(userFormData.email && userFormData.password)}
+                  type='submit'
                   class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Login to your account

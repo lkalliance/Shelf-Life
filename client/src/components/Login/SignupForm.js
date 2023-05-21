@@ -1,18 +1,72 @@
 import React, { useState, useEffect, useContext } from "react";
-import { SignupContext, loginContext } from "../../App";
+import { ApolloClient } from '@apollo/client';
+import { ADD_USER } from '../../utils/mutations';
+import { useMutation } from "@apollo/client";
+import Auth from '../../utils/auth';
+import { SignupContext } from "../../App";
 
 function SignupForm() {
   const [showModal, setShowModal] = useState(false);
   const { showSignupModal, setShowSignupModal, showloginModal, setShowloginModal } = useContext(SignupContext);
+  // set initial form state
+  const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
+  // set state for form validation
+  const [validated] = useState(false);
+  // set state for alert
+  const [showAlert, setShowAlert] = useState(false);
+  const [addUser, { error }] = useMutation(ADD_USER)
 
   const handleModalSubmit = () => {
     setShowSignupModal(!showSignupModal);
   };
+
   const handleSwitch = () => {
     setShowSignupModal(false);
     setShowloginModal(true);
   };
 
+  useEffect(() => {
+    if (error) {
+      setShowAlert(true)
+    }
+    else {
+      setShowAlert(false)
+    }
+  }, [error])
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUserFormData({ ...userFormData, [name]: value });
+  };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    console.log(userFormData)
+
+    try {
+      const { data } = await addUser({
+        variables: { ...userFormData }
+      });
+      console.log(data);
+      Auth.login(data.addUser.token);
+    } catch (err) {
+      console.error(err);
+      console.log(err.message)
+
+    }
+
+    setUserFormData({
+      username: '',
+      email: '',
+      password: '',
+    });
+  }
   return (
     <>
       <div
@@ -52,7 +106,10 @@ function SignupForm() {
               <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
                 Sign in to our platform
               </h3>
-              <form class="space-y-6" action="#">
+              <form class="space-y-6" action="#" noValidate validated={validated} onSubmit={handleFormSubmit}>
+                {/* <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
+                  Something went wrong with your signup!
+                </Alert> */}
                 <div>
                   <label
                     for="username"
@@ -66,6 +123,8 @@ function SignupForm() {
                     id="username"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     placeholder="name@company.com"
+                    onChange={handleInputChange}
+                    value={userFormData.username}
                     required
                   />
                 </div>
@@ -82,6 +141,8 @@ function SignupForm() {
                     id="email"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     placeholder="name@company.com"
+                    onChange={handleInputChange}
+                    value={userFormData.email}
                     required
                   />
                 </div>
@@ -98,15 +159,18 @@ function SignupForm() {
                     id="password"
                     placeholder="••••••••"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                    onChange={handleInputChange}
+                    value={userFormData.password}
                     required
                   />
                 </div>
 
                 <button
-                  type="submit"
+                  disabled={!(userFormData.username && userFormData.email && userFormData.password)}
+                  type='submit'
                   class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
-                  Login to your account
+                  Signup to your account
                 </button>
                 <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
                   login instead?
