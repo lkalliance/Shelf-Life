@@ -16,12 +16,9 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+  },
 
-
-    Mu
-
-
-    },
+ 
 
     Mutation: {
         addUser: async (parent, args) => {
@@ -70,7 +67,7 @@ const resolvers = {
             throw new AuthenticationError('You need to be logged in!');
         },
         
-      
+        // will need updates to pull book from nested
         removeBook: async (parent, { bookId }, context) => {
           if (context.user) {
             const updatedUser = await User.findOneAndUpdate(
