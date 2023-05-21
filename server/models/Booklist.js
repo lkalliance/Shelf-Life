@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
 
 const booklistSchema = new Schema({
+    _id: false,
     title: {
       type: String,
       required: true,
@@ -25,7 +26,7 @@ const booklistSchema = new Schema({
     },
     bookId: {
       type: String,
-      required: true,
+      required: true
     },
 });
 
