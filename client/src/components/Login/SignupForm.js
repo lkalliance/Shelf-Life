@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
-import { SignupContext } from "../../App";
+import { SignupContext, loginContext } from "../../App";
 
 function SignupForm() {
   const [showModal, setShowModal] = useState(false);
-  const { showSignupModal, setShowSignupModal } = useContext(SignupContext);
+  const { showSignupModal, setShowSignupModal, showloginModal, setShowloginModal } = useContext(SignupContext);
+
   const handleModalSubmit = () => {
     setShowSignupModal(!showSignupModal);
   };
-  const handleclose = () => {
+  const handleSwitch = () => {
     setShowSignupModal(false);
+    setShowloginModal(true);
   };
 
   return (
@@ -107,10 +109,10 @@ function SignupForm() {
                   Login to your account
                 </button>
                 <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-                  login instead?{" "}
+                  login instead?
                   <button
                     onClick={() => {
-                      handleclose();
+                      handleSwitch();
                     }}
                     class="text-blue-700 hover:underline dark:text-blue-500"
                   >

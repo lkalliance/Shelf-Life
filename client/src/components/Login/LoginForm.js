@@ -4,16 +4,23 @@ import "./login.css";
 import { SignupContext } from "../../App";
 
 function LoginForm() {
-  const { showSignupModal, setShowSignupModal } = useContext(SignupContext);
-  const [showModal, setShowModal] = useState(false);
+  const { showSignupModal, setShowSignupModal, showloginModal, setShowloginModal } = useContext(SignupContext);
+ 
   const handleModalSubmit = () => {
-    setShowModal(!showModal);
+    // setShowModal(!showModal);
+    setShowloginModal(true);
+    setShowSignupModal(false);
   };
 
-  const handleclose = () => {
-    setShowModal(false);
+  const handleSwitch = () => {
+    setShowloginModal(false);
     setShowSignupModal(true);
   };
+
+  const handleClose = () => {
+    setShowloginModal(false);
+    setShowSignupModal(false);
+  }
 
   return (
     <>
@@ -30,7 +37,7 @@ function LoginForm() {
       <div
         tabindex="-1"
         className={
-          showModal
+          showloginModal
             ? `fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`
             : `fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`
         }
@@ -39,7 +46,7 @@ function LoginForm() {
           <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <button
               onClick={() => {
-                handleModalSubmit();
+                handleClose();
               }}
               type="button"
               class=" close-icon absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
@@ -108,7 +115,7 @@ function LoginForm() {
                   Not registered?{" "}
                   <button
                     onClick={() => {
-                      handleclose();
+                      handleSwitch();
                     }}
                     class="text-blue-700 hover:underline dark:text-blue-500"
                   >
