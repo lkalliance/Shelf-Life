@@ -45,47 +45,53 @@ const resolvers = {
       
             return { token, user };
         },
-        // seperate addbook for book and addBookList for book list change args to object for the right ones
-        // add shelves 
-        // save shelves
+
         addBook: async (parent, args, context) => {
             if (context.user) {
                 console.log(args);
-              const updatebookList = await User.findOneAndUpdate(
-                { _id: context.user._id }, //filter
-                { $addToSet: { bookList: args } },
-                { new: true }
-              );
-              const updateBook = await User.findOneAndUpdate(
-                { _id: context.user._id }, //filter
-                { $addToSet: { years: {bookcase: { unshelved: args } } } },
-                { new: true }
-              );
-              updatedUser = updatebookList + updateBook;
-              return updatedUser;
-            }
-            throw new AuthenticationError('You need to be logged in!');
-        },
+                // updatedbookList works 
+                const updatebookList = await User.findOneAndUpdate(
+                    { _id: context.user._id }, //filter
+                    { $addToSet: { bookList: args } },
+                    { new: true }
+                    );
+                    // adds book but creates multiple year objects, needs to be fixed fix
+                    const updateBook = await User.findOneAndUpdate(
+                        { _id: context.user._id }, //filter
+                        { $addToSet: { years: { bookcase: { unshelved: args } } } },
+                        { new: true }
+                        );
+                        updatedUser = updatebookList + updateBook;
+                        return updatedUser;
+                    }
+                    throw new AuthenticationError('You need to be logged in!');
+                },
         
-        // will need updates to pull book from nested
+        // updatedbookList works, updateBook still needs to be fix to pull book from nested
         removeBook: async (parent, { bookId }, context) => {
-          if (context.user) {
-            const updatedUser = await User.findOneAndUpdate(
-                { _id: context.user._id },
-                { $pull: { Booklist: { bookId: bookId } } },
-                { $pull: { Book: { bookId: bookId } } },
-                { new: true }
-            );
-      
-            return updatedUser;
-            }
-            throw new AuthenticationError('You need to be logged in!');
-        },
-
-
-
-
-
+            if (context.user) {
+                const updatebookList = await User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $pull: { bookList: { bookId} } },
+                    { new: true }
+                    );
+                    const updateBook = await User.findOneAndUpdate(
+                        { _id: context.user._id },
+                        { $pull: { Book: { bookId } } },
+                        { new: true }
+                        );
+                        updatedUser = updatebookList + updateBook;
+                        return updatedUser;
+                    }
+                    throw new AuthenticationError('You need to be logged in!');
+                },
+                
+                // add shelves 
+                // save shelves
+                
+                
+                
+                
   }
 };
 
