@@ -2,10 +2,8 @@ const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 const { User, Bookcase } = require("../models");
 
-
 // adding book adds to both booklist and book
 // saving of shelves add shelves
-
 
 const resolvers = {
   Query: {
@@ -19,9 +17,10 @@ const resolvers = {
 
   Mutation: {
     addUser: async (parent, args) => {
-      const { username, email, password } = args;
+      console.log("adding user");
+      const { userName, email, password } = args;
       const newUser = {
-        username,
+        userName,
         email,
         password,
         bookList: [],
@@ -33,13 +32,13 @@ const resolvers = {
       console.log(user._id);
 
       const newBookcase = {
-            user_id: user._id,
-            year: "2023",
-            shelves: [
-                { left: [], right: [] },
-                { left: [], right: [] },
-              ],
-            unshelved: [],
+        user_id: user._id,
+        year: "2023",
+        shelves: [
+          { left: [], right: [] },
+          { left: [], right: [] },
+        ],
+        unshelved: [],
       };
 
       const bookcase = await Bookcase.create(newBookcase);
@@ -82,7 +81,7 @@ const resolvers = {
           { $addToSet: { unshelved: args } },
           { new: true }
         );
-        
+
         return { updatedbookList, updateBook };
       }
       throw new AuthenticationError("You need to be logged in!");

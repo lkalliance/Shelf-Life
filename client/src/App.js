@@ -52,7 +52,9 @@ function App() {
           }}
         >
           <div className="App">
-            <Template />
+            {showloginModal ? <LoginForm /> : <div></div>}
+            {showSignupModal ? <SignupForm /> : <div></div>}
+            <Template showLogin={setShowloginModal} />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/profile" element={<Profile />} />
