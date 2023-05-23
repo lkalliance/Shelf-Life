@@ -47,6 +47,7 @@ export const ADD_BOOK = gql`
       style: $style
       rating: $rating
       comment: $comment
+      year: $year
     ) {
       bookList {
         bookId

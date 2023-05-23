@@ -17,7 +17,6 @@ const resolvers = {
 
   Mutation: {
     addUser: async (parent, args) => {
-      console.log("adding user");
       const { userName, email, password } = args;
       const newUser = {
         userName,
@@ -28,9 +27,6 @@ const resolvers = {
 
       const user = await User.create(newUser);
       const token = signToken(user);
-
-      console.log(user._id);
-
       const newBookcase = {
         user_id: user._id,
         year: "2023",
@@ -65,10 +61,20 @@ const resolvers = {
     },
 
     addBook: async (parent, args, context) => {
-      console.log(context.user);
+      console.log(`
+      
+      
+      
+      
+      I'm trying to add a book
+      
+      
+      
+      
+      `);
       if (context.user) {
-        console.log(args);
         // updatedbookList works
+
         const updatebookList = await User.findOneAndUpdate(
           { _id: context.user._id }, //filter
           { $addToSet: { bookList: args } },
@@ -76,13 +82,18 @@ const resolvers = {
         );
 
         // adds book but creates multiple year objects, needs to be fixed fix
-        const updateBook = await User.findOneAndUpdate(
-          { user_id: context.user._id }, //filter
+        const updateBook = await Bookcase.findOneAndUpdate(
+          { user_id: context.user._id, year: args.year }, //filter
           { $addToSet: { unshelved: args } },
           { new: true }
         );
 
-        return { updatedbookList, updateBook };
+        console.log("Updated book list:");
+        console.log(updatebookList);
+        console.log("Updated bookcase:");
+        console.log(updateBook);
+
+        return { updatebookList, updateBook };
       }
       throw new AuthenticationError("You need to be logged in!");
     },
