@@ -66,9 +66,16 @@ export const REMOVE_BOOK = gql`
 `;
 
 export const ARRANGE_BOOKCASE = gql`
-  mutation ArrangeBookcase($bookcase: YearInput) {
-    arrangeBookcase(bookcase: $bookcase) {
-      _id
+  mutation ArrangeBookcase(
+    $year: String!
+    $shelves: [Shelf]
+    $unshelved: [Book]
+  ) {
+    arrangeBookcase(year: $year, shelved: $shelves, unshelved: $unshelved) {
+      bookcase {
+        shelves
+        unshelved
+      }
     }
   }
 `;

@@ -14,6 +14,7 @@ import {
 
 function Book({ bookId, book, bookIndex, stack }) {
   const [userBooks, setUserBooks] = useRecoilState(userBookcaseAtom);
+  // eslint-disable-next-line no-unused-vars
   const [userItems, setUserItems] = useRecoilState(userItemsAtom);
 
   let timer;
