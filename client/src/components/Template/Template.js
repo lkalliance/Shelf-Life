@@ -1,7 +1,7 @@
 import "./Template.css";
 
 function Template() {
-  return <div class="template">
+  return <div className="template">
 
   </div>;
 
