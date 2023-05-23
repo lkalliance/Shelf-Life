@@ -1,7 +1,9 @@
 import "./App.css";
 import { RecoilRoot } from "recoil";
 import { Bookcase, Profile, Home } from "./pages";
-import { Template, LoginForm, SignupForm } from "./components";
+import { About, AddBook, NavBar } from "./components";
+import { LoginForm } from "./components";
+import { SignupForm } from "./components";
 import { createContext, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Auth from "./utils/auth";
@@ -48,7 +50,7 @@ function App() {
           <div className="App">
             {showloginModal ? <LoginForm /> : <div></div>}
             {showSignupModal ? <SignupForm /> : <div></div>}
-            <Template showLogin={setShowloginModal} />
+            <NavBar showLogin={setShowloginModal} />
             <Routes>
               <Route
                 path="/"

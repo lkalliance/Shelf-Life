@@ -1,8 +1,8 @@
-import "./Template.css";
+import "./NavBar.css";
 import auth from "../../utils/auth";
-import { About, AddBook } from "../";
+import { About, AddBook } from "..";
 
-function Template({ showLogin }) {
+function NavBar({ showLogin }) {
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -109,4 +109,4 @@ function Template({ showLogin }) {
   );
 }
 
-export { Template };
+export { NavBar };
