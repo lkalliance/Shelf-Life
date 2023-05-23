@@ -7,7 +7,7 @@ import {
   userBookcaseAtom,
   userItemsAtom,
 } from "../../recoil/atom/userBooksAtom";
-import { Shelf } from "../../components";
+import { Shelf, Button } from "../../components";
 
 function Bookcase() {
   const [books, setBooks] = useRecoilState(userBookcaseAtom);
@@ -67,6 +67,33 @@ function Bookcase() {
     setItems(convert(newUser));
   }
 
+  const addShelf = () => {
+    const newUser = booksDeepCopy(books);
+    newUser.shelves.push({ left: [], right: [] });
+    newUser.shelves.push({ left: [], right: [] });
+    setBooks(newUser);
+    setItems(convert(newUser));
+  };
+
+  const removeEmpties = () => {
+    const newUser = { shelves: [], unshelved: [...books.unshelved] };
+    books.shelves.map((shelf) => {
+      if (shelf.left.length > 0 || shelf.right.length > 0) {
+        newUser.shelves.push({ ...shelf });
+      }
+      return false;
+    });
+    if (newUser.shelves.length === 0) {
+      newUser.shelves.push({ left: [], right: [] });
+      newUser.shelves.push({ left: [], right: [] });
+    }
+    if (newUser.shelves.length % 2 === 1) {
+      newUser.shelves.push({ left: [], right: [] });
+    }
+    setBooks(newUser);
+    setItems(convert(newUser));
+  };
+
   return (
     <section id="bookcase">
       <DragDropContext onDragEnd={handleDrop}>
@@ -77,6 +104,8 @@ function Bookcase() {
         </div>
         <Shelf key="unshelved" shelfIndex="unshelved" items={items} />
       </DragDropContext>
+      <Button handler={addShelf}>Add a shelf</Button>
+      <Button handler={removeEmpties}>Delete empty shelves</Button>
     </section>
   );
 }
