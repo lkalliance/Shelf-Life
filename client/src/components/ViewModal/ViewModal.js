@@ -7,45 +7,11 @@ function ViewModal() {
   const [showModal, setShowModal] = useState(false);
   const handleModalSubmit = () => {
     setShowModal(!showModal);
-    // document.body.style.filter = "blur(2px)";
   };
 
   const handleClose = () => {
     setShowModal(false)
   }
-  const [viewBook, setViewBook] = useState([]);
-  // const [searchInput, setSearchInput] = useState('');
-  const [addBook, { error }] = useMutation(ADD_BOOK)
-  // const handleFormSubmit = async (event) => {
-  //   event.preventDefault();
-
-  // if (!searchInput) {
-  //   return false;
-  // }
-
-  // try {
-  // const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}`);
-
-  // if (!response.ok) {
-  //   throw new Error('something went wrong!');
-  // }
-
-  // const { items } = await response.json();
-
-  // const bookData = items.map((book) => ({
-  //   title: book.volumeInfo.title,
-  //   description: book.volumeInfo.description,
-
-
-  // }));
-
-  // setSearchedBooks(bookData);
-  // setSearchInput('');
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-
 
   return (
     <div className="ViewModal">
