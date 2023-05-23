@@ -35,7 +35,7 @@ const client = new ApolloClient({
 function App() {
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [showloginModal, setShowloginModal] = useState(false);
-
+  console.log(Auth.loggedIn());
   return (
     <ApolloProvider client={client}>
       <RecoilRoot>
@@ -54,15 +54,22 @@ function App() {
             <Routes>
               <Route
                 path="/"
-                element={Auth.loggedIn ? <Profile /> : <Home />}
+                element={Auth.loggedIn() ? <Profile /> : <Home />}
               />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/bookcase" element={<Bookcase />} />
-              <Route path="/*" element={<Bookcase />} />
+              <Route
+                path="/profile"
+                element={Auth.loggedIn() ? <Profile /> : <Home />}
+              />
+              <Route
+                path="/bookcase"
+                element={Auth.loggedIn() ? <Bookcase /> : <Home />}
+              />
+              <Route
+                path="/*"
+                element={Auth.loggedIn() ? <Profile /> : <Home />}
+              />
             </Routes>
           </div>
-          <AddBook />
-          <About />
         </SignupContext.Provider>
       </RecoilRoot>
     </ApolloProvider>
