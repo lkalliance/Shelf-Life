@@ -11,7 +11,7 @@ const typeDefs = gql`
     username: String
     email: String
     password: String
-    bookList: [Booklist]
+    bookList: [Book]
   }
 
   type Bookcase {
@@ -78,7 +78,17 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addUser(username: String!, email: String!, password: String!): Auth
+    addUser(
+      username: String!
+      email: String! 
+      password: String!
+    ): Auth
+    addBookcase(
+      user_id: ID!
+      year: String
+      shelves: [ShelfInput]
+      unshelved: [BookInput]
+    ): Bookcase
     login(email: String!, password: String!): Auth
     addBook(
       title: String!

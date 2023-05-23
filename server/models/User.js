@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
-const yearSchema = require('./Year');
-const Booklist = require("./Booklist");
+const Book = require('./Book');
 
 const userSchema = new Schema({
   username: {
@@ -20,8 +19,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  years: [yearSchema],
-  bookList: [Booklist.schema],
+  bookList: [Book.schema],
 
 });
 
