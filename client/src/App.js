@@ -35,7 +35,7 @@ const client = new ApolloClient({
 function App() {
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [showloginModal, setShowloginModal] = useState(false);
-  console.log(Auth.loggedIn());
+
   return (
     <ApolloProvider client={client}>
       <RecoilRoot>
