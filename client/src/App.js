@@ -1,10 +1,11 @@
 import "./App.css";
 import { RecoilRoot } from "recoil";
-import { Bookcase } from "./pages";
-import { About, AddBook } from "./components"
+import { Bookcase, Profile, Home } from "./pages";
+import { About, AddBook, Template } from "./components"
 import { LoginForm } from "./components";
 import { SignupForm } from "./components";
 import { createContext, useState } from "react";
+import Auth from './utils/auth';
 import {
   ApolloClient,
   InMemoryCache,
@@ -43,7 +44,8 @@ function App() {
       <SignupContext.Provider value={{ showloginModal, setShowloginModal, showSignupModal, setShowSignupModal }}>
         <div className="App">
           <header>Starter code</header>
-
+          {Auth.loggedIn() ? <Profile/> : <Home/>}
+          <Template/>
           <Bookcase />
           <LoginForm />
           <SignupForm />
