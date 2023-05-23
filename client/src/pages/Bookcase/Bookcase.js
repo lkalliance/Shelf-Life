@@ -8,8 +8,10 @@ import {
   userItemsAtom,
 } from "../../recoil/atom/userBooksAtom";
 import { Shelf, Button } from "../../components";
+import Auth from "../../utils/auth";
 
 function Bookcase() {
+  if (!Auth.loggedIn()) window.location.href = "/";
   const [books, setBooks] = useRecoilState(userBookcaseAtom);
   const [items, setItems] = useRecoilState(userItemsAtom);
 
