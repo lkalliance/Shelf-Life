@@ -49,3 +49,40 @@ export const QUERY_ME = gql`
     }
   }
 `;
+
+export const QUERY_BOOKCASE = gql`
+  query Bookcase {
+    bookcase {
+      year
+      shelves {
+        left {
+          bookId
+          title
+          authors
+          style
+          height
+          thickness
+          color
+        }
+        right {
+          bookId
+          title
+          authors
+          style
+          height
+          thickness
+          color
+        }
+      }
+      unshelved {
+        bookId
+        title
+        authors
+        style
+        height
+        thickness
+        color
+      }
+    }
+  }
+`;
