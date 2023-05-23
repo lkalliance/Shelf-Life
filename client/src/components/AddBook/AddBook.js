@@ -1,12 +1,12 @@
 import "./AddBook.css";
 import React, { useState, useEffect, useContext } from "react";
-import Auth from '../../utils/auth';
-import { ADD_BOOK } from '../../utils/mutations';
+import Auth from "../../utils/auth";
+import { ADD_BOOK } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
-// import { booksDeepCopy, convert } from "../../utils/dragUtils"
-// import { useRecoilState } from "recoil";
-// import { userBooksAtom, userItemsAtom } from "../../recoil/atom/userBooksAtom";
 
+import { booksDeepCopy, convert } from "../../utils/dragUtils";
+import { useRecoilState } from "recoil";
+import { userBooksAtom, userItemsAtom } from "../../recoil/atom/userBooksAtom";
 
 function AddBook() {
   const [showModal, setShowModal] = useState(false);
@@ -16,13 +16,13 @@ function AddBook() {
     setShowModal(!showModal);
   };
   const handleClose = () => {
-    setShowModal(false)
-  }
-  const [selectedOption, setSelectedOption] = useState('');
+    setShowModal(false);
+  };
+  const [selectedOption, setSelectedOption] = useState("");
   const [searchedBooks, setSearchedBooks] = useState([]);
 
-  const [searchInput, setSearchInput] = useState('');
-  const [addBook, { error }] = useMutation(ADD_BOOK)
+  const [searchInput, setSearchInput] = useState("");
+  const [addBook, { error }] = useMutation(ADD_BOOK);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -32,36 +32,35 @@ function AddBook() {
     }
 
     try {
-      const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}`);
+      const response = await fetch(
+        `https://www.googleapis.com/books/v1/volumes?q=${searchInput}`
+      );
 
       if (!response.ok) {
-        throw new Error('something went wrong!');
+        throw new Error("something went wrong!");
       }
 
       const { items } = await response.json();
 
       const bookData = items.map((book) => ({
         bookId: book.id,
-        authors: book.volumeInfo.authors || ['No author to display'],
+        authors: book.volumeInfo.authors || ["No author to display"],
         title: book.volumeInfo.title,
         // description: book.volumeInfo.description,
         // image: book.volumeInfo.imageLinks?.thumbnail || '',
         link: book.selfLink,
-
       }));
 
-
       setSearchedBooks(bookData);
-      setSearchInput('');
+      setSearchInput("");
     } catch (err) {
       console.error(err);
     }
   };
 
-
   const handleSelectionClose = () => {
-    setshowSelectModal(false)
-  }
+    setshowSelectModal(false);
+  };
 
   const handleModalSelection = (book) => {
     setshowSelectModal(true);
@@ -77,40 +76,42 @@ function AddBook() {
     //  onSave: save book to unshelved
     // reload page/clear search and close parent modal
 
-
-    const year = new Date().getFullYear().toString()
-    console.log(year)
-    const submission = { ...selected, year }
-    console.log(submission)
+    const year = new Date().getFullYear().toString();
+    console.log(year);
+    const submission = { ...selected, year };
+    console.log(submission);
     try {
       // Execute mutation and pass in defined parameter data as variables
       const { data } = await addBook({
-        variables: { ...selected, year }
+        variables: { ...selected, year },
       });
-      console.log(selected)
+      console.log(selected);
 
-      console.log(data)
+      console.log(data);
       // code needed to clear the form and dismiss the modal ---
     } catch (err) {
       console.error(err);
     }
-  }
-
-
-
-
+  };
 
   return (
     <>
-      <div className="AddBook">
-        <button onClick={() => {
+      <a
+        href="@"
+        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+        onClick={(e) => {
+          e.preventDefault();
           handleModalSubmit();
-        }} className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-          AddBook
-        </button>
+        }}
+      >
+        Add a Book
+      </a>
 
-        {/* {showModal && (   */}
-        <div id="AddBook" tabIndex="-1" className={
+      {/* {showModal && (   */}
+      <div
+        id="AddBook"
+        tabIndex="-1"
+        className={
           showModal
             ? `fixed top-0 left-0 right-0 z-50  bg-white w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`
             : `fixed top-0 left-0 right-0 z-50 hidden bg-white w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`
@@ -157,12 +158,30 @@ function AddBook() {
                     placeholder="Search"
                     required />
                   <button type="submit" className=" searchbtn text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+
                 </div>
-              </form>
-            </div>
+                <input
+                  type="search"
+                  id="default-search"
+                  className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  name="searchInput"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                  // type='text'
+                  size="lg"
+                  placeholder="Search"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  Search
+                </button>
+              </div>
+            </form>
           </div>
-
-
+        </div>
           <div className="container mx-auto ">
             <h2 className="pt-5">
               {searchedBooks.length > 0
@@ -190,10 +209,9 @@ function AddBook() {
                         Select
                       </button> */}
 
+
                     </div>
-
                   </div>
-
                 );
               })}
 
@@ -309,10 +327,11 @@ function AddBook() {
               </div>
             }
           </div >
+
         </div>
       </div>
     </>
-  )
+  );
 }
 
 export { AddBook };

@@ -5,7 +5,7 @@ import { About, AddBook, Template } from "./components";
 import { LoginForm } from "./components";
 import { SignupForm } from "./components";
 import { createContext, useState } from "react";
-import { Routes, Route, Link, useLocation, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Auth from "./utils/auth";
 import {
   ApolloClient,
