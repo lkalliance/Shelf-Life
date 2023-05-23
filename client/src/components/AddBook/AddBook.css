@@ -1,3 +1,20 @@
 .close-icon.close-icon-book {
     right: -30px;
 }
+.container{
+    /* text-align: center; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+.searchbtn{
+    right: 10px;
+    top: 10px;
+}
+#selection-modal{
+    display: flex;
+    justify-content: center;
+    margin-top: 104px;
+}
