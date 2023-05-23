@@ -28,40 +28,23 @@ export const convert = (data) => {
 
 export const booksDeepCopy = (data) => {
   // This utility returns an editable, deep copy of the books state
-  const newUser = {
-    username: { ...data.username },
-    bookList: [],
-    years: [],
+  const newBookcase = {
+    user_id: data.user_id,
+    year: data.year,
+    shelves: [],
+    unshelved: [],
   };
-  const newYears = [
-    {
-      bookcaseYear: "2023",
-      bookcase: {
-        shelves: [],
-        unshelved: [],
-      },
-    },
-  ];
 
-  data.bookList.map((book) => {
-    newUser.bookList.push({ ...book });
-    return false;
-  });
-
-  data.years[0].bookcase.shelves.map((shelf) => {
+  data.shelves.map((shelf) => {
     const shelfCopy = { left: [], right: [] };
     shelf.left.map((book) => shelfCopy.left.push({ ...book }));
     shelf.right.map((book) => shelfCopy.right.push({ ...book }));
-    newYears[0].bookcase.shelves.push(shelfCopy);
+    newBookcase.shelves.push(shelfCopy);
   });
 
-  data.years[0].bookcase.unshelved.map((book) =>
-    newYears[0].bookcase.unshelved.push({ ...book })
-  );
+  data.unshelved.map((book) => newBookcase.unshelved.push({ ...book }));
 
-  newUser.years = newYears;
-
-  return newUser;
+  return newBookcase;
 };
 
 export const abbreviateTitle = (title) => {
@@ -109,7 +92,7 @@ export const isTight = (book) => {
   return "";
 };
 
-export const fakedata = {
+export const fakeUser = {
   username: "Alias Undercover",
   bookList: [
     {
@@ -339,298 +322,11 @@ export const fakedata = {
       bookId: "666",
     },
   ],
-  years: [
-    {
-      bookcaseYear: "2023",
-      bookcase: {
-        shelves: [
-          {
-            left: [
-              {
-                title: "The Silmarillion",
-                authors: ["J.R.R. Tolkien"],
-                color: "white",
-                thickness: "mid",
-                height: "short",
-                style: "paperback",
-                bookId: "4",
-              },
-              {
-                title: "The Fellowship of the Ring",
-                authors: ["J.R.R. Tolkien"],
-                color: "blue",
-                thickness: "mid",
-                height: "short",
-                style: "paperback",
-                bookId: "1",
-              },
-              {
-                title: "Tne Two Towers",
-                authors: ["J.R.R. Tolkien"],
-                color: "green",
-                thickness: "mid",
-                height: "short",
-                style: "paperback",
-                bookId: "2",
-              },
-              {
-                title: "The Return of the King",
-                authors: ["J.R.R. Tolkien"],
-                color: "green",
-                thickness: "mid",
-                height: "short",
-                style: "paperback",
-                bookId: "3",
-              },
-            ],
-            right: [
-              {
-                title: "Stormbringer",
-                authors: ["Michael Moorcock"],
-                color: "red",
-                thickness: "thin",
-                height: "short",
-                style: "paperback",
-                bookId: "7",
-              },
-              {
-                title: "Lord Foul's Bane",
-                authors: ["Stephen R. Donaldson"],
-                color: "orange",
-                thickness: "thick",
-                height: "tall",
-                style: "hardcover",
-                bookId: "8",
-              },
-            ],
-          },
-          {
-            left: [
-              {
-                title: "The Illearth War",
-                authors: ["Stephen R. Donaldson"],
-                color: "blue",
-                thickness: "thick",
-                height: "tall",
-                style: "hardcover",
-                bookId: "9",
-              },
-              {
-                title: "The Power that Preserves",
-                authors: ["Stephen R. Donaldson"],
-                color: "green",
-                thickness: "thick",
-                height: "tall",
-                style: "hardcover",
-                bookId: "10",
-              },
-              {
-                title: "White Gold Wielder",
-                authors: ["Stephen R. Donaldson"],
-                color: "yellow",
-                thickness: "thick",
-                height: "tall",
-                style: "hardcover",
-                bookId: "13",
-              },
-              {
-                title: "The Wounded Land",
-                authors: ["Stephen R. Donaldson"],
-                color: "purple",
-                thickness: "thick",
-                height: "tall",
-                style: "hardcover",
-                bookId: "100",
-              },
-            ],
-            right: [
-              {
-                title: "The Hobbit",
-                authors: ["J.R.R. Tolkien"],
-                color: "white",
-                thickness: "mid",
-                height: "short",
-                style: "paperback",
-                bookId: "6",
-              },
-              {
-                title: "The Sword of Shannara",
-                authors: ["Terry Brooks"],
-                color: "black",
-                thickness: "thick",
-                height: "short",
-                style: "paperback",
-                bookId: "5",
-              },
-            ],
-          },
-          {
-            left: [
-              {
-                title: "Wait 'Til Next Year",
-                authors: ["William Goldman", "Mike Lupica"],
-                color: "white",
-                thickness: "mid",
-                height: "medium",
-                style: "hardcover",
-                bookId: "14",
-              },
-              {
-                title: "Adventures in the Screen Trade",
-                authors: ["William Goldman"],
-                color: "red",
-                thickness: "mid",
-                height: "medium",
-                style: "hardcover",
-                bookId: "15",
-              },
-              {
-                title: "Moneyball",
-                authors: ["Michael Lewis"],
-                color: "green",
-                thickness: "mid",
-                height: "medium",
-                style: "hardcover",
-                bookId: "16",
-              },
-            ],
-            right: [
-              {
-                title: "The Big Short",
-                authors: ["Michael Lewis"],
-                color: "black",
-                thickness: "mid",
-                height: "short",
-                style: "paperback",
-                bookId: "17",
-              },
-              {
-                title: "The One Tree",
-                authors: ["Stephen R. Donaldson"],
-                color: "blue",
-                thickness: "thick",
-                height: "tall",
-                style: "hardcover",
-                bookId: "12",
-              },
-
-              {
-                title: "I, Robot",
-                authors: ["Isaac Asimov"],
-                color: "red",
-                thickness: "mid",
-                height: "medium",
-                style: "leather",
-                bookId: "11",
-              },
-            ],
-          },
-          {
-            left: [
-              {
-                title: "What the Dog Saw",
-                authors: ["Malcolm Gladwell"],
-                color: "red",
-                thickness: "mid",
-                height: "medium",
-                style: "paperback",
-                bookId: "18",
-              },
-              {
-                title: "The Fifties",
-                authors: ["David Halberstam"],
-                color: "navy",
-                thickness: "thick",
-                height: "tall",
-                style: "hardcover",
-                bookId: "19",
-              },
-            ],
-            right: [
-              {
-                title: "The House in the Cerulean Sea",
-                authors: ["T.J. Klune"],
-                color: "blue",
-                thickness: "mid",
-                height: "medium",
-                style: "paperback",
-                bookId: "20",
-              },
-              {
-                title: "The Extraordinaries",
-                authors: ["T.J. Klune"],
-                color: "red",
-                thickness: "mid",
-                height: "medium",
-                style: "paperback",
-                bookId: "21",
-              },
-
-              {
-                title: "The Great Gatsby",
-                authors: ["F. Scott Fitzgerald"],
-                color: "black",
-                thickness: "mid",
-                height: "medium",
-                style: "leather",
-                bookId: "22",
-              },
-            ],
-          },
-        ],
-        unshelved: [
-          {
-            title: "The Catcher in the Rye",
-            authors: ["J.D.Salinger"],
-            color: "green",
-            thickness: "thin",
-            height: "short",
-            style: "paperback",
-            bookId: "104",
-          },
-          {
-            title: "The Long Way to a Small, Angry Planet",
-            authors: ["Becky Chambers"],
-            color: "black",
-            thickness: "mid",
-            height: "short",
-            style: "hardcover",
-            bookId: "436",
-          },
-          {
-            title: "Steve Jobs",
-            authors: ["Walter Isaacson"],
-            color: "white",
-            thickness: "thick",
-            height: "tall",
-            style: "hardcover",
-            bookId: "224",
-          },
-          {
-            title: "Hamlet",
-            authors: ["William Shakespeare"],
-            color: "blue",
-            thickness: "thin",
-            height: "short",
-            style: "leather",
-            bookId: "367",
-          },
-          {
-            title: "Book of Spells",
-            authors: ["S. Beelzebub"],
-            color: "purple",
-            thickness: "thick",
-            height: "tall",
-            style: "leather",
-            bookId: "666",
-          },
-        ],
-      },
-    },
-  ],
 };
 
-const fakedata_orig = {
+export const fakeBookcase = {
+  year: "2023",
+  user_id: 123456,
   shelves: [
     {
       left: [

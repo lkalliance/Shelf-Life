@@ -3,11 +3,14 @@ import { useRecoilState } from "recoil";
 import { DragDropContext } from "@hello-pangea/dnd";
 
 import { booksDeepCopy, convert, noSpace } from "../../utils/dragUtils";
-import { userBooksAtom, userItemsAtom } from "../../recoil/atom/userBooksAtom";
+import {
+  userBookcaseAtom,
+  userItemsAtom,
+} from "../../recoil/atom/userBooksAtom";
 import { Shelf } from "../../components";
 
 function Bookcase() {
-  const [books, setBooks] = useRecoilState(userBooksAtom);
+  const [books, setBooks] = useRecoilState(userBookcaseAtom);
   const [items, setItems] = useRecoilState(userItemsAtom);
 
   function handleDrop({ source, destination }) {
@@ -23,10 +26,10 @@ function Bookcase() {
     if (
       !(toShelf === "unshelved" || fromShelf === toShelf) &&
       noSpace(
-        books.years[0].bookcase.shelves[toShelf],
+        books.shelves[toShelf],
         fromShelf === "unshelved"
-          ? books.years[0].bookcase.unshelved[source.index]
-          : books.years[0].bookcase.shelves[fromShelf][fromStack][source.index]
+          ? books.unshelved[source.index]
+          : books.shelves[fromShelf][fromStack][source.index]
       )
     ) {
       return;
@@ -38,14 +41,14 @@ function Bookcase() {
     // create a copy of the source and destination stacks
     const bSourceStack =
       fromStack === "unshelved"
-        ? [...books.years[0].bookcase.unshelved]
-        : [...books.years[0].bookcase.shelves[fromShelf][fromStack]];
+        ? [...books.unshelved]
+        : [...books.shelves[fromShelf][fromStack]];
     const bDestStack =
       source.droppableId === destination.droppableId
         ? bSourceStack
         : toStack === "unshelved"
-        ? [...books.years[0].bookcase.unshelved]
-        : [...books.years[0].bookcase.shelves[toShelf][toStack]];
+        ? [...books.unshelved]
+        : [...books.shelves[toShelf][toStack]];
 
     // remove the book from the source...
     const [removedBook] = bSourceStack.splice(source.index, 1);
@@ -54,22 +57,21 @@ function Bookcase() {
 
     // place the edited stacks into the copy of the state, and set states
     fromShelf === "unshelved"
-      ? (newUser.years[0].bookcase.unshelved = bSourceStack)
-      : (newUser.years[0].bookcase.shelves[fromShelf][fromStack] =
-          bSourceStack);
+      ? (newUser.unshelved = bSourceStack)
+      : (newUser.shelves[fromShelf][fromStack] = bSourceStack);
     toShelf === "unshelved"
-      ? (newUser.years[0].bookcase.unshelved = bDestStack)
-      : (newUser.years[0].bookcase.shelves[toShelf][toStack] = bDestStack);
+      ? (newUser.unshelved = bDestStack)
+      : (newUser.shelves[toShelf][toStack] = bDestStack);
 
     setBooks(newUser);
-    setItems(convert(newUser.years[0].bookcase));
+    setItems(convert(newUser));
   }
 
   return (
     <section id="bookcase">
       <DragDropContext onDragEnd={handleDrop}>
         <div id="shelves">
-          {books.years[0].bookcase.shelves.map((shelf, shelfIndex) => {
+          {books.shelves.map((shelf, shelfIndex) => {
             return <Shelf key={shelfIndex} shelfIndex={shelfIndex} />;
           })}
         </div>

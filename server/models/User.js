@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const Book = require('./Book');
 
 const userSchema = new Schema({
-  username: {
+  userName: {
     type: String,
     required: true,
     unique: true
