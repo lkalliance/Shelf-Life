@@ -1,7 +1,7 @@
 import "./App.css";
 import { RecoilRoot } from "recoil";
 import { Bookcase, Profile, Home } from "./pages";
-import { About, AddBook, Template } from "./components";
+import { About, AddBook, NavBar } from "./components";
 import { LoginForm } from "./components";
 import { SignupForm } from "./components";
 import { createContext, useState } from "react";
@@ -50,7 +50,7 @@ function App() {
           <div className="App">
             {showloginModal ? <LoginForm /> : <div></div>}
             {showSignupModal ? <SignupForm /> : <div></div>}
-            <Template showLogin={setShowloginModal} />
+            <NavBar showLogin={setShowloginModal} />
             <Routes>
               <Route
                 path="/"
