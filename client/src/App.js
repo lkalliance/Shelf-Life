@@ -1,9 +1,7 @@
 import "./App.css";
 import { RecoilRoot } from "recoil";
 import { Bookcase, Profile, Home } from "./pages";
-import { About, AddBook, Template } from "./components";
-import { LoginForm } from "./components";
-import { SignupForm } from "./components";
+import { Template, LoginForm, SignupForm } from "./components";
 import { createContext, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Auth from "./utils/auth";
@@ -35,7 +33,7 @@ const client = new ApolloClient({
 function App() {
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [showloginModal, setShowloginModal] = useState(false);
-  console.log(Auth.loggedIn());
+
   return (
     <ApolloProvider client={client}>
       <RecoilRoot>
