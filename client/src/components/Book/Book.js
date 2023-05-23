@@ -32,9 +32,10 @@ function Book({ bookId, book, bookIndex, stack }) {
   }
 
   function unshelveBook() {
+    const { 1: thisStack, 2: thisShelf } = stack.split("-");
+    if (thisShelf === "unshelved") return;
     const allBooks = booksDeepCopy(userBooks);
     const unshelved = allBooks.unshelved;
-    const { 1: thisStack, 2: thisShelf } = stack.split("-");
 
     const thisBook = allBooks.shelves[thisShelf][thisStack].splice(
       bookIndex,
