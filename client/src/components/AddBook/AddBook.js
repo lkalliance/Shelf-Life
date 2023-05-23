@@ -76,15 +76,19 @@ function AddBook() {
     // save selected options
     //  onSave: save book to unshelved
     // reload page/clear search and close parent modal
-    console.log(selected)
-  
+
+
     const year = new Date().getFullYear().toString()
     console.log(year)
+    const submission = { ...selected, year }
+    console.log(submission)
     try {
       // Execute mutation and pass in defined parameter data as variables
       const { data } = await addBook({
         variables: { ...selected, year }
       });
+      console.log(selected)
+
       console.log(data)
       // code needed to clear the form and dismiss the modal ---
     } catch (err) {

@@ -60,6 +60,8 @@ function App() {
               <Route path="/*" element={<Bookcase />} />
             </Routes>
           </div>
+          <AddBook />
+          <About />
         </SignupContext.Provider>
       </RecoilRoot>
     </ApolloProvider>
