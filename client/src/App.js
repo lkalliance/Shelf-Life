@@ -26,10 +26,8 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 const client = new ApolloClient({
-  // link: new HttpLink({
-  //   uri: 'http://localhost:3001/graphql'
-  // }),
-  // link: authLink.concat(httpLink),
+  link: authLink.concat(httpLink),
+
   uri: "http://localhost:3001/graphql",
   cache: new InMemoryCache(),
 });
@@ -54,7 +52,10 @@ function App() {
             {showSignupModal ? <SignupForm /> : <div></div>}
             <Template showLogin={setShowloginModal} />
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route
+                path="/"
+                element={Auth.loggedIn ? <Profile /> : <Home />}
+              />
               <Route path="/profile" element={<Profile />} />
               <Route path="/bookcase" element={<Bookcase />} />
               <Route path="/*" element={<Bookcase />} />
