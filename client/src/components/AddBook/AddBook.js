@@ -11,6 +11,7 @@ import { userBooksAtom, userItemsAtom } from "../../recoil/atom/userBooksAtom";
 function AddBook() {
   const [showModal, setShowModal] = useState(false);
   const [showSelectModal, setshowSelectModal] = useState(false);
+  const [selected, setSelected] = useState({ comment: "", rating: "" });
   const handleModalSubmit = () => {
     setShowModal(!showModal);
   };
@@ -49,27 +50,46 @@ function AddBook() {
 
       }));
 
+
       setSearchedBooks(bookData);
       setSearchInput('');
     } catch (err) {
       console.error(err);
     }
   };
+
+
   const handleSelectionClose = () => {
     setshowSelectModal(false)
   }
 
-  const handleModalSelection = () => {
+  const handleModalSelection = (book) => {
+    setSelected({ ...selected, id: book.bookId, title: book.title, authors: book.authors })
     setshowSelectModal(!showSelectModal);
+
 
   }
 
-  const handleSelectionForm = (event) => {
+  const handleSelectionForm = async (event) => {
     event.preventDefault();
     // On select save book and bring up selection modal
     // save selected options
     //  onSave: save book to unshelved
     // reload page/clear search and close parent modal
+    console.log(selected)
+  
+    const year = new Date().getFullYear().toString()
+    console.log(year)
+    try {
+      // Execute mutation and pass in defined parameter data as variables
+      const { data } = await addBook({
+        variables: { ...selected, year }
+      });
+      console.log(data)
+      // code needed to clear the form and dismiss the modal ---
+    } catch (err) {
+      console.error(err);
+    }
   }
 
 
@@ -155,13 +175,13 @@ function AddBook() {
                       )}
                       <div className="mb-2">
                         <h3 className="text-lg font-bold">{book.title}</h3>
-                        <p className="text-sm">Authors: {book.authors}</p>
+                        {/* <p className="text-sm">Authors: {book.authors}</p> */}
                       </div>
                       <p className="text-sm">{book.description}</p>
 
                       <button
 
-                        onClick={() => handleModalSelection()} className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"
+                        onClick={() => handleModalSelection(book)} className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"
                       >
                         Select
                       </button>
@@ -216,17 +236,29 @@ function AddBook() {
                                     <option value="Blue">Blue</option>
                                   </select>
                                 </div>
-
                                 <div>
-                                  <label htmlFor="size" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    Size:
+                                  <label htmlFor="Height" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Height:
                                   </label>
 
-                                  <select id="book_size" name="bookSize" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                                    <option>Select Size</option>
-                                    <option value="small">Small</option>
+                                  <select id="book_height" name="bookHeight" onChange={e => setSelected({ ...selected, height: e.target.value })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                    <option>Select Height</option>
+                                    <option value="tall">Tall</option>
                                     <option value="Medium">Medium</option>
-                                    <option value="Large">Large</option>
+                                    <option value="short">Short</option>
+                                  </select>
+                                </div>
+
+                                <div>
+                                  <label htmlFor="Thickness" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Thickness:
+                                  </label>
+
+                                  <select id="book_thickness" name="bookThickness" onChange={e => setSelected({ ...selected, thickness: e.target.value })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                    <option>Select Size</option>
+                                    <option value="thick">Thick</option>
+                                    <option value="mid">Mid</option>
+                                    <option value="thin">Thin</option>
                                   </select>
                                 </div>
 
@@ -235,13 +267,25 @@ function AddBook() {
                                     Style:
                                   </label>
 
-                                  <select id="book_style" name="bookStyle" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                  <select id="book_style" name="bookStyle" onChange={e => setSelected({ ...selected, style: e.target.value })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                                     <option>Select Style</option>
                                     <option value="Paperback">Paperback</option>
                                     <option value="HardCover">HardCover</option>
                                     <option value="Leatherbound">Leatherbound</option>
                                   </select>
                                 </div>
+                                <div>
+                                  <label htmlFor="Rating" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    <input type="text" value={selected.rating} onChange={e => setSelected({ ...selected, rating: e.target.value })} id="Rating" name="Rating" min="1" max="5" />
+                                    Rating:
+                                  </label>
+                                </div>
+
+                                <div className="mb-6">
+                                  <label htmlFor="large-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Comment</label>
+                                  <input type="text" id="large-input" value={selected.comment} onChange={e => setSelected({ ...selected, comment: e.target.value })} className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                </div>
+
                                 <button type="submit" className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                   onSubmit={handleSelectionForm}
                                 >Save selection</button>
