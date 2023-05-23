@@ -78,7 +78,7 @@ function AddBook() {
     // save selected options
     //  onSave: save book to unshelved
     // reload page/clear search and close parent modal
-
+    console.log(selected);
     const year = new Date().getFullYear().toString();
     try {
       // Execute mutation and pass in defined parameter data as variables
@@ -283,15 +283,21 @@ function AddBook() {
                           id="book_color"
                           name="bookColor"
                           onChange={(e) =>
-                            setSelected({ ...selected, height: e.target.value })
+                            setSelected({ ...selected, color: e.target.value })
                           }
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                           required
                         >
-                          <option>Select color</option>
-                          <option value="Red">Red</option>
-                          <option value="Green">Green</option>
-                          <option value="Blue">Blue</option>
+                          <option value="white">Select color</option>
+                          <option value="red">Red</option>
+                          <option value="green">Green</option>
+                          <option value="navy">Blue</option>
+                          <option value="yellow">Blue</option>
+                          <option value="orange">Blue</option>
+                          <option value="black">Blue</option>
+                          <option value="white">Blue</option>
+                          <option value="green">Blue</option>
+                          <option value="purple">Blue</option>
                         </select>
                       </div>
                       <div>
@@ -311,9 +317,9 @@ function AddBook() {
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                           required
                         >
-                          <option>Select Height</option>
+                          <option value="short">Select Height</option>
                           <option value="tall">Tall</option>
-                          <option value="Medium">Medium</option>
+                          <option value="medium">Medium</option>
                           <option value="short">Short</option>
                         </select>
                       </div>
@@ -338,7 +344,7 @@ function AddBook() {
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                           required
                         >
-                          <option>Select Size</option>
+                          <option value="mid">Select Size</option>
                           <option value="thick">Thick</option>
                           <option value="mid">Mid</option>
                           <option value="thin">Thin</option>
