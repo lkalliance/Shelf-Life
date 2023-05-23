@@ -1,3 +1,4 @@
 section#home {
+  background-color: aqua;
   display: flex;
 }
