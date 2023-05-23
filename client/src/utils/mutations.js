@@ -64,11 +64,3 @@ export const REMOVE_BOOK = gql`
     }
   }
 `;
-
-export const ARRANGE_BOOKCASE = gql`
-  mutation ArrangeBookcase($bookcase: YearInput) {
-    arrangeBookcase(bookcase: $bookcase) {
-      _id
-    }
-  }
-`;

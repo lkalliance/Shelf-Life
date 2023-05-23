@@ -27,6 +27,18 @@ const bookSchema = new Schema({
     style: {
         type: String,
     },
+    image: {
+        type: String,
+    },
+    rating: {
+        type: Number,
+    },
+    comment: {
+        type: String,
+    },
+    year: {
+        type: String
+    },
     bookId: {
         type: String,
         required: true
