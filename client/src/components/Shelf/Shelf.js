@@ -2,17 +2,20 @@ import "./Shelf.css";
 
 import { useRecoilState } from "recoil";
 import { booksDeepCopy, convert } from "../../utils/dragUtils";
-import { userBooksAtom, userItemsAtom } from "../../recoil/atom/userBooksAtom";
+import {
+  userBookcaseAtom,
+  userItemsAtom,
+} from "../../recoil/atom/userBooksAtom";
 import { Stack } from "../../components";
 
 function Shelf({ shelfIndex }) {
-  const [userBooks, setUserBooks] = useRecoilState(userBooksAtom);
+  const [userBooks, setUserBooks] = useRecoilState(userBookcaseAtom);
   const [userItems, setUserItems] = useRecoilState(userItemsAtom);
 
   const books =
     shelfIndex === "unshelved"
-      ? userBooks.years[0].bookcase.unshelved
-      : userBooks.years[0].bookcase.shelves[shelfIndex];
+      ? userBooks.unshelved
+      : userBooks.shelves[shelfIndex];
 
   const leftItem = userItems[`shelf-left-${shelfIndex}`];
   const rightItem = userItems[`shelf-right-${shelfIndex}`];
@@ -23,8 +26,8 @@ function Shelf({ shelfIndex }) {
     const target = e.target.nodeName;
     if (target !== "UL" && target !== "LI") return;
     const allBooks = booksDeepCopy(userBooks);
-    const thisShelf = allBooks.years[0].bookcase.shelves[shelfIndex];
-    const unshelved = allBooks.years[0].bookcase.unshelved;
+    const thisShelf = allBooks.shelves[shelfIndex];
+    const unshelved = allBooks.unshelved;
     while (thisShelf.left.length > 0) {
       const book = thisShelf.left.pop();
       unshelved.push(book);
@@ -34,7 +37,7 @@ function Shelf({ shelfIndex }) {
       unshelved.push(book);
     }
     setUserBooks(allBooks);
-    setUserItems(convert(allBooks.years[0].bookcase));
+    setUserItems(convert(allBooks));
   };
 
   return (

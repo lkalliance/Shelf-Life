@@ -7,10 +7,13 @@ import {
   booksDeepCopy,
   convert,
 } from "../../utils/dragUtils";
-import { userBooksAtom, userItemsAtom } from "../../recoil/atom/userBooksAtom";
+import {
+  userBookcaseAtom,
+  userItemsAtom,
+} from "../../recoil/atom/userBooksAtom";
 
 function Book({ bookId, book, bookIndex, stack }) {
-  const [userBooks, setUserBooks] = useRecoilState(userBooksAtom);
+  const [userBooks, setUserBooks] = useRecoilState(userBookcaseAtom);
   const [userItems, setUserItems] = useRecoilState(userItemsAtom);
 
   let timer;
@@ -30,17 +33,18 @@ function Book({ bookId, book, bookIndex, stack }) {
 
   function unshelveBook() {
     const allBooks = booksDeepCopy(userBooks);
-    const unshelved = allBooks.years[0].bookcase.unshelved;
+    const unshelved = allBooks.unshelved;
     const { 1: thisStack, 2: thisShelf } = stack.split("-");
 
-    const thisBook = allBooks.years[0].bookcase.shelves[thisShelf][
-      thisStack
-    ].splice(bookIndex, 1);
+    const thisBook = allBooks.shelves[thisShelf][thisStack].splice(
+      bookIndex,
+      1
+    );
 
     unshelved.push(thisBook[0]);
 
     setUserBooks(allBooks);
-    setUserItems(convert(allBooks.years[0].bookcase));
+    setUserItems(convert(allBooks));
   }
 
   const textStyle = isTight(book);
