@@ -11,28 +11,20 @@ const typeDefs = gql`
     username: String
     email: String
     password: String
-    years: [Year]
     bookList: [Booklist]
-  }
-
-  type Year {
-    _id: ID
-    bookcaseYear: String
-    bookcase: Bookcase
-  }
-
-  input YearInput {
-    bookcaseYear: String
-    bookcase: BookcaseInput
   }
 
   type Bookcase {
     _id: ID
+    user_id: ID
+    year: String
     shelves: [Shelf]
     unshelved: [Book]
   }
 
   input BookcaseInput {
+    user_id: ID
+    year: String
     shelves: [ShelfInput]
     unshelved: [BookInput]
   }
@@ -57,6 +49,9 @@ const typeDefs = gql`
     height: String
     thickness: String
     style: String
+    comment: String
+    rating: Int
+    year: String
     bookId: String
   }
 
@@ -69,20 +64,17 @@ const typeDefs = gql`
     height: String
     thickness: String
     color: String
-  }
-
-  type Booklist {
-    _id: ID
-    title: String
-    authors: [String]
+    year: String
     rating: Int
     comment: String
-    year: String
-    bookId: String
   }
 
   type Query {
     me: User
+  }
+
+  type Query {
+    bookcase: Bookcase
   }
 
   type Mutation {
