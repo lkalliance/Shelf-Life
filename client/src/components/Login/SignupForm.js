@@ -1,20 +1,29 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ApolloClient } from '@apollo/client';
-import { ADD_USER } from '../../utils/mutations';
+import { ApolloClient } from "@apollo/client";
+import { ADD_USER } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
-import Auth from '../../utils/auth';
+import Auth from "../../utils/auth";
 import { SignupContext } from "../../App";
 
 function SignupForm() {
   const [showModal, setShowModal] = useState(false);
-  const { showSignupModal, setShowSignupModal, showloginModal, setShowloginModal } = useContext(SignupContext);
+  const {
+    showSignupModal,
+    setShowSignupModal,
+    showloginModal,
+    setShowloginModal,
+  } = useContext(SignupContext);
   // set initial form state
-  const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
+  const [userFormData, setUserFormData] = useState({
+    userName: "",
+    email: "",
+    password: "",
+  });
   // set state for form validation
   const [validated] = useState(false);
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
-  const [addUser, { error }] = useMutation(ADD_USER)
+  const [addUser, { error }] = useMutation(ADD_USER);
 
   const handleModalSubmit = () => {
     setShowSignupModal(!showSignupModal);
@@ -27,12 +36,11 @@ function SignupForm() {
 
   useEffect(() => {
     if (error) {
-      setShowAlert(true)
+      setShowAlert(true);
+    } else {
+      setShowAlert(false);
     }
-    else {
-      setShowAlert(false)
-    }
-  }, [error])
+  }, [error]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -47,26 +55,25 @@ function SignupForm() {
       event.preventDefault();
       event.stopPropagation();
     }
-    console.log(userFormData)
+    console.log(userFormData);
 
     try {
       const { data } = await addUser({
-        variables: { ...userFormData }
+        variables: { ...userFormData },
       });
       console.log(data);
       Auth.login(data.addUser.token);
     } catch (err) {
       console.error(err);
-      console.log(err.message)
-
+      console.log(err.message);
     }
 
     setUserFormData({
-      username: '',
-      email: '',
-      password: '',
+      userName: "",
+      email: "",
+      password: "",
     });
-  }
+  };
   return (
     <>
       <div
@@ -106,25 +113,30 @@ function SignupForm() {
               <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
                 Sign in to our platform
               </h3>
-              <form className="space-y-6" action="#" noValidate onSubmit={handleFormSubmit}>
+              <form
+                className="space-y-6"
+                action="#"
+                noValidate
+                onSubmit={handleFormSubmit}
+              >
                 {/* <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
                   Something went wrong with your signup!
                 </Alert> */}
                 <div>
                   <label
-                    htmlFor="username"
+                    htmlFor="userName"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Your username
                   </label>
                   <input
                     type="text"
-                    name="username"
-                    id="username"
+                    name="userName"
+                    id="userName"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     placeholder="username"
                     onChange={handleInputChange}
-                    value={userFormData.username}
+                    value={userFormData.userName}
                     required
                   />
                 </div>
@@ -166,8 +178,14 @@ function SignupForm() {
                 </div>
 
                 <button
-                  disabled={!(userFormData.username && userFormData.email && userFormData.password)}
-                  type='submit'
+                  disabled={
+                    !(
+                      userFormData.userName &&
+                      userFormData.email &&
+                      userFormData.password
+                    )
+                  }
+                  type="submit"
                   className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Signup
@@ -184,7 +202,6 @@ function SignupForm() {
                   Login
                 </button>
               </div>
-
             </div>
           </div>
         </div>
