@@ -102,20 +102,6 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-
-    arrangeBookcase: async (parent, { year, shelves, unshelved }, context) => {
-      if (context.user) {
-        const updatedBookcase = await Bookcase.findOneAndUpdate(
-          {
-            user_id: context.user._id,
-            year,
-          },
-          { $set: { shelves: shelves, unshelved: unshelved } },
-          { new: true }
-        );
-        return updatedBookcase;
-      }
-    },
   },
 };
 

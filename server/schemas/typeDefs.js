@@ -94,11 +94,6 @@ const typeDefs = gql`
       year: String
     ): User
     removeBook(bookId: ID!): User
-    arrangeBookcase(
-      year: String!
-      shelves: [Shelf]
-      unshelved: [Book]
-    ): Bookcase
   }
 `;
 

@@ -8,13 +8,10 @@ import {
   userItemsAtom,
 } from "../../recoil/atom/userBooksAtom";
 import { Shelf, Button } from "../../components";
-import { useMutation } from "@apollo/client";
-import { ARRANGE_BOOKCASE } from "../../utils/mutations";
 
 function Bookcase() {
   const [books, setBooks] = useRecoilState(userBookcaseAtom);
   const [items, setItems] = useRecoilState(userItemsAtom);
-  const [arrange, { error, data }] = useMutation(ARRANGE_BOOKCASE);
 
   function handleDrop({ source, destination }) {
     // All the things we do when the book is dropped onto the stack
@@ -70,31 +67,15 @@ function Bookcase() {
     setItems(convert(newUser));
   }
 
-  async function saveBookcase() {
-    try {
-      // Execute mutation and pass in defined parameter data as variables
-      const { data } = await arrange({
-        variables: {
-          year: "2023",
-          shelves: books.shelves,
-          unshelved: books.unshelved,
-        },
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  const addShelf = async () => {
+  const addShelf = () => {
     const newUser = booksDeepCopy(books);
     newUser.shelves.push({ left: [], right: [] });
     newUser.shelves.push({ left: [], right: [] });
     setBooks(newUser);
     setItems(convert(newUser));
-    saveBookcase();
   };
 
-  const removeEmpties = async () => {
+  const removeEmpties = () => {
     const newUser = { shelves: [], unshelved: [...books.unshelved] };
     books.shelves.map((shelf) => {
       if (shelf.left.length > 0 || shelf.right.length > 0) {
@@ -111,8 +92,6 @@ function Bookcase() {
     }
     setBooks(newUser);
     setItems(convert(newUser));
-
-    saveBookcase();
   };
 
   return (
