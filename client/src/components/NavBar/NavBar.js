@@ -13,9 +13,7 @@ function NavBar({ showLogin }) {
             className="logo"
             alt="Logo"
           />
-          {/* <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            Flowbite
-          </span> */}
+      
         </Link>
         <button
           data-collapse-toggle="navbar-default"
