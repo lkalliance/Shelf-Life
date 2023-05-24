@@ -1,6 +1,6 @@
-div.NavBar {
-  display: flex;
+nav {
+  margin-bottom: 12px;
 }
-.logo{
+.logo {
   width: 100px;
 }

@@ -29,7 +29,6 @@ export const convert = (data) => {
 export const booksDeepCopy = (data) => {
   // This utility returns an editable, deep copy of the books state
 
-  console.log(data);
   const newBookcase = {
     user_id: data.user_id,
     year: data.year,
@@ -96,8 +95,9 @@ export const noSpace = (shelf, newBook) => {
 export const isTight = (book) => {
   // This utility performs logic to determine if the spine text needs shortening
   if (
-    book.title >= 30 ||
-    (book.title.length > 15 && book.thickness == "thin")
+    book.title >= 25 ||
+    (book.title.length > 15 && ["short"].indexOf(book.height) >= 0) ||
+    (book.title.length > 22 && ["medium"].indexOf(book.height) >= 0)
   ) {
     return "tightest";
   } else if (book.thickness === "thin") {

@@ -124,7 +124,7 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
     arrangeBookcase: async (parent, args, context) => {
-      console.log(args);
+      console.log(args.bookcase.shelves);
       if (context.user) {
         const updateShelves = await Bookcase.findOneAndUpdate(
           { user_id: context.user._id, year: args.bookcase.year },

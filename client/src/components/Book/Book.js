@@ -1,6 +1,8 @@
 import "./Book.css";
 import { useRecoilState } from "recoil";
 import { Draggable } from "@hello-pangea/dnd";
+import { useMutation } from "@apollo/client";
+import { ARRANGE_BOOKCASE } from "../../utils/mutations";
 import {
   isTight,
   abbreviateTitle,
@@ -16,6 +18,7 @@ function Book({ bookId, book, bookIndex, stack }) {
   const [userBooks, setUserBooks] = useRecoilState(userBookcaseAtom);
   // eslint-disable-next-line no-unused-vars
   const [userItems, setUserItems] = useRecoilState(userItemsAtom);
+  const [arrangeBookcase, { error }] = useMutation(ARRANGE_BOOKCASE);
 
   let timer;
   function clickHandler(e) {
@@ -32,7 +35,7 @@ function Book({ bookId, book, bookIndex, stack }) {
     }
   }
 
-  function unshelveBook() {
+  async function unshelveBook() {
     const { 1: thisStack, 2: thisShelf } = stack.split("-");
     if (thisShelf === "unshelved") return;
     const allBooks = booksDeepCopy(userBooks);
@@ -42,11 +45,20 @@ function Book({ bookId, book, bookIndex, stack }) {
       bookIndex,
       1
     );
-
     unshelved.push(thisBook[0]);
-
     setUserBooks(allBooks);
     setUserItems(convert(allBooks));
+
+    try {
+      // Execute mutation and pass in defined parameter data as variables
+      const { data } = await arrangeBookcase({
+        variables: { bookcase: allBooks },
+      });
+
+      // code needed to clear the form and dismiss the modal ---
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   const textStyle = isTight(book);
