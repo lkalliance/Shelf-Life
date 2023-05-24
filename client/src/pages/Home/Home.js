@@ -2,7 +2,9 @@ import "./Home.css";
 
 function Home() {
   return <section id="home">
-    <p>Just a quick test</p>
+    <div className="shelf-container">
+    <img src="./shelf-final-2.png" alt="A giant bookshelf" id="shelf"/>
+</div>
   </section>
 
   ;
