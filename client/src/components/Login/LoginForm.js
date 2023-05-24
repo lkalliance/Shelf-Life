@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
+import "./login.css";
 import { ApolloClient } from "@apollo/client";
-// import { useMutation } from 'react-query';
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { useNavigate } from "react-router";
 
-import "./login.css";
+
 import { SignupContext } from "../../App";
 import { convert } from "../../utils/dragUtils";
 import { useRecoilState } from "recoil";
@@ -89,34 +89,11 @@ function LoginForm() {
     });
   };
 
-  // {
-  //   Auth.loggedIn() ? (
-  //     <>
 
-  //       <button onClick={Auth.logout}>Logout</button>
-  //     </>
-  //   ) : (
-  //     <button onClick={() => setShowloginModal(true)}>Login</button>
-  //   )
-  // }
 
   return (
     <>
-      {/* {Auth.loggedIn() ? (
-        <>
-          <button onClick={Auth.logout}>Logout</button>
-        </>
-      ) : (
-        <button
-          onClick={() => {
-            handleModalSubmit();
-          }}
-          className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          type="button"
-        >
-          Login
-        </button>
-      )} */}
+
 
       <div
         tabIndex="-1"
@@ -151,9 +128,9 @@ function LoginForm() {
               </svg>
               <span className="sr-only">Close modal</span>
             </button>
-            <div className="px-6 py-6 lg:px-8">
-              <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
-                Sign in to our platform
+            <div className=" loginForm px-6 py-6 lg:px-8">
+              <h3 className=" sign mb-4 text-xl font-medium text-gray-900 dark:text-white">
+                Login to your account
               </h3>
               <form
                 className="space-y-6"
@@ -161,13 +138,11 @@ function LoginForm() {
                 noValidate
                 onSubmit={handleFormSubmit}
               >
-                {/* <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-                  Something went wrong with your login credentials!
-                </Alert> */}
+
                 <div>
                   <label
                     htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="loginLabel block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Your email
                   </label>
@@ -185,7 +160,7 @@ function LoginForm() {
                 <div>
                   <label
                     htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className=" loginLabel block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Your password
                   </label>
@@ -209,7 +184,7 @@ function LoginForm() {
                   Login to your account
                 </button>
               </form>
-              <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
+              <div className=" switch sign text-sm font-medium text-gray-500 dark:text-gray-300">
                 Not registered?{" "}
                 <button
                   onClick={() => {

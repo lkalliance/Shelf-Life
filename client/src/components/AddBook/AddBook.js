@@ -10,6 +10,7 @@ import {
   userItemsAtom,
   userBookcaseAtom,
 } from "../../recoil/atom/userBooksAtom";
+// import star from "./Star"
 
 function AddBook() {
   const [showModal, setShowModal] = useState(false);
@@ -163,14 +164,14 @@ function AddBook() {
               <span className="sr-only">Close modal</span>
             </button>
 
-            <form className="space-y-6" action="#" onSubmit={handleFormSubmit}>
+            <form className="form" action="#" onSubmit={handleFormSubmit}>
               <label
                 htmlFor="default-search"
                 className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
               >
                 Search
               </label>
-              <div className="relative">
+              <div className="relative ">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <svg
                     aria-hidden="true"
@@ -195,7 +196,7 @@ function AddBook() {
                   name="searchInput"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
-                  // type='text'
+               
                   size="lg"
                   placeholder="Search"
                   required
@@ -223,13 +224,7 @@ function AddBook() {
                 return (
                   <div className="h-auto max-w-xs" key={book.bookId}>
                     <div className="p-4">
-                      {book.image && (
-                        <img
-                          src={book.image}
-                          alt={`The cover for ${book.title}`}
-                          className="h-auto max-w-xs"
-                        />
-                      )}
+                   
                       <div className="mb-2">
                         <h3
                           className="text-lg font-bold"
@@ -237,22 +232,15 @@ function AddBook() {
                         >
                           {book.title}
                         </h3>
-                        {/* <p className="text-sm">Authors: {book.authors}</p> */}
+                       
                       </div>
-                      <p className="text-sm">{book.description}</p>
-
-                      {/* <button
-
-                        onClick={() => handleModalSelection(book)} className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"
-                      >
-                        Select
-                      </button> */}
+                 
                     </div>
                   </div>
                 );
               })}
           </div>
-          {/* )} */}
+       
           {showSelectModal && (
             <div
               id="selection-modal"
@@ -287,19 +275,19 @@ function AddBook() {
                   </button>
 
                   <form
-                    className="space-y-6"
+                    className=" form "
                     action="#"
                     onSubmit={handleSelectionForm}
                   >
-                    <div className="select_bookOptions">
-                      <h2 className="mx-auto">selection form!</h2>
+                    <div className="select_bookOptions relative w-full max-w-xl max-h-full">
+                      <h2 className=" sign mx-auto">selection form!</h2>
 
                       <div>
                         <label
                           htmlFor="Color"
-                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                          className="label block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                         >
-                          Color:
+                          Color
                         </label>
 
                         <select
@@ -326,9 +314,9 @@ function AddBook() {
                       <div>
                         <label
                           htmlFor="Height"
-                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                          className="label block mb-2 label text-sm font-medium text-gray-900 dark:text-white"
                         >
-                          Height:
+                          Height
                         </label>
 
                         <select
@@ -350,9 +338,9 @@ function AddBook() {
                       <div>
                         <label
                           htmlFor="Thickness"
-                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                          className=" label block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                         >
-                          Thickness:
+                          Thickness
                         </label>
 
                         <select
@@ -377,9 +365,9 @@ function AddBook() {
                       <div>
                         <label
                           htmlFor="style"
-                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                          className="label block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                         >
-                          Style:
+                          Style
                         </label>
 
                         <select
@@ -400,10 +388,11 @@ function AddBook() {
                       <div>
                         <label
                           htmlFor="Rating"
-                          className=" block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                          className="label block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                         >
                           {" "}
-                          Rating:
+                          Rating
+
                           <input
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             type="number"
@@ -425,7 +414,7 @@ function AddBook() {
                       <div className="mb-6">
                         <label
                           htmlFor="large-input"
-                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                          className="label block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                         >
                           Comment
                         </label>
@@ -445,7 +434,7 @@ function AddBook() {
 
                       <button
                         type="submit"
-                        className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         onSubmit={handleSelectionForm}
                       >
                         Save selection

@@ -1,3 +1,8 @@
+*{
+ margin: 0;   
+ padding: 0;
+}
+
 .close-icon.close-icon-book {
     right: -30px;
 }
@@ -17,4 +22,11 @@
     display: flex;
     justify-content: center;
     margin-top: 104px;
+}
+.form {
+    width: 100%;
+}
+.label{
+  text-align: center;  
+  padding: 7px;
 }
