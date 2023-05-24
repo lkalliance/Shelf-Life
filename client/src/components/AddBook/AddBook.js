@@ -53,9 +53,9 @@ function AddBook() {
       const bookData = items.map((book) => ({
         bookId: book.id,
         title: book.volumeInfo.title,
-        authors: book.volumeInfo.authors || ['No author to display'],
+        authors: book.volumeInfo.authors || ["No author to display"],
         description: book.volumeInfo.description,
-        image: book.volumeInfo.imageLinks?.thumbnail || '',
+        image: book.volumeInfo.imageLinks?.thumbnail || "",
         // link: book.selfLink,
       }));
 
@@ -78,8 +78,7 @@ function AddBook() {
       title: book.title,
       authors: book.authors,
       description: book.description,
-      image: book.imageLinks
-
+      image: book.imageLinks,
     });
     setSearchedBooks([]);
   };
@@ -107,9 +106,6 @@ function AddBook() {
 
     const newBooks = { ...books, bookList: [...books.bookList, submission] };
     const newCase = { ...bcase, unshelved: [...bcase.unshelved, submission] };
-
-    console.log(newBooks);
-    console.log(newCase);
 
     setBooks(newBooks);
     setbCase(newCase);
@@ -196,7 +192,6 @@ function AddBook() {
                   name="searchInput"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
-               
                   size="lg"
                   placeholder="Search"
                   required
@@ -224,7 +219,6 @@ function AddBook() {
                 return (
                   <div className="h-auto max-w-xs" key={book.bookId}>
                     <div className="p-4">
-                   
                       <div className="mb-2">
                         <h3
                           className="text-lg font-bold"
@@ -232,15 +226,13 @@ function AddBook() {
                         >
                           {book.title}
                         </h3>
-                       
                       </div>
-                 
                     </div>
                   </div>
                 );
               })}
           </div>
-       
+
           {showSelectModal && (
             <div
               id="selection-modal"
@@ -300,9 +292,9 @@ function AddBook() {
                           required
                         >
                           <option>Select color</option>
-                          <option value="Red">Red</option>
-                          <option value="Green">Green</option>
-                          <option value="Blue">Blue</option>
+                          <option value="red">Red</option>
+                          <option value="green">Green</option>
+                          <option value="blue">Blue</option>
                           <option value="navy">Navy</option>
                           <option value="yellow">Yellow</option>
                           <option value="orange">Orange</option>
@@ -392,7 +384,6 @@ function AddBook() {
                         >
                           {" "}
                           Rating
-
                           <input
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             type="number"

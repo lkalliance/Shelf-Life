@@ -80,17 +80,24 @@ const resolvers = {
     addBook: async (parent, args, context) => {
       if (context.user) {
         // updatedbookList works
+        const updatedArgs = { ...args };
+        if (args.color === "") updatedArgs.color = "white";
+        if (args.height === "") updatedArgs.height = "medium";
+        if (args.thickness === "") updatedArgs.thickness = "mid";
+        if (args.style === "") updatedArgs.style = "paperback";
+
+        console.log(updatedArgs);
 
         const updatebookList = await User.findOneAndUpdate(
           { _id: context.user._id }, //filter
-          { $addToSet: { bookList: args } },
+          { $addToSet: { bookList: updatedArgs } },
           { new: true }
         );
 
         // adds book
         const updateBook = await Bookcase.findOneAndUpdate(
           { user_id: context.user._id, year: args.year }, //filter
-          { $addToSet: { unshelved: args } },
+          { $addToSet: { unshelved: updatedArgs } },
           { new: true }
         );
         return { updatebookList, updateBook };
