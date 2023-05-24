@@ -1,7 +1,7 @@
 import "./App.css";
 import { RecoilRoot } from "recoil";
 import { Bookcase, Profile, Home } from "./pages";
-import { Template, LoginForm, SignupForm } from "./components";
+import { NavBar, LoginForm, SignupForm } from "./components";
 import { createContext, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Auth from "./utils/auth";
