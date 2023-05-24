@@ -10,7 +10,8 @@ import {
   userItemsAtom,
   userBookcaseAtom,
 } from "../../recoil/atom/userBooksAtom";
-// import star from "./Star"
+import { star } from "./Star"
+
 
 function AddBook() {
   const [showModal, setShowModal] = useState(false);
@@ -100,6 +101,7 @@ function AddBook() {
       });
 
       // code needed to clear the form and dismiss the modal ---
+
     } catch (err) {
       console.error(err);
     }
@@ -110,6 +112,7 @@ function AddBook() {
     setBooks(newBooks);
     setbCase(newCase);
     setItems(convert(newCase));
+    handleClose()
   };
 
   return (
@@ -130,8 +133,8 @@ function AddBook() {
         tabIndex="-1"
         className={
           showModal
-            ? `fixed top-0 left-0 right-0 z-50  bg-white w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`
-            : `fixed top-0 left-0 right-0 z-50 hidden bg-white w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`
+            ? `fixed top-0 left-0 right-0 z-50  modalClass  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`
+            : `fixed top-0 left-0 right-0 z-50 hidden modalClass  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`
         }
       >
         <div className=" mx-auto relative w-full max-w-xl max-h-full">
@@ -383,7 +386,7 @@ function AddBook() {
                           className="label block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                         >
                           {" "}
-                          Rating
+                          Rating <star />
                           <input
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             type="number"
