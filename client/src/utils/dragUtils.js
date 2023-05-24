@@ -2,8 +2,6 @@ export const convert = (data) => {
   // This utility takes the stored bookcase data and converts
   // it to a form that react-beautiful-dnd can use
 
-  console.log(data);
-
   const converted = {};
   let counter = 0;
 
@@ -30,6 +28,8 @@ export const convert = (data) => {
 
 export const booksDeepCopy = (data) => {
   // This utility returns an editable, deep copy of the books state
+
+  console.log(data);
   const newBookcase = {
     user_id: data.user_id,
     year: data.year,
@@ -39,12 +39,33 @@ export const booksDeepCopy = (data) => {
 
   data.shelves.map((shelf) => {
     const shelfCopy = { left: [], right: [] };
-    shelf.left.map((book) => shelfCopy.left.push({ ...book }));
-    shelf.right.map((book) => shelfCopy.right.push({ ...book }));
+    shelf.left.map((book) => {
+      const thisBook = {};
+      for (const [key, value] of Object.entries(book)) {
+        if (key !== "__typename") thisBook[key] = value;
+      }
+      shelfCopy.left.push(thisBook);
+    });
+    shelf.right.map((book) => {
+      const thisBook = {};
+      for (const [key, value] of Object.entries(book)) {
+        if (key !== "__typename") thisBook[key] = value;
+      }
+      shelfCopy.right.push(thisBook);
+    });
     newBookcase.shelves.push(shelfCopy);
   });
 
-  data.unshelved.map((book) => newBookcase.unshelved.push({ ...book }));
+  data.unshelved.map((book) => {
+    const thisBook = {};
+    for (const [key, value] of Object.entries(book)) {
+      if (key !== "__typename") thisBook[key] = value;
+      console.log(thisBook);
+    }
+    newBookcase.unshelved.push(thisBook);
+  });
+
+  console.log({ newBookcase });
 
   return newBookcase;
 };

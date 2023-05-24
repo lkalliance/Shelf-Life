@@ -1,7 +1,7 @@
 import "./App.css";
 import { RecoilRoot } from "recoil";
 import { Bookcase, Profile, Home } from "./pages";
-import { About, AddBook, NavBar } from "./components";
+import { NavBar } from "./components";
 import { LoginForm } from "./components";
 import { SignupForm } from "./components";
 import { createContext, useState } from "react";
@@ -29,7 +29,9 @@ const client = new ApolloClient({
   link: authLink.concat(httpLink),
 
   uri: "http://localhost:3001/graphql",
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    addTypename: false,
+  }),
 });
 
 function App() {
