@@ -191,7 +191,7 @@ function SignupForm() {
                   Signup
                 </button>
               </form>
-              <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
+              <div className=" sign text-sm font-medium text-gray-500 dark:text-gray-300">
                 login instead?
                 <button
                   onClick={() => {

@@ -152,7 +152,7 @@ function LoginForm() {
               </svg>
               <span className="sr-only">Close modal</span>
             </button>
-            <div className="px-6 py-6 lg:px-8">
+            <div className=" loginForm px-6 py-6 lg:px-8">
               <h3 className=" sign mb-4 text-xl font-medium text-gray-900 dark:text-white">
                 Login to your account
               </h3>
@@ -210,7 +210,7 @@ function LoginForm() {
                   Login to your account
                 </button>
               </form>
-              <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
+              <div className=" sign text-sm font-medium text-gray-500 dark:text-gray-300">
                 Not registered?{" "}
                 <button
                   onClick={() => {
