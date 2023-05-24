@@ -18,6 +18,8 @@ function Bookcase() {
   const [items, setItems] = useRecoilState(userItemsAtom);
   const [arrangeBookcase, { error }] = useMutation(ARRANGE_BOOKCASE);
 
+  console.log(books);
+  console.log(items);
   async function handleDrop({ source, destination }) {
     // All the things we do when the book is dropped onto the stack
 
@@ -71,16 +73,16 @@ function Bookcase() {
     setBooks(newUser);
     setItems(convert(newUser));
 
-    try {
-      // Execute mutation and pass in defined parameter data as variables
-      const { data } = await arrangeBookcase({
-        variables: { newUser },
-      });
+    // try {
+    //   // Execute mutation and pass in defined parameter data as variables
+    //   const { data } = await arrangeBookcase({
+    //     variables: { newUser },
+    //   });
 
-      // code needed to clear the form and dismiss the modal ---
-    } catch (err) {
-      console.error(err);
-    }
+    //   // code needed to clear the form and dismiss the modal ---
+    // } catch (err) {
+    //   console.error(err);
+    // }
   }
 
   const addShelf = () => {
