@@ -9,7 +9,14 @@ const resolvers = {
   Query: {
     me: async (parent, args, context) => {
       if (context.user) {
+        console.log("querying...");
         return User.findOne({ _id: context.user._id });
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    bookcase: async (parent, args, context) => {
+      if (context.user) {
+        return Bookcase.findOne({ user_id: context.user._id, year: args.year });
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -61,17 +68,6 @@ const resolvers = {
     },
 
     addBook: async (parent, args, context) => {
-      console.log(`
-      
-      
-      
-      
-      I'm trying to add a book
-      
-      
-      
-      
-      `);
       if (context.user) {
         // updatedbookList works
 
@@ -87,12 +83,6 @@ const resolvers = {
           { $addToSet: { unshelved: args } },
           { new: true }
         );
-
-        console.log("Updated book list:");
-        console.log(updatebookList);
-        console.log("Updated bookcase:");
-        console.log(updateBook);
-
         return { updatebookList, updateBook };
       }
       throw new AuthenticationError("You need to be logged in!");
