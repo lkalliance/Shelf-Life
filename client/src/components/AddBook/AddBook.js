@@ -52,7 +52,10 @@ function AddBook() {
       const bookData = items.map((book) => ({
         bookId: book.id,
         title: book.volumeInfo.title,
-        link: book.selfLink,
+        authors: book.volumeInfo.authors || ['No author to display'],
+        description: book.volumeInfo.description,
+        image: book.volumeInfo.imageLinks?.thumbnail || '',
+        // link: book.selfLink,
       }));
 
       setSearchedBooks(bookData);
@@ -73,6 +76,9 @@ function AddBook() {
       bookId: book.bookId,
       title: book.title,
       authors: book.authors,
+      description: book.description,
+      image: book.imageLinks
+
     });
     setSearchedBooks([]);
   };
