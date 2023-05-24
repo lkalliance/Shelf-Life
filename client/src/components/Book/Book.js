@@ -17,6 +17,8 @@ function Book({ bookId, book, bookIndex, stack }) {
   // eslint-disable-next-line no-unused-vars
   const [userItems, setUserItems] = useRecoilState(userItemsAtom);
 
+  console.log(book);
+
   let timer;
   function clickHandler(e) {
     clearTimeout(timer);
@@ -69,9 +71,6 @@ function Book({ bookId, book, bookIndex, stack }) {
                 {textStyle === "tightest"
                   ? abbreviateTitle(book.title)
                   : book.title}
-              </span>
-              <span key="author" className="author">
-                {book.author}
               </span>
             </div>
             <div className="accent bottom"></div>

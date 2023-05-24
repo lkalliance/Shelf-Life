@@ -21,7 +21,7 @@ function Stack({ position, books, shelf, bookItems, clearHandler }) {
                 key={book.bookId}
                 book={book}
                 bookIndex={index}
-                bookId={bookItems[index].bookId}
+                bookId={book.bookId}
                 stack={`shelf-${position}-${shelf}`}
               />
             );

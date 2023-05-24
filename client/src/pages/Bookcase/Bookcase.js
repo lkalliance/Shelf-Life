@@ -108,7 +108,7 @@ function Bookcase() {
     const newUser = booksDeepCopy(bookCase);
     newUser.shelves.push({ left: [], right: [] });
     newUser.shelves.push({ left: [], right: [] });
-    setBooks(newUser);
+    setBookcase(newUser);
     setItems(convert(newUser));
 
     try {
@@ -143,7 +143,7 @@ function Bookcase() {
     if (newUser.shelves.length % 2 === 1) {
       newUser.shelves.push({ left: [], right: [] });
     }
-    setBooks(newUser);
+    setBookcase(newUser);
     setItems(convert(newUser));
 
     try {
