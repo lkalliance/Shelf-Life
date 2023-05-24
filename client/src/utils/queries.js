@@ -9,6 +9,7 @@ export const QUERY_ME = gql`
         bookId
         title
         authors
+        image
         rating
         comment
         year
@@ -26,6 +27,7 @@ export const QUERY_BOOKCASE = gql`
           bookId
           color
           comment
+          image
           height
           rating
           style
@@ -38,6 +40,7 @@ export const QUERY_BOOKCASE = gql`
           bookId
           color
           comment
+          image
           height
           rating
           style
@@ -51,6 +54,7 @@ export const QUERY_BOOKCASE = gql`
         bookId
         color
         comment
+        image
         height
         rating
         style

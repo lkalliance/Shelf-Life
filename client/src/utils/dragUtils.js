@@ -60,12 +60,9 @@ export const booksDeepCopy = (data) => {
     const thisBook = {};
     for (const [key, value] of Object.entries(book)) {
       if (key !== "__typename") thisBook[key] = value;
-      console.log(thisBook);
     }
     newBookcase.unshelved.push(thisBook);
   });
-
-  console.log({ newBookcase });
 
   return newBookcase;
 };

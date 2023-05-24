@@ -33,6 +33,15 @@ function AddBook() {
   const [searchInput, setSearchInput] = useState("");
   const [addBook, { error }] = useMutation(ADD_BOOK);
 
+  const setDefaults = (book) => {
+    let bookCopy = { ...book };
+    bookCopy.color = bookCopy.color || "white";
+    bookCopy.height = bookCopy.height || "medium";
+    bookCopy.thickness = bookCopy.thickness || "mid";
+    bookCopy.style = bookCopy.style || "paperback";
+    return bookCopy;
+  };
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -79,25 +88,35 @@ function AddBook() {
       title: book.title,
       authors: book.authors,
       description: book.description,
-      image: book.imageLinks,
+      image: book.image,
     });
     setSearchedBooks([]);
   };
 
   const handleSelectionForm = async (event) => {
     event.preventDefault();
+
     // On select save book and bring up selection modal
     // save selected options
     //  onSave: save book to unshelved
     // reload page/clear search and close parent modal
+    console.log(books);
+    for (const book of books.bookList) {
+      console.log(book.bookId);
+      if (book.bookId === selected.bookId) {
+        handleSelectionClose();
+        handleClose();
+        return;
+      }
+    }
 
     const year = new Date().getFullYear().toString();
     const submission = { ...selected, year };
-    console.log(submission);
+    const vettedSubmission = setDefaults(submission);
     try {
       // Execute mutation and pass in defined parameter data as variables
       const { data } = await addBook({
-        variables: { ...selected, year },
+        variables: vettedSubmission,
       });
 
       // code needed to clear the form and dismiss the modal ---
@@ -106,8 +125,14 @@ function AddBook() {
       console.error(err);
     }
 
-    const newBooks = { ...books, bookList: [...books.bookList, submission] };
-    const newCase = { ...bcase, unshelved: [...bcase.unshelved, submission] };
+    const newBooks = {
+      ...books,
+      bookList: [...books.bookList, vettedSubmission],
+    };
+    const newCase = {
+      ...bcase,
+      unshelved: [...bcase.unshelved, vettedSubmission],
+    };
 
     setBooks(newBooks);
     setbCase(newCase);

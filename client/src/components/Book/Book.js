@@ -17,8 +17,6 @@ function Book({ bookId, book, bookIndex, stack }) {
   // eslint-disable-next-line no-unused-vars
   const [userItems, setUserItems] = useRecoilState(userItemsAtom);
 
-  console.log(book);
-
   let timer;
   function clickHandler(e) {
     clearTimeout(timer);

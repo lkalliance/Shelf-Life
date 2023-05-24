@@ -10,6 +10,7 @@ export const LOGIN = gql`
         bookList {
           title
           authors
+          image
           bookId
           rating
           comment
@@ -23,6 +24,7 @@ export const LOGIN = gql`
             bookId
             title
             authors
+            image
             style
             height
             thickness
@@ -32,6 +34,7 @@ export const LOGIN = gql`
             bookId
             title
             authors
+            image
             style
             height
             thickness
@@ -42,6 +45,7 @@ export const LOGIN = gql`
           bookId
           title
           authors
+          image
           style
           height
           thickness
@@ -69,6 +73,7 @@ export const ADD_BOOK = gql`
     $title: String!
     $bookId: String!
     $authors: [String]
+    $image: String
     $color: String
     $height: String
     $thickness: String
@@ -81,6 +86,7 @@ export const ADD_BOOK = gql`
       title: $title
       bookId: $bookId
       authors: $authors
+      image: $image
       color: $color
       height: $height
       thickness: $thickness
@@ -115,6 +121,7 @@ export const ARRANGE_BOOKCASE = gql`
           bookId
           title
           authors
+          image
           style
           height
           thickness
@@ -124,6 +131,7 @@ export const ARRANGE_BOOKCASE = gql`
           bookId
           title
           authors
+          image
           style
           height
           thickness
@@ -134,6 +142,7 @@ export const ARRANGE_BOOKCASE = gql`
         bookId
         title
         authors
+        image
         style
         height
         thickness
