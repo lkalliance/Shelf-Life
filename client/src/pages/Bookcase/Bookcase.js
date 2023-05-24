@@ -1,6 +1,8 @@
 import "./Bookcase.css";
 import { useRecoilState } from "recoil";
 import { DragDropContext } from "@hello-pangea/dnd";
+import { useMutation } from "@apollo/client";
+import { ARRANGE_BOOKCASE } from "../../utils/mutations";
 
 import { booksDeepCopy, convert, noSpace } from "../../utils/dragUtils";
 import {
@@ -14,8 +16,9 @@ function Bookcase() {
   if (!Auth.loggedIn()) window.location.href = "/";
   const [books, setBooks] = useRecoilState(userBookcaseAtom);
   const [items, setItems] = useRecoilState(userItemsAtom);
+  const [arrangeBookcase, { error }] = useMutation(ARRANGE_BOOKCASE);
 
-  function handleDrop({ source, destination }) {
+  async function handleDrop({ source, destination }) {
     // All the things we do when the book is dropped onto the stack
 
     // first, check to see if the there is even a destination
@@ -67,6 +70,17 @@ function Bookcase() {
 
     setBooks(newUser);
     setItems(convert(newUser));
+
+    try {
+      // Execute mutation and pass in defined parameter data as variables
+      const { data } = await arrangeBookcase({
+        variables: { newUser },
+      });
+
+      // code needed to clear the form and dismiss the modal ---
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   const addShelf = () => {
