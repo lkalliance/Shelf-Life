@@ -7,3 +7,12 @@ right: 20px
 justify-content: center;
 display: flex;
 }
+.loginLabel{
+    padding: 17px;
+
+
+}
+.switch {
+    padding-top: 10px;
+   
+}

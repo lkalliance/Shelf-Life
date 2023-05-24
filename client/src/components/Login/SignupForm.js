@@ -125,7 +125,7 @@ function SignupForm() {
                 <div>
                   <label
                     htmlFor="userName"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="loginLabel block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Your username
                   </label>
@@ -143,7 +143,7 @@ function SignupForm() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="loginLabel block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Your email
                   </label>
@@ -161,7 +161,7 @@ function SignupForm() {
                 <div>
                   <label
                     htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="loginLabel block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Your password
                   </label>
@@ -191,7 +191,7 @@ function SignupForm() {
                   Signup
                 </button>
               </form>
-              <div className=" sign text-sm font-medium text-gray-500 dark:text-gray-300">
+              <div className=" switch sign text-sm font-medium text-gray-500 dark:text-gray-300">
                 login instead?
                 <button
                   onClick={() => {

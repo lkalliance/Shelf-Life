@@ -142,7 +142,7 @@ function LoginForm() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="loginLabel block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Your email
                   </label>
@@ -160,7 +160,7 @@ function LoginForm() {
                 <div>
                   <label
                     htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className=" loginLabel block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Your password
                   </label>
@@ -184,7 +184,7 @@ function LoginForm() {
                   Login to your account
                 </button>
               </form>
-              <div className=" sign text-sm font-medium text-gray-500 dark:text-gray-300">
+              <div className=" switch sign text-sm font-medium text-gray-500 dark:text-gray-300">
                 Not registered?{" "}
                 <button
                   onClick={() => {
