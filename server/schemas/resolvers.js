@@ -2,7 +2,6 @@ const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 const { User, Bookcase } = require("../models");
 
-// adding book adds to both booklist and book
 // saving of shelves add shelves
 
 const resolvers = {
@@ -87,7 +86,7 @@ const resolvers = {
           { new: true }
         );
 
-        // adds book but creates multiple year objects, needs to be fixed fix
+        // adds book 
         const updateBook = await Bookcase.findOneAndUpdate(
           { user_id: context.user._id, year: args.year }, //filter
           { $addToSet: { unshelved: args } },
@@ -106,24 +105,29 @@ const resolvers = {
           { $pull: { bookList: { bookId } } },
           { new: true }
         );
-        const updateBook = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { Book: { bookId } } },
+        const updateBook = await Bookcase.findOneAndUpdate(
+          { user_id: context.user._id },
+          { $pull: { unshelved: { bookId } } },
           { new: true }
         );
-        updatedUser = updatebookList + updateBook;
-        return updatedUser;
+        
+        return { updatebookList, updateBook };
       }
       throw new AuthenticationError("You need to be logged in!");
     },
     arrangeBookcase: async (parent, args, context) => {
       if (context.user) {
-        const updatebookCase = await Bookcase.findOneAndUpdate(
+        const updateShelves = await Bookcase.findOneAndUpdate(
           { user_id: context.user._id, year: args.year },
           { $set: { shelves: args.shelves } },
-          { $set: { unshelved: args.unshelved } }
+          { new: true }
         );
-        return updatebookCase;
+        const updateUnshelved = await Bookcase.findOneAndUpdate(
+          { user_id: context.user._id, year: args.year },
+          { $set: { unshelved: args.unshelved } },
+          { new: true }
+        );
+        return { updateShelves, updateUnshelved };
       }
       throw new AuthenticationError("You need to be logged in!");
     },
