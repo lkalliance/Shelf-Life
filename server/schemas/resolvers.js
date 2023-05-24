@@ -111,19 +111,24 @@ const resolvers = {
           { $pull: { Book: { bookId } } },
           { new: true }
         );
-        updatedUser = updatebookList + updateBook;
-        return updatedUser;
+        
+        return { updatebookList, updateBook };
       }
       throw new AuthenticationError("You need to be logged in!");
     },
     arrangeBookcase: async (parent, args, context) => {
       if (context.user) {
-        const updatebookCase = await Bookcase.findOneAndUpdate(
+        const updateShelves = await Bookcase.findOneAndUpdate(
           { user_id: context.user._id, year: args.year },
           { $set: { shelves: args.shelves } },
-          { $set: { unshelved: args.unshelved } }
+          { new: true }
         );
-        return updatebookCase;
+        const updateUnshelved = await Bookcase.findOneAndUpdate(
+          { user_id: context.user._id, year: args.year },
+          { $set: { unshelved: args.unshelved } },
+          { new: true }
+        );
+        return { updateShelves, updateUnshelved};
       }
       throw new AuthenticationError("You need to be logged in!");
     },
