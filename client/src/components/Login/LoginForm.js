@@ -4,6 +4,8 @@ import { ApolloClient } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../../utils/mutations";
 import Auth from "../../utils/auth";
+import { useNavigate } from "react-router";
+
 import "./login.css";
 import { SignupContext } from "../../App";
 import { convert } from "../../utils/dragUtils";
@@ -15,6 +17,8 @@ import {
 } from "../../recoil/atom/userBooksAtom";
 
 function LoginForm() {
+  const navigate = useNavigate();
+
   const {
     showSignupModal,
     setShowSignupModal,
@@ -69,10 +73,13 @@ function LoginForm() {
         variables: { ...userFormData },
       });
 
+      console.log(data);
+
       setBooks(data.login.user);
       setbCase(data.login.bookcase);
       setItems(convert(data.login.bookcase));
-      Auth.login(data.login.token);
+      await Auth.login(data.login.token);
+      handleClose();
     } catch (err) {
       console.error(err);
     }

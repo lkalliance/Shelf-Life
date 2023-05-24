@@ -76,11 +76,8 @@ const typeDefs = gql`
   }
 
   type Query {
-    me: User
-  }
-
-  type Query {
-    bookcase: Bookcase
+    me(fetchMe: Boolean): User
+    bookcase(year: Int!, fetchMe: Boolean): Bookcase
   }
 
   type Mutation {
@@ -106,11 +103,7 @@ const typeDefs = gql`
       year: String
     ): User
     removeBook(bookId: ID!): User
-    arrangeBookcase(
-      year: String!
-      shelves: [ShelfInput]
-      unshelved: [BookInput]
-    ): Bookcase
+    arrangeBookcase(bookcase: BookcaseInput): Bookcase
   }
 `;
 

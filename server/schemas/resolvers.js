@@ -7,22 +7,23 @@ const { User, Bookcase } = require("../models");
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
-      if (context.user) {
+      if (context.user && args.fetchMe) {
         return User.findOne({ _id: context.user._id });
       }
-      throw new AuthenticationError("You need to be logged in!");
+      throw new AuthenticationError(
+        "Either you are not logged in or you already have the data!"
+      );
     },
-    bookcase: async (parent, { year }, context) => {
-      if (context.user) {
-        console.log("Finding a bookcase");
-        console.log(year);
-        const test = Bookcase.findOne({
+    bookcase: async (parent, args, context) => {
+      if (context.user && args.fetchMe) {
+        return Bookcase.findOne({
           user_id: context.user._id,
           year: args.year,
         });
-        return true;
       }
-      throw new AuthenticationError("You need to be logged in!");
+      throw new AuthenticationError(
+        "Either you are not logged in or you already have the data!"
+      );
     },
   },
 
@@ -86,7 +87,7 @@ const resolvers = {
           { new: true }
         );
 
-        // adds book 
+        // adds book
         const updateBook = await Bookcase.findOneAndUpdate(
           { user_id: context.user._id, year: args.year }, //filter
           { $addToSet: { unshelved: args } },
@@ -110,21 +111,22 @@ const resolvers = {
           { $pull: { unshelved: { bookId } } },
           { new: true }
         );
-        
+
         return { updatebookList, updateBook };
       }
       throw new AuthenticationError("You need to be logged in!");
     },
     arrangeBookcase: async (parent, args, context) => {
+      console.log(args);
       if (context.user) {
         const updateShelves = await Bookcase.findOneAndUpdate(
-          { user_id: context.user._id, year: args.year },
-          { $set: { shelves: args.shelves } },
+          { user_id: context.user._id, year: args.bookcase.year },
+          { $set: { shelves: args.bookcase.shelves } },
           { new: true }
         );
         const updateUnshelved = await Bookcase.findOneAndUpdate(
-          { user_id: context.user._id, year: args.year },
-          { $set: { unshelved: args.unshelved } },
+          { user_id: context.user._id, year: args.bookcase.year },
+          { $set: { unshelved: args.bookcase.unshelved } },
           { new: true }
         );
         return { updateShelves, updateUnshelved };

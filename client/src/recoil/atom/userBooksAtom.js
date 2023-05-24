@@ -24,3 +24,8 @@ export const userItemsAtom = atom({
   key: "userItems",
   default: {},
 });
+
+export const fetchedAtom = atom({
+  key: "fetched",
+  default: false,
+});
