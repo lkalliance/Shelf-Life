@@ -3,20 +3,41 @@ import { useRecoilState } from "recoil";
 import { DragDropContext } from "@hello-pangea/dnd";
 import { useMutation } from "@apollo/client";
 import { ARRANGE_BOOKCASE } from "../../utils/mutations";
-
+import { useQuery } from "@apollo/client";
+import { QUERY_ME, QUERY_BOOKCASE } from "../../utils/queries";
 import { booksDeepCopy, convert, noSpace } from "../../utils/dragUtils";
 import {
   userBookcaseAtom,
   userItemsAtom,
+  userBooksAtom,
+  fetchedAtom,
 } from "../../recoil/atom/userBooksAtom";
 import { Shelf, Button } from "../../components";
 import Auth from "../../utils/auth";
 
 function Bookcase() {
   if (!Auth.loggedIn()) window.location.href = "/";
-  const [books, setBooks] = useRecoilState(userBookcaseAtom);
+  const today = new Date();
+  const thisYear = today.getFullYear();
+  const [books, setBooks] = useRecoilState(userBooksAtom);
+  const [bookCase, setBookcase] = useRecoilState(userBookcaseAtom);
   const [items, setItems] = useRecoilState(userItemsAtom);
+  const [fetched, setFetched] = useRecoilState(fetchedAtom);
   const [arrangeBookcase, { error }] = useMutation(ARRANGE_BOOKCASE);
+
+  const { loading: loadingMe, data: dataMe } = useQuery(QUERY_ME, {
+    variables: { fetchMe: !fetched },
+  });
+  const { loading: loadingCase, data: dataCase } = useQuery(QUERY_BOOKCASE, {
+    variables: { year: thisYear, fetchMe: !fetched },
+  });
+
+  if (dataMe && dataCase) {
+    setBooks(dataMe.me);
+    setBookcase(dataCase.bookcase);
+    setItems(convert(dataCase.bookcase));
+    setFetched(true);
+  }
 
   async function handleDrop({ source, destination }) {
     // All the things we do when the book is dropped onto the stack
@@ -31,29 +52,29 @@ function Bookcase() {
     if (
       !(toShelf === "unshelved" || fromShelf === toShelf) &&
       noSpace(
-        books.shelves[toShelf],
+        bookCase.shelves[toShelf],
         fromShelf === "unshelved"
-          ? books.unshelved[source.index]
-          : books.shelves[fromShelf][fromStack][source.index]
+          ? bookCase.unshelved[source.index]
+          : bookCase.shelves[fromShelf][fromStack][source.index]
       )
     ) {
       return;
     }
 
     // ok to drop it here, handle the drop
-    const newUser = booksDeepCopy(books);
+    const newUser = booksDeepCopy(bookCase);
 
     // create a copy of the source and destination stacks
     const bSourceStack =
       fromStack === "unshelved"
-        ? [...books.unshelved]
-        : [...books.shelves[fromShelf][fromStack]];
+        ? [...bookCase.unshelved]
+        : [...bookCase.shelves[fromShelf][fromStack]];
     const bDestStack =
       source.droppableId === destination.droppableId
         ? bSourceStack
         : toStack === "unshelved"
-        ? [...books.unshelved]
-        : [...books.shelves[toShelf][toStack]];
+        ? [...bookCase.unshelved]
+        : [...bookCase.shelves[toShelf][toStack]];
 
     // remove the book from the source...
     const [removedBook] = bSourceStack.splice(source.index, 1);
@@ -68,7 +89,7 @@ function Bookcase() {
       ? (newUser.unshelved = bDestStack)
       : (newUser.shelves[toShelf][toStack] = bDestStack);
 
-    setBooks(newUser);
+    setBookcase(newUser);
     setItems(convert(newUser));
 
     try {
@@ -84,7 +105,7 @@ function Bookcase() {
   }
 
   const addShelf = async () => {
-    const newUser = booksDeepCopy(books);
+    const newUser = booksDeepCopy(bookCase);
     newUser.shelves.push({ left: [], right: [] });
     newUser.shelves.push({ left: [], right: [] });
     setBooks(newUser);
@@ -104,12 +125,12 @@ function Bookcase() {
 
   const removeEmpties = async () => {
     const newUser = {
-      user_id: books.user_id,
-      year: books.year,
+      user_id: bookCase.user_id,
+      year: bookCase.year,
       shelves: [],
-      unshelved: [...books.unshelved],
+      unshelved: [...bookCase.unshelved],
     };
-    books.shelves.map((shelf) => {
+    bookCase.shelves.map((shelf) => {
       if (shelf.left.length > 0 || shelf.right.length > 0) {
         newUser.shelves.push({ ...shelf });
       }
@@ -141,7 +162,7 @@ function Bookcase() {
     <section id="bookcase">
       <DragDropContext onDragEnd={handleDrop}>
         <div id="shelves">
-          {books.shelves.map((shelf, shelfIndex) => {
+          {bookCase.shelves.map((shelf, shelfIndex) => {
             return <Shelf key={shelfIndex} shelfIndex={shelfIndex} />;
           })}
         </div>

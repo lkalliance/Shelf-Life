@@ -1,31 +1,68 @@
 import "./Profile.css";
 import { useRecoilState } from "recoil";
+import { useQuery } from "@apollo/client";
+import { QUERY_ME, QUERY_BOOKCASE } from "../../utils/queries";
+import { convert } from "../../utils/dragUtils";
 
-import { userBooksAtom } from "../../recoil/atom/userBooksAtom";
+import {
+  userBooksAtom,
+  userBookcaseAtom,
+  userItemsAtom,
+  fetchedAtom,
+} from "../../recoil/atom/userBooksAtom";
+import Auth from "../../utils/auth";
 
 function Profile() {
+  if (!Auth.loggedIn()) window.location.href = "/";
+  const today = new Date();
+  const thisYear = today.getFullYear();
   const [books, setBooks] = useRecoilState(userBooksAtom);
+  const [bookCase, setBookcase] = useRecoilState(userBookcaseAtom);
+  const [items, setItems] = useRecoilState(userItemsAtom);
+  const [fetched, setFetched] = useRecoilState(fetchedAtom);
 
-  return <section id="profile">
-    <div className="column-3 ">
-      {books.bookList.map((book, index) => {
-              return (
-                <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">{book.title}</h5>
-                <p className="font-normal text-gray-700 dark:text-gray-400"> {book.rating} stars
-                  {/* { { {book.authors.map((author) => {
+  const { loading: loadingMe, data: dataMe } = useQuery(QUERY_ME, {
+    variables: { fetchMe: !fetched },
+  });
+  const { loading: loadingCase, data: dataCase } = useQuery(QUERY_BOOKCASE, {
+    variables: { year: thisYear, fetchMe: !fetched },
+  });
+
+  if (dataMe && dataCase) {
+    setBooks(dataMe.me);
+    setBookcase(dataCase.bookcase);
+    setItems(convert(dataCase.bookcase));
+    setFetched(true);
+  }
+
+  return (
+    <section id="profile">
+      <div className="column-3 ">
+        {books.bookList.map((book, index) => {
+          return (
+            <div
+              key={book.bookId}
+              className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+            >
+              <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                {book.title}
+              </h5>
+              <p className="font-normal text-gray-700 dark:text-gray-400">
+                {" "}
+                {book.rating} stars
+                {/* { { {book.authors.map((author) => {
                     return(
                       <span>{author}</span>}
                     ) }
                   })} */}
-                </p>
-                <h5></h5>
-                </div>
-              );
-            })}
-
-    </div>
-  </section>;
+              </p>
+              <h5></h5>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
 }
 
 export { Profile };

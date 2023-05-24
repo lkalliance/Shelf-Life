@@ -7,22 +7,23 @@ const { User, Bookcase } = require("../models");
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
-      if (context.user) {
+      if (context.user && args.fetchMe) {
         return User.findOne({ _id: context.user._id });
       }
-      throw new AuthenticationError("You need to be logged in!");
+      throw new AuthenticationError(
+        "Either you are not logged in or you already have the data!"
+      );
     },
-    bookcase: async (parent, { year }, context) => {
-      if (context.user) {
-        console.log("Finding a bookcase");
-        console.log(year);
-        const test = Bookcase.findOne({
+    bookcase: async (parent, args, context) => {
+      if (context.user && args.fetchMe) {
+        return Bookcase.findOne({
           user_id: context.user._id,
           year: args.year,
         });
-        return true;
       }
-      throw new AuthenticationError("You need to be logged in!");
+      throw new AuthenticationError(
+        "Either you are not logged in or you already have the data!"
+      );
     },
   },
 
