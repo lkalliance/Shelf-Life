@@ -2,7 +2,6 @@ const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 const { User, Bookcase } = require("../models");
 
-// adding book adds to both booklist and book
 // saving of shelves add shelves
 
 const resolvers = {
@@ -87,7 +86,7 @@ const resolvers = {
           { new: true }
         );
 
-        // adds book but creates multiple year objects, needs to be fixed fix
+        // adds book 
         const updateBook = await Bookcase.findOneAndUpdate(
           { user_id: context.user._id, year: args.year }, //filter
           { $addToSet: { unshelved: args } },
@@ -108,7 +107,7 @@ const resolvers = {
         );
         const updateBook = await Bookcase.findOneAndUpdate(
           { user_id: context.user._id },
-          { $pull: { Book: { bookId } } },
+          { $pull: { unshelved: { bookId } } },
           { new: true }
         );
         
@@ -128,7 +127,7 @@ const resolvers = {
           { $set: { unshelved: args.unshelved } },
           { new: true }
         );
-        return { updateShelves, updateUnshelved};
+        return { updateShelves, updateUnshelved };
       }
       throw new AuthenticationError("You need to be logged in!");
     },
