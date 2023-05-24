@@ -1,13 +1,9 @@
 import "./App.css";
 import { RecoilRoot } from "recoil";
 import { Bookcase, Profile, Home } from "./pages";
-<<<<<<< HEAD
-import { NavBar, LoginForm, SignupForm } from "./components";
-=======
 import { About, AddBook, NavBar } from "./components";
 import { LoginForm } from "./components";
 import { SignupForm } from "./components";
->>>>>>> ec524e7e9b8258ff203decce6ee3dcaab645e89e
 import { createContext, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Auth from "./utils/auth";
