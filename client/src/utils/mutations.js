@@ -17,6 +17,7 @@ export const LOGIN = gql`
       }
       bookcase {
         year
+        user_id
         shelves {
           left {
             bookId
@@ -106,31 +107,11 @@ export const REMOVE_BOOK = gql`
 `;
 
 export const ARRANGE_BOOKCASE = gql`
-  mutation Mutation($year: String!, $bookcase: Bookcase) {
-    arrangeBookcase(year: $year, bookcase: $bookcase) {
-      bookcase {
-        year
-        shelves {
-          left {
-            bookId
-            title
-            authors
-            style
-            height
-            thickness
-            color
-          }
-          right {
-            bookId
-            title
-            authors
-            style
-            height
-            thickness
-            color
-          }
-        }
-        unshelved {
+  mutation Mutation($bookcase: BookcaseInput) {
+    arrangeBookcase(bookcase: $bookcase) {
+      year
+      shelves {
+        left {
           bookId
           title
           authors
@@ -139,6 +120,24 @@ export const ARRANGE_BOOKCASE = gql`
           thickness
           color
         }
+        right {
+          bookId
+          title
+          authors
+          style
+          height
+          thickness
+          color
+        }
+      }
+      unshelved {
+        bookId
+        title
+        authors
+        style
+        height
+        thickness
+        color
       }
     }
   }

@@ -55,8 +55,6 @@ function SignupForm() {
       event.preventDefault();
       event.stopPropagation();
     }
-    console.log(userFormData);
-
     try {
       const { data } = await addUser({
         variables: { ...userFormData },
@@ -73,6 +71,7 @@ function SignupForm() {
       email: "",
       password: "",
     });
+    handleModalSubmit();
   };
   return (
     <>

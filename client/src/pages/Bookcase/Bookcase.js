@@ -18,8 +18,6 @@ function Bookcase() {
   const [items, setItems] = useRecoilState(userItemsAtom);
   const [arrangeBookcase, { error }] = useMutation(ARRANGE_BOOKCASE);
 
-  console.log(books);
-  console.log(items);
   async function handleDrop({ source, destination }) {
     // All the things we do when the book is dropped onto the stack
 
@@ -73,28 +71,44 @@ function Bookcase() {
     setBooks(newUser);
     setItems(convert(newUser));
 
-    // try {
-    //   // Execute mutation and pass in defined parameter data as variables
-    //   const { data } = await arrangeBookcase({
-    //     variables: { newUser },
-    //   });
+    try {
+      // Execute mutation and pass in defined parameter data as variables
+      const { data } = await arrangeBookcase({
+        variables: { bookcase: newUser },
+      });
 
-    //   // code needed to clear the form and dismiss the modal ---
-    // } catch (err) {
-    //   console.error(err);
-    // }
+      // code needed to clear the form and dismiss the modal ---
+    } catch (err) {
+      console.error(err);
+    }
   }
 
-  const addShelf = () => {
+  const addShelf = async () => {
     const newUser = booksDeepCopy(books);
     newUser.shelves.push({ left: [], right: [] });
     newUser.shelves.push({ left: [], right: [] });
     setBooks(newUser);
     setItems(convert(newUser));
+
+    try {
+      // Execute mutation and pass in defined parameter data as variables
+      const { data } = await arrangeBookcase({
+        variables: { bookcase: newUser },
+      });
+
+      // code needed to clear the form and dismiss the modal ---
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const removeEmpties = () => {
-    const newUser = { shelves: [], unshelved: [...books.unshelved] };
+  const removeEmpties = async () => {
+    const newUser = {
+      user_id: books.user_id,
+      year: books.year,
+      shelves: [],
+      unshelved: [...books.unshelved],
+    };
     books.shelves.map((shelf) => {
       if (shelf.left.length > 0 || shelf.right.length > 0) {
         newUser.shelves.push({ ...shelf });
@@ -110,6 +124,17 @@ function Bookcase() {
     }
     setBooks(newUser);
     setItems(convert(newUser));
+
+    try {
+      // Execute mutation and pass in defined parameter data as variables
+      const { data } = await arrangeBookcase({
+        variables: { bookcase: newUser },
+      });
+
+      // code needed to clear the form and dismiss the modal ---
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
