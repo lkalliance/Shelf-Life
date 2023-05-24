@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./login.css";
 import { ApolloClient } from "@apollo/client";
-// import { useMutation } from 'react-query';
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../../utils/mutations";
 import Auth from "../../utils/auth";
@@ -90,34 +89,11 @@ function LoginForm() {
     });
   };
 
-  // {
-  //   Auth.loggedIn() ? (
-  //     <>
 
-  //       <button onClick={Auth.logout}>Logout</button>
-  //     </>
-  //   ) : (
-  //     <button onClick={() => setShowloginModal(true)}>Login</button>
-  //   )
-  // }
 
   return (
     <>
-      {/* {Auth.loggedIn() ? (
-        <>
-          <button onClick={Auth.logout}>Logout</button>
-        </>
-      ) : (
-        <button
-          onClick={() => {
-            handleModalSubmit();
-          }}
-          className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          type="button"
-        >
-          Login
-        </button>
-      )} */}
+
 
       <div
         tabIndex="-1"
@@ -162,9 +138,7 @@ function LoginForm() {
                 noValidate
                 onSubmit={handleFormSubmit}
               >
-                {/* <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-                  Something went wrong with your login credentials!
-                </Alert> */}
+
                 <div>
                   <label
                     htmlFor="email"
