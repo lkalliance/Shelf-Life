@@ -1,5 +1,4 @@
 import "./App.css";
-import { RecoilRoot } from "recoil";
 import { Bookcase, Profile, Home } from "./pages";
 import { NavBar } from "./components";
 import { LoginForm } from "./components";
@@ -7,6 +6,7 @@ import { SignupForm } from "./components";
 import { createContext, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Auth from "./utils/auth";
+
 import {
   ApolloClient,
   InMemoryCache,
@@ -37,43 +37,53 @@ const client = new ApolloClient({
 function App() {
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [showloginModal, setShowloginModal] = useState(false);
+  // const [fetched, setFetched] = useState(false);
+  // const [books, setBooks] = useRecoilState(userBooksAtom);
+  // const [bookcase, setBookcase] = useRecoilState(userBooksAtom);
+  // const [items, setItems] = useRecoilState(userItemsAtom);
+
+  // const fetchMe = Auth.loggedIn() && !fetched;
+  // const year = new Date();
+  // const thisYear = year.getFullYear();
+
+  // const { loading, data } = useQuery(QUERY_ME, {
+  //   variables: { fetchMe },
+  // });
 
   return (
     <ApolloProvider client={client}>
-      <RecoilRoot>
-        <SignupContext.Provider
-          value={{
-            showloginModal,
-            setShowloginModal,
-            showSignupModal,
-            setShowSignupModal,
-          }}
-        >
-          <div className="App">
-            {showloginModal ? <LoginForm /> : <div></div>}
-            {showSignupModal ? <SignupForm /> : <div></div>}
-            <NavBar showLogin={setShowloginModal} />
-            <Routes>
-              <Route
-                path="/"
-                element={Auth.loggedIn() ? <Profile /> : <Home />}
-              />
-              <Route
-                path="/profile"
-                element={Auth.loggedIn() ? <Profile /> : <Home />}
-              />
-              <Route
-                path="/bookcase"
-                element={Auth.loggedIn() ? <Bookcase /> : <Home />}
-              />
-              <Route
-                path="/*"
-                element={Auth.loggedIn() ? <Profile /> : <Home />}
-              />
-            </Routes>
-          </div>
-        </SignupContext.Provider>
-      </RecoilRoot>
+      <SignupContext.Provider
+        value={{
+          showloginModal,
+          setShowloginModal,
+          showSignupModal,
+          setShowSignupModal,
+        }}
+      >
+        <div className="App">
+          {showloginModal ? <LoginForm /> : <div></div>}
+          {showSignupModal ? <SignupForm /> : <div></div>}
+          <NavBar showLogin={setShowloginModal} />
+          <Routes>
+            <Route
+              path="/"
+              element={Auth.loggedIn() ? <Profile /> : <Home />}
+            />
+            <Route
+              path="/profile"
+              element={Auth.loggedIn() ? <Profile /> : <Home />}
+            />
+            <Route
+              path="/bookcase"
+              element={Auth.loggedIn() ? <Bookcase /> : <Home />}
+            />
+            <Route
+              path="/*"
+              element={Auth.loggedIn() ? <Profile /> : <Home />}
+            />
+          </Routes>
+        </div>
+      </SignupContext.Provider>
     </ApolloProvider>
   );
 }

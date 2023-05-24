@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const QUERY_ME = gql`
-  query Me {
-    me {
+  query Me($fetchMe: Boolean) {
+    me(fetchMe: $fetchMe) {
       _id
       userName
       bookList {
@@ -18,38 +18,48 @@ export const QUERY_ME = gql`
 `;
 
 export const QUERY_BOOKCASE = gql`
-  query Bookcase {
-    bookcase {
-      year
+  query Bookcase($year: Int!, $fetchMe: Boolean) {
+    bookcase(year: $year, fetchMe: $fetchMe) {
       shelves {
         left {
-          bookId
-          title
           authors
-          style
-          height
-          thickness
+          bookId
           color
+          comment
+          height
+          rating
+          style
+          thickness
+          title
+          year
         }
         right {
-          bookId
-          title
           authors
-          style
-          height
-          thickness
+          bookId
           color
+          comment
+          height
+          rating
+          style
+          thickness
+          title
+          year
         }
       }
       unshelved {
-        bookId
-        title
         authors
-        style
-        height
-        thickness
+        bookId
         color
+        comment
+        height
+        rating
+        style
+        thickness
+        title
+        year
       }
+      user_id
+      year
     }
   }
 `;
