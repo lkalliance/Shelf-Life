@@ -66,10 +66,10 @@ const typeDefs = gql`
     title: String!
     shortTitle: String
     authors: [String]
-    style: String 
-    height: String 
-    thickness: String 
-    color: String 
+    style: String
+    height: String
+    thickness: String
+    color: String
     year: String
     rating: Int
     comment: String
