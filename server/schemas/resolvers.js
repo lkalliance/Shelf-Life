@@ -13,6 +13,18 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+    bookcase: async (parent, { year }, context) => {
+      if (context.user) {
+        console.log("Finding a bookcase");
+        console.log(year);
+        const test = Bookcase.findOne({
+          user_id: context.user._id,
+          year: args.year,
+        });
+        return true;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
   },
 
   Mutation: {
@@ -56,22 +68,16 @@ const resolvers = {
       }
 
       const token = signToken(user);
+      const year = new Date();
+      const bookcase = await Bookcase.findOne({
+        user_id: user._id,
+        year: year.getFullYear(),
+      });
 
-      return { token, user };
+      return { token, user, bookcase };
     },
 
     addBook: async (parent, args, context) => {
-      console.log(`
-      
-      
-      
-      
-      I'm trying to add a book
-      
-      
-      
-      
-      `);
       if (context.user) {
         // updatedbookList works
 
@@ -87,12 +93,6 @@ const resolvers = {
           { $addToSet: { unshelved: args } },
           { new: true }
         );
-
-        console.log("Updated book list:");
-        console.log(updatebookList);
-        console.log("Updated bookcase:");
-        console.log(updateBook);
-
         return { updatebookList, updateBook };
       }
       throw new AuthenticationError("You need to be logged in!");
@@ -113,6 +113,17 @@ const resolvers = {
         );
         updatedUser = updatebookList + updateBook;
         return updatedUser;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    arrangeBookcase: async (parent, args, context) => {
+      if (context.user) {
+        const updatebookCase = await Bookcase.findOneAndUpdate(
+          { user_id: context.user._id, year: args.year },
+          { $set: { shelves: args.shelves } },
+          { $set: { unshelved: args.unshelved } }
+        );
+        return updatebookCase;
       }
       throw new AuthenticationError("You need to be logged in!");
     },

@@ -6,9 +6,7 @@ import { userBooksAtom } from "../../recoil/atom/userBooksAtom";
 function Profile() {
   const [books, setBooks] = useRecoilState(userBooksAtom);
 
-  return <div>I'm on the profile page</div>;
-
-  return <section id="profile"></section>;
+  return <section id="profile">Profile page</section>;
 }
 
 export { Profile };
