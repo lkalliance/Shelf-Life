@@ -96,8 +96,8 @@ const resolvers = {
           { $pull: { bookList: { bookId } } },
           { new: true }
         );
-        const updateBook = await User.findOneAndUpdate(
-          { _id: context.user._id },
+        const updateBook = await Bookcase.findOneAndUpdate(
+          { user_id: context.user._id },
           { $pull: { Book: { bookId } } },
           { new: true }
         );

@@ -60,10 +60,10 @@ const typeDefs = gql`
     title: String!
     shortTitle: String
     authors: [String]
-    style: String
-    height: String
-    thickness: String
-    color: String
+    style: String 
+    height: String 
+    thickness: String 
+    color: String 
     year: String
     rating: Int
     comment: String
@@ -90,16 +90,17 @@ const typeDefs = gql`
       title: String!
       shortTitle: String
       authors: [String]
-      color: String
-      height: String
-      thickness: String
-      style: String
+      color: String = "white"
+      height: String = "medium"
+      thickness: String = "mid"
+      style: String = "paperback"
       bookId: String!
       rating: Int
       comment: String
       year: String
     ): User
     removeBook(bookId: ID!): User
+    
   }
 `;
 
