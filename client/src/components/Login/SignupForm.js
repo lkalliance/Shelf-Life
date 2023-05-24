@@ -4,6 +4,7 @@ import { ADD_USER } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import Auth from "../../utils/auth";
 import { SignupContext } from "../../App";
+import "./login.css";
 
 function SignupForm() {
   const [showModal, setShowModal] = useState(false);
@@ -109,7 +110,7 @@ function SignupForm() {
               <span className="sr-only">Close modal</span>
             </button>
             <div className="px-6 py-6 lg:px-8">
-              <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
+              <h3 className=" sign mb-4 text-xl font-medium text-gray-900 dark:text-white">
                 Sign in to our platform
               </h3>
               <form

@@ -10,6 +10,7 @@ import {
   userItemsAtom,
   userBookcaseAtom,
 } from "../../recoil/atom/userBooksAtom";
+// import star from "./Star"
 
 function AddBook() {
   const [showModal, setShowModal] = useState(false);
@@ -223,13 +224,13 @@ function AddBook() {
                 return (
                   <div className="h-auto max-w-xs" key={book.bookId}>
                     <div className="p-4">
-                      {book.image && (
+                      {/* {book.image && (
                         <img
                           src={book.image}
                           alt={`The cover for ${book.title}`}
                           className="h-auto max-w-xs"
                         />
-                      )}
+                      )} */}
                       <div className="mb-2">
                         <h3
                           className="text-lg font-bold"
@@ -239,7 +240,7 @@ function AddBook() {
                         </h3>
                         {/* <p className="text-sm">Authors: {book.authors}</p> */}
                       </div>
-                      <p className="text-sm">{book.description}</p>
+                      {/* <p className="text-sm">{book.description}</p> */}
 
                       {/* <button
 
@@ -403,7 +404,8 @@ function AddBook() {
                           className=" block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                         >
                           {" "}
-                          Rating:
+                          Rating :
+
                           <input
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             type="number"

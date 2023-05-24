@@ -1,3 +1,9 @@
 .close-icon{
 right: 20px
 }
+.sign{
+ font-weight: 700;
+ align-items: center;
+justify-content: center;
+display: flex;
+}
