@@ -1,3 +1,14 @@
-section#home {
-  display: flex;
+body {
+  background-color: #E1C699;
+  margin: 0;
+  padding: 0;
+}
+
+#shelf {
+  max-width: 100%;
+  align-self: center;
+  height: auto;
+  position: relative;
+  top: 0;
+  z-index: 1;
 }
