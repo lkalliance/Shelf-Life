@@ -9,14 +9,19 @@ const resolvers = {
   Query: {
     me: async (parent, args, context) => {
       if (context.user) {
-        console.log("querying...");
         return User.findOne({ _id: context.user._id });
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    bookcase: async (parent, args, context) => {
+    bookcase: async (parent, { year }, context) => {
       if (context.user) {
-        return Bookcase.findOne({ user_id: context.user._id, year: args.year });
+        console.log("Finding a bookcase");
+        console.log(year);
+        const test = Bookcase.findOne({
+          user_id: context.user._id,
+          year: args.year,
+        });
+        return true;
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -63,8 +68,13 @@ const resolvers = {
       }
 
       const token = signToken(user);
+      const year = new Date();
+      const bookcase = await Bookcase.findOne({
+        user_id: user._id,
+        year: year.getFullYear(),
+      });
 
-      return { token, user };
+      return { token, user, bookcase };
     },
 
     addBook: async (parent, args, context) => {
@@ -103,6 +113,17 @@ const resolvers = {
         );
         updatedUser = updatebookList + updateBook;
         return updatedUser;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    arrangeBookcase: async (parent, args, context) => {
+      if (context.user) {
+        const updatebookCase = await Bookcase.findOneAndUpdate(
+          { user_id: context.user._id, year: args.year },
+          { $set: { shelves: args.shelves } },
+          { $set: { unshelved: args.unshelved } }
+        );
+        return updatebookCase;
       }
       throw new AuthenticationError("You need to be logged in!");
     },

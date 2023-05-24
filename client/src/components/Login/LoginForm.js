@@ -6,6 +6,13 @@ import { LOGIN } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import "./login.css";
 import { SignupContext } from "../../App";
+import { convert } from "../../utils/dragUtils";
+import { useRecoilState } from "recoil";
+import {
+  userBookcaseAtom,
+  userBooksAtom,
+  userItemsAtom,
+} from "../../recoil/atom/userBooksAtom";
 
 function LoginForm() {
   const {
@@ -17,6 +24,9 @@ function LoginForm() {
   const [userFormData, setUserFormData] = useState({ email: "", password: "" });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [books, setBooks] = useRecoilState(userBooksAtom);
+  const [bcase, setbCase] = useRecoilState(userBookcaseAtom);
+  const [items, setItems] = useRecoilState(userItemsAtom);
   const [login, { error, data }] = useMutation(LOGIN);
 
   const handleModalSubmit = () => {
@@ -58,7 +68,10 @@ function LoginForm() {
       const { data } = await login({
         variables: { ...userFormData },
       });
-      console.log(data);
+
+      setBooks(data.login.user);
+      setbCase(data.login.bookcase);
+      setItems(convert(data.login.bookcase));
       Auth.login(data.login.token);
     } catch (err) {
       console.error(err);

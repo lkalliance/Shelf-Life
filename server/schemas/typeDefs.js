@@ -6,6 +6,12 @@ const typeDefs = gql`
     user: User
   }
 
+  type AuthReturn {
+    token: ID
+    user: User
+    bookcase: Bookcase
+  }
+
   type User {
     _id: ID
     userName: String
@@ -85,7 +91,7 @@ const typeDefs = gql`
       shelves: [ShelfInput]
       unshelved: [BookInput]
     ): Bookcase
-    login(email: String!, password: String!): Auth
+    login(email: String!, password: String!): AuthReturn
     addBook(
       title: String!
       shortTitle: String
@@ -100,6 +106,11 @@ const typeDefs = gql`
       year: String
     ): User
     removeBook(bookId: ID!): User
+    arrangeBookcase(
+      year: String!
+      shelves: [ShelfInput]
+      unshelved: [BookInput]
+    ): Bookcase
   }
 `;
 

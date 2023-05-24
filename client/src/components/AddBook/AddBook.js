@@ -5,12 +5,21 @@ import { ADD_BOOK } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import { booksDeepCopy, convert } from "../../utils/dragUtils";
 import { useRecoilState } from "recoil";
-import { userBooksAtom, userItemsAtom } from "../../recoil/atom/userBooksAtom";
+import {
+  userBooksAtom,
+  userItemsAtom,
+  userBookcaseAtom,
+} from "../../recoil/atom/userBooksAtom";
 
 function AddBook() {
   const [showModal, setShowModal] = useState(false);
   const [showSelectModal, setshowSelectModal] = useState(false);
   const [selected, setSelected] = useState({ comment: "", rating: 0 });
+  const [books, setBooks] = useRecoilState(userBooksAtom);
+  const [bcase, setbCase] = useRecoilState(userBookcaseAtom);
+
+  const [items, setItems] = useRecoilState(userItemsAtom);
+
   const handleModalSubmit = () => {
     setShowModal(!showModal);
   };
@@ -76,7 +85,6 @@ function AddBook() {
     // reload page/clear search and close parent modal
 
     const year = new Date().getFullYear().toString();
-    console.log(year);
     const submission = { ...selected, year };
     console.log(submission);
     try {
@@ -84,13 +92,15 @@ function AddBook() {
       const { data } = await addBook({
         variables: { ...selected, year },
       });
-      console.log(selected);
 
-      console.log(data);
       // code needed to clear the form and dismiss the modal ---
     } catch (err) {
       console.error(err);
     }
+
+    setBooks({ ...books, bookList: [...books.bookList, submission] });
+    setbCase({ ...bcase, unshelved: [...bcase.unshelved, submission] });
+    setItems(convert(bcase));
   };
 
   return (
@@ -317,7 +327,7 @@ function AddBook() {
                         >
                           <option>Select Height</option>
                           <option value="tall">Tall</option>
-                          <option value="Medium">Medium</option>
+                          <option value="medium">Medium</option>
                           <option value="short">Short</option>
                         </select>
                       </div>
@@ -367,9 +377,9 @@ function AddBook() {
                           required
                         >
                           <option>Select Style</option>
-                          <option value="Paperback">Paperback</option>
-                          <option value="HardCover">HardCover</option>
-                          <option value="Leatherbound">Leatherbound</option>
+                          <option value="paperback">Paperback</option>
+                          <option value="hardcover">HardCover</option>
+                          <option value="leather">Leatherbound</option>
                         </select>
                       </div>
                       <div>

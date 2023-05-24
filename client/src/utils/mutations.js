@@ -7,6 +7,45 @@ export const LOGIN = gql`
       user {
         _id
         userName
+        bookList {
+          title
+          authors
+          bookId
+          rating
+          comment
+        }
+      }
+      bookcase {
+        year
+        shelves {
+          left {
+            bookId
+            title
+            authors
+            style
+            height
+            thickness
+            color
+          }
+          right {
+            bookId
+            title
+            authors
+            style
+            height
+            thickness
+            color
+          }
+        }
+        unshelved {
+          bookId
+          title
+          authors
+          style
+          height
+          thickness
+          color
+        }
       }
     }
   }
@@ -62,6 +101,45 @@ export const REMOVE_BOOK = gql`
   mutation Mutation($bookId: ID!, $year: String!) {
     removeBook(bookId: $bookId) {
       _id
+    }
+  }
+`;
+
+export const ARRANGE_BOOKCASE = gql`
+  mutation Mutation($year: String!, $bookcase: Bookcase) {
+    arrangeBookcase(year: $year, bookcase: $bookcase) {
+      bookcase {
+        year
+        shelves {
+          left {
+            bookId
+            title
+            authors
+            style
+            height
+            thickness
+            color
+          }
+          right {
+            bookId
+            title
+            authors
+            style
+            height
+            thickness
+            color
+          }
+        }
+        unshelved {
+          bookId
+          title
+          authors
+          style
+          height
+          thickness
+          color
+        }
+      }
     }
   }
 `;
