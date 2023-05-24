@@ -196,7 +196,7 @@ function AddBook() {
                   name="searchInput"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
-                  // type='text'
+               
                   size="lg"
                   placeholder="Search"
                   required
@@ -224,13 +224,7 @@ function AddBook() {
                 return (
                   <div className="h-auto max-w-xs" key={book.bookId}>
                     <div className="p-4">
-                      {/* {book.image && (
-                        <img
-                          src={book.image}
-                          alt={`The cover for ${book.title}`}
-                          className="h-auto max-w-xs"
-                        />
-                      )} */}
+                   
                       <div className="mb-2">
                         <h3
                           className="text-lg font-bold"
@@ -238,22 +232,15 @@ function AddBook() {
                         >
                           {book.title}
                         </h3>
-                        {/* <p className="text-sm">Authors: {book.authors}</p> */}
+                       
                       </div>
-                      {/* <p className="text-sm">{book.description}</p> */}
-
-                      {/* <button
-
-                        onClick={() => handleModalSelection(book)} className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"
-                      >
-                        Select
-                      </button> */}
+                 
                     </div>
                   </div>
                 );
               })}
           </div>
-          {/* )} */}
+       
           {showSelectModal && (
             <div
               id="selection-modal"
