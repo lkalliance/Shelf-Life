@@ -98,9 +98,15 @@ function AddBook() {
       console.error(err);
     }
 
-    setBooks({ ...books, bookList: [...books.bookList, submission] });
-    setbCase({ ...bcase, unshelved: [...bcase.unshelved, submission] });
-    setItems(convert(bcase));
+    const newBooks = { ...books, bookList: [...books.bookList, submission] };
+    const newCase = { ...bcase, unshelved: [...bcase.unshelved, submission] };
+
+    console.log(newBooks);
+    console.log(newCase);
+
+    setBooks(newBooks);
+    setbCase(newCase);
+    setItems(convert(newCase));
   };
 
   return (
