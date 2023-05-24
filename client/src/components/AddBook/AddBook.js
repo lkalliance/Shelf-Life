@@ -52,7 +52,10 @@ function AddBook() {
       const bookData = items.map((book) => ({
         bookId: book.id,
         title: book.volumeInfo.title,
-        link: book.selfLink,
+        authors: book.volumeInfo.authors || ['No author to display'],
+        description: book.volumeInfo.description,
+        image: book.volumeInfo.imageLinks?.thumbnail || '',
+        // link: book.selfLink,
       }));
 
       setSearchedBooks(bookData);
@@ -73,6 +76,9 @@ function AddBook() {
       bookId: book.bookId,
       title: book.title,
       authors: book.authors,
+      description: book.description,
+      image: book.imageLinks
+
     });
     setSearchedBooks([]);
   };
@@ -299,6 +305,9 @@ function AddBook() {
                         <select
                           id="book_color"
                           name="bookColor"
+                          onChange={(e) =>
+                            setSelected({ ...selected, color: e.target.value })
+                          }
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                           required
                         >
