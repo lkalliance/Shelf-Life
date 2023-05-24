@@ -2,6 +2,8 @@ export const convert = (data) => {
   // This utility takes the stored bookcase data and converts
   // it to a form that react-beautiful-dnd can use
 
+  console.log(data);
+
   const converted = {};
   let counter = 0;
 
