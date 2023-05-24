@@ -1,15 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ApolloClient } from '@apollo/client';
+import { ApolloClient } from "@apollo/client";
 // import { useMutation } from 'react-query';
-import { useMutation } from "@apollo/client"
-import { LOGIN } from '../../utils/mutations';
-import Auth from '../../utils/auth';
+import { useMutation } from "@apollo/client";
+import { LOGIN } from "../../utils/mutations";
+import Auth from "../../utils/auth";
 import "./login.css";
 import { SignupContext } from "../../App";
 
 function LoginForm() {
-  const { showSignupModal, setShowSignupModal, showloginModal, setShowloginModal } = useContext(SignupContext);
-  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+  const {
+    showSignupModal,
+    setShowSignupModal,
+    showloginModal,
+    setShowloginModal,
+  } = useContext(SignupContext);
+  const [userFormData, setUserFormData] = useState({ email: "", password: "" });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [login, { error, data }] = useMutation(LOGIN);
@@ -27,15 +32,14 @@ function LoginForm() {
   const handleClose = () => {
     setShowloginModal(false);
     setShowSignupModal(false);
-  }
+  };
   useEffect(() => {
     if (error) {
-      setShowAlert(true)
+      setShowAlert(true);
+    } else {
+      setShowAlert(false);
     }
-    else {
-      setShowAlert(false)
-    }
-  }, [error])
+  }, [error]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -52,38 +56,37 @@ function LoginForm() {
 
     try {
       const { data } = await login({
-        variables: { ...userFormData }
-      })
+        variables: { ...userFormData },
+      });
       console.log(data);
       Auth.login(data.login.token);
     } catch (err) {
       console.error(err);
     }
     setUserFormData({
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     });
   };
 
-  {
-    Auth.loggedIn() ? (
-      <>
+  // {
+  //   Auth.loggedIn() ? (
+  //     <>
 
-        <button onClick={Auth.logout}>Logout</button>
-      </>
-    ) : (
-      <button onClick={() => setShowloginModal(true)}>Login</button>
-    )
-  }
+  //       <button onClick={Auth.logout}>Logout</button>
+  //     </>
+  //   ) : (
+  //     <button onClick={() => setShowloginModal(true)}>Login</button>
+  //   )
+  // }
 
   return (
     <>
-      {Auth.loggedIn() ? (
+      {/* {Auth.loggedIn() ? (
         <>
-
           <button onClick={Auth.logout}>Logout</button>
         </>
-      ) :
+      ) : (
         <button
           onClick={() => {
             handleModalSubmit();
@@ -92,7 +95,8 @@ function LoginForm() {
           type="button"
         >
           Login
-        </button>}
+        </button>
+      )} */}
 
       <div
         tabIndex="-1"
@@ -102,7 +106,7 @@ function LoginForm() {
             : `fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`
         }
       >
-        <div className="relative w-full max-w-md max-h-full">
+        <div className="mx-auto relative w-full max-w-md max-h-full">
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <button
               onClick={() => {
@@ -131,7 +135,12 @@ function LoginForm() {
               <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
                 Sign in to our platform
               </h3>
-              <form className="space-y-6" action="#" noValidate onSubmit={handleFormSubmit}>
+              <form
+                className="space-y-6"
+                action="#"
+                noValidate
+                onSubmit={handleFormSubmit}
+              >
                 {/* <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
                   Something went wrong with your login credentials!
                 </Alert> */}
@@ -174,7 +183,7 @@ function LoginForm() {
 
                 <button
                   disabled={!(userFormData.email && userFormData.password)}
-                  type='submit'
+                  type="submit"
                   className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Login to your account
@@ -191,7 +200,6 @@ function LoginForm() {
                   Create account
                 </button>
               </div>
-
             </div>
           </div>
         </div>

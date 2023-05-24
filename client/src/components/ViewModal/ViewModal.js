@@ -7,45 +7,11 @@ function ViewModal() {
   const [showModal, setShowModal] = useState(false);
   const handleModalSubmit = () => {
     setShowModal(!showModal);
-    // document.body.style.filter = "blur(2px)";
   };
 
   const handleClose = () => {
     setShowModal(false)
   }
-  const [viewBook, setViewBook] = useState([]);
-  // const [searchInput, setSearchInput] = useState('');
-  const [addBook, { error }] = useMutation(ADD_BOOK)
-  // const handleFormSubmit = async (event) => {
-  //   event.preventDefault();
-
-  // if (!searchInput) {
-  //   return false;
-  // }
-
-  // try {
-  // const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}`);
-
-  // if (!response.ok) {
-  //   throw new Error('something went wrong!');
-  // }
-
-  // const { items } = await response.json();
-
-  // const bookData = items.map((book) => ({
-  //   title: book.volumeInfo.title,
-  //   description: book.volumeInfo.description,
-
-
-  // }));
-
-  // setSearchedBooks(bookData);
-  // setSearchInput('');
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-
 
   return (
     <div className="ViewModal">
@@ -59,7 +25,7 @@ function ViewModal() {
 
       <div id="defaultModal" tabIndex="-1" className={
         showModal ? `fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full` : `fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`}>
-        <div className="relative w-full max-w-2xl max-h-full">
+        <div className="mx-auto relative w-full max-w-2xl max-h-full">
 
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
 
