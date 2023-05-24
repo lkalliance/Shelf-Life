@@ -4,15 +4,23 @@ import { convert } from "../../utils/dragUtils";
 
 export const userBooksAtom = atom({
   key: "userBooks",
-  default: fakeUser,
+  default: {
+    userName: "",
+    bookList: [],
+  },
 });
 
 export const userBookcaseAtom = atom({
   key: "userBookcase",
-  default: fakeBookcase,
+  default: {
+    year: "",
+    user_id: "",
+    shelves: [],
+    unshelved: [],
+  },
 });
 
 export const userItemsAtom = atom({
   key: "userItems",
-  default: convert(fakeBookcase),
+  default: {},
 });
