@@ -37,18 +37,6 @@ const client = new ApolloClient({
 function App() {
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [showloginModal, setShowloginModal] = useState(false);
-  // const [fetched, setFetched] = useState(false);
-  // const [books, setBooks] = useRecoilState(userBooksAtom);
-  // const [bookcase, setBookcase] = useRecoilState(userBooksAtom);
-  // const [items, setItems] = useRecoilState(userItemsAtom);
-
-  // const fetchMe = Auth.loggedIn() && !fetched;
-  // const year = new Date();
-  // const thisYear = year.getFullYear();
-
-  // const { loading, data } = useQuery(QUERY_ME, {
-  //   variables: { fetchMe },
-  // });
 
   return (
     <ApolloProvider client={client}>
