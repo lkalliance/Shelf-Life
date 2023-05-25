@@ -246,10 +246,10 @@ function AddBook() {
               searchedBooks.map((book) => {
                 return (
                   <div className="h-auto max-w-xs" key={book.bookId}>
-                    <div className="p-4">
-                      <div className="mb-2">
+                    <div className="">
+                      <div className="">
                         <h3
-                          className="text-lg font-bold"
+                          className="text-lg "
                           onClick={() => handleModalSelection(book)}
                         >
                           {book.title}
