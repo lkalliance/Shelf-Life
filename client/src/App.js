@@ -55,7 +55,7 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={Auth.loggedIn() ? <Bookcase /> : <Home />}
+              element={Auth.loggedIn() ? <Profile /> : <Home />}
             />
             <Route
               path="/profile"
