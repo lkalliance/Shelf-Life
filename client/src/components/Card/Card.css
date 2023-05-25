@@ -6,6 +6,7 @@ section#profile {
   flex-direction: column;
   width: 600px;
   /* margin:auto; */
+  justify-content: center;
  
 }
 .bookImage{
