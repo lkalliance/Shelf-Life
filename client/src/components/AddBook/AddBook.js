@@ -58,15 +58,22 @@ function AddBook() {
       }
 
       const { items } = await response.json();
+      const foundBooks = [];
+      const bookData = [];
 
-      const bookData = items.map((book) => ({
-        bookId: book.id,
-        title: book.volumeInfo.title,
-        authors: book.volumeInfo.authors || ["No author to display"],
-        description: book.volumeInfo.description,
-        image: book.volumeInfo.imageLinks?.thumbnail || "",
-        // link: book.selfLink,
-      }));
+      for (let i = 0; i < items.length; i++) {
+        const book = items[i];
+        if (foundBooks.indexOf(book.volumeInfo.title.toLowerCase()) < 0) {
+          foundBooks.push(book.volumeInfo.title.toLowerCase());
+          bookData.push({
+            bookId: book.id,
+            title: book.volumeInfo.title,
+            authors: book.volumeInfo.authors || ["No author to display"],
+            description: book.volumeInfo.description,
+            image: book.volumeInfo.imageLinks?.thumbnail || "",
+          });
+        }
+      }
 
       setSearchedBooks(bookData);
       setSearchInput("");
@@ -110,7 +117,6 @@ function AddBook() {
     const year = new Date().getFullYear().toString();
     const submission = { ...selected, year };
     const vettedSubmission = setDefaults(submission);
-    console.log(vettedSubmission);
     try {
       // Execute mutation and pass in defined parameter data as variables
       const { data } = await addBook({
@@ -160,8 +166,11 @@ function AddBook() {
             : `fixed top-0 left-0 right-0 z-50 hidden mx-auto modalClass  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`
         }
       >
-        <div className=" mx-auto relative w-full max-w-xl max-h-full">
-          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div className=" relative w-full max-w-xl max-h-full">
+          <div
+            id="searchField"
+            className="relative bg-white rounded-lg shadow dark:bg-gray-700"
+          >
             <button
               onClick={() => {
                 handleClose();
@@ -234,28 +243,32 @@ function AddBook() {
         </div>
 
         <div className="container mx-auto ">
-          <h2 className="pt-5">
+          <h2>
             {searchedBooks.length > 0
               ? `Viewing ${searchedBooks.length} results:`
+              : selected.title
+              ? ""
               : "Search for a book to begin"}
           </h2>
           <div className="text-center">
             {searchedBooks.length > 0 &&
               searchedBooks.map((book) => {
-                return (
-                  <div className="h-auto max-w-xs" key={book.bookId}>
-                    <div className="">
+                if (book)
+                  return (
+                    <div className="h-auto max-w-xs" key={book.bookId}>
                       <div className="">
-                        <h3
-                          className=" searchResult"
-                          onClick={() => handleModalSelection(book)}
-                        >
-                          {book.title}
-                        </h3>
+                        <div className="">
+                          <h3
+                            className=" searchResult"
+                            onClick={() => handleModalSelection(book)}
+                          >
+                            {book.title}
+                            <span>{book.authors.join(", ")}</span>
+                          </h3>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
+                  );
               })}
           </div>
 
@@ -266,7 +279,10 @@ function AddBook() {
                 "fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
               }
             >
-              <div className="relative w-full max-w-md max-h-full">
+              <div
+                id="bookStyles"
+                className="relative w-full max-w-md max-h-full"
+              >
                 <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                   <button
                     onClick={() => {
@@ -297,9 +313,8 @@ function AddBook() {
                     action="#"
                     onSubmit={handleSelectionForm}
                   >
+                    <h2 className="dark:text-white">{selected.title}</h2>
                     <div className="select_bookOptions relative w-full max-w-xl max-h-full">
-                      <h2 className=" sign mx-auto">selection form!</h2>
-
                       <div>
                         <label
                           htmlFor="Color"

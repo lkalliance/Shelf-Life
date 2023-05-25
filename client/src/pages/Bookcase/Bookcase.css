@@ -8,7 +8,7 @@ section#bookcase {
   /* width: 640px; */
 }
 
-button {
+section#bookcase button {
   background-color: rgb(146, 98, 34);
   color: white;
   border-radius: 4px;
