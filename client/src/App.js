@@ -7,7 +7,6 @@ import { createContext, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Auth from "./utils/auth";
 
-
 import {
   ApolloClient,
   InMemoryCache,
@@ -83,7 +82,6 @@ function App() {
               element={Auth.loggedIn() ? <Profile /> : <Home />}
             />
           </Routes>
-       
         </div>
       </SignupContext.Provider>
     </ApolloProvider>
