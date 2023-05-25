@@ -1,3 +1,10 @@
 section#profile {
   display: flex;
 }
+.bookList{
+  display: flex;
+  flex-wrap: wrap;
+}
+.star-container{
+  display: flex;
+}
