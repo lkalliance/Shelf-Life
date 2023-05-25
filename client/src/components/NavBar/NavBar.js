@@ -65,10 +65,10 @@ function NavBar({ showLogin }) {
                   </Link>
                 </li>
                 <li>
-                  <AddBook />
+                  <AddBook onClick={showHide} />
                 </li>
                 <li>
-                  <About />
+                  <About onClick={showHide} />
                 </li>
                 <li>
                   <a
