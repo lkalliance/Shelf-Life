@@ -4,13 +4,16 @@ section#profile {
 .bookCard{
   display: flex;
   flex-direction: column;
-  width: 600px;
+  width: 250px;
+  min-height: 400px;
+  margin:6px
   /* margin:auto; */
+
  
 }
 .bookImage{
-  width: 250px;
-  height: 350px;
+  width: 150px;
+  height: 200px;
 }
 h5{
  font-weight: 500;
