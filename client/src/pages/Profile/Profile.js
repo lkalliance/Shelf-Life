@@ -11,7 +11,7 @@ import {
   fetchedAtom,
 } from "../../recoil/atom/userBooksAtom";
 import Auth from "../../utils/auth";
-
+import Star from "../../components/AddBook/Star";
 function Profile() {
   if (!Auth.loggedIn()) window.location.href = "/";
   const today = new Date();
@@ -56,11 +56,12 @@ function Profile() {
                   return <span key={index}>{author}</span>;
                 })}
               </p>
-              <p className="font-normal text-gray-700 dark:text-gray-400">
-                {book.rating === 1
+              {/* <p className="font-normal text-gray-700 dark:text-gray-400"> */}
+              <div className="star-container">{book.rating >= 1 && <Star />} {book.rating >= 2 && <Star />} {book.rating >= 3 && <Star />} {book.rating >= 4 && <Star />} {book.rating >= 5 && <Star />}</div>
+              {/* {book.rating === 1
                   ? `${book.rating} star`
-                  : `${book.rating} stars`}
-              </p>
+                  : `${book.rating} stars`} */}
+              {/* </p> */}
               <p className="font-normal text-gray-700 dark:text-gray-400">
                 {book.comment}{" "}
               </p>

@@ -10,7 +10,7 @@ import {
   userItemsAtom,
   userBookcaseAtom,
 } from "../../recoil/atom/userBooksAtom";
-import { star } from "./Star";
+import Star from "./Star";
 
 function AddBook() {
   const [showModal, setShowModal] = useState(false);
@@ -155,8 +155,8 @@ function AddBook() {
         tabIndex="-1"
         className={
           showModal
-            ? `fixed top-0 left-0 right-0 z-50  modalClass  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`
-            : `fixed top-0 left-0 right-0 z-50 hidden modalClass  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`
+            ? `fixed top-0 left-0 right-0 z-50  mx-auto modalClass  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`
+            : `fixed top-0 left-0 right-0 z-50 hidden mx-auto modalClass  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`
         }
       >
         <div className=" mx-auto relative w-full max-w-xl max-h-full">
@@ -246,7 +246,7 @@ function AddBook() {
                     <div className="">
                       <div className="">
                         <h3
-                          className="text-lg "
+                          className=" searchResult"
                           onClick={() => handleModalSelection(book)}
                         >
                           {book.title}
@@ -408,7 +408,7 @@ function AddBook() {
                           className="label block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                         >
                           {" "}
-                          Rating <star />
+                          Rating <div className="star-container">{selected.rating >= 1 && <Star />} {selected.rating >= 2 && <Star />} {selected.rating >= 3 && <Star />} {selected.rating >= 4 && <Star />} {selected.rating >= 5 && <Star />}</div>
                           <input
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             type="number"

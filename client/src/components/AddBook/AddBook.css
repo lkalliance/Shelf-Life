@@ -32,5 +32,14 @@
 }
 .modalClass {
     /* background-color: rgba(255,255,255, 0.8); */
-    background-color: rgb(191, 161, 161);
+    background-color: white;
+    max-width:550px
+}
+.star-container{
+    display: flex;
+}
+.searchResult{
+padding: 10px;
+border-bottom: solid 1px lightgrey;
+
 }
