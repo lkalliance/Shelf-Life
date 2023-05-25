@@ -10,8 +10,7 @@ import {
   userItemsAtom,
   userBookcaseAtom,
 } from "../../recoil/atom/userBooksAtom";
-import { star } from "./Star"
-
+import { star } from "./Star";
 
 function AddBook() {
   const [showModal, setShowModal] = useState(false);
@@ -100,9 +99,7 @@ function AddBook() {
     // save selected options
     //  onSave: save book to unshelved
     // reload page/clear search and close parent modal
-    console.log(books);
     for (const book of books.bookList) {
-      console.log(book.bookId);
       if (book.bookId === selected.bookId) {
         handleSelectionClose();
         handleClose();
@@ -113,6 +110,7 @@ function AddBook() {
     const year = new Date().getFullYear().toString();
     const submission = { ...selected, year };
     const vettedSubmission = setDefaults(submission);
+    console.log(vettedSubmission);
     try {
       // Execute mutation and pass in defined parameter data as variables
       const { data } = await addBook({
@@ -120,7 +118,6 @@ function AddBook() {
       });
 
       // code needed to clear the form and dismiss the modal ---
-
     } catch (err) {
       console.error(err);
     }
@@ -137,7 +134,7 @@ function AddBook() {
     setBooks(newBooks);
     setbCase(newCase);
     setItems(convert(newCase));
-    handleClose()
+    handleClose();
   };
 
   return (

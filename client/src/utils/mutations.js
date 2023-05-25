@@ -74,6 +74,7 @@ export const ADD_BOOK = gql`
     $bookId: String!
     $authors: [String]
     $image: String
+    $description: String
     $color: String
     $height: String
     $thickness: String
@@ -87,6 +88,7 @@ export const ADD_BOOK = gql`
       bookId: $bookId
       authors: $authors
       image: $image
+      description: $description
       color: $color
       height: $height
       thickness: $thickness
@@ -122,6 +124,7 @@ export const ARRANGE_BOOKCASE = gql`
           title
           authors
           image
+          description
           style
           height
           thickness
@@ -132,6 +135,7 @@ export const ARRANGE_BOOKCASE = gql`
           title
           authors
           image
+          description
           style
           height
           thickness
@@ -143,6 +147,7 @@ export const ARRANGE_BOOKCASE = gql`
         title
         authors
         image
+        description
         style
         height
         thickness

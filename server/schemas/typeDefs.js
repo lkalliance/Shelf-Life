@@ -52,6 +52,7 @@ const typeDefs = gql`
     shortTitle: String
     authors: [String]
     image: String
+    description: String
     color: String
     height: String
     thickness: String
@@ -67,6 +68,7 @@ const typeDefs = gql`
     title: String!
     shortTitle: String
     image: String
+    description: String
     authors: [String]
     style: String
     height: String
@@ -96,6 +98,7 @@ const typeDefs = gql`
       shortTitle: String
       authors: [String]
       image: String
+      description: String
       color: String = "white"
       height: String = "medium"
       thickness: String = "mid"
