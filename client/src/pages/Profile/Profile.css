@@ -4,6 +4,7 @@ section#profile {
 .bookList{
   display: flex;
   flex-wrap: wrap;
+  /* margin: auto; */
 }
 .star-container{
   display: flex;
