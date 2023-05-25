@@ -108,7 +108,7 @@ const typeDefs = gql`
       comment: String
       year: String
     ): User
-    removeBook(bookId: ID!): User
+    removeBook(bookId: String!): User
     arrangeBookcase(bookcase: BookcaseInput): Bookcase
   }
 `;

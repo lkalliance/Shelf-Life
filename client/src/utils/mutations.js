@@ -107,7 +107,7 @@ export const ADD_BOOK = gql`
 `;
 
 export const REMOVE_BOOK = gql`
-  mutation Mutation($bookId: ID!, $year: String!) {
+  mutation Mutation($bookId: String!) {
     removeBook(bookId: $bookId) {
       _id
     }
