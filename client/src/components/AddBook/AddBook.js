@@ -102,10 +102,7 @@ function AddBook() {
   const handleSelectionForm = async (event) => {
     event.preventDefault();
 
-    // On select save book and bring up selection modal
-    // save selected options
-    //  onSave: save book to unshelved
-    // reload page/clear search and close parent modal
+
     for (const book of books.bookList) {
       if (book.bookId === selected.bookId) {
         handleSelectionClose();
@@ -118,12 +115,12 @@ function AddBook() {
     const submission = { ...selected, year };
     const vettedSubmission = setDefaults(submission);
     try {
-      // Execute mutation and pass in defined parameter data as variables
+
       const { data } = await addBook({
         variables: vettedSubmission,
       });
 
-      // code needed to clear the form and dismiss the modal ---
+
     } catch (err) {
       console.error(err);
     }
