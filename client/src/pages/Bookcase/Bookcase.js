@@ -110,7 +110,6 @@ function Bookcase() {
     newUser.shelves.push({ left: [], right: [] });
     setBookcase(newUser);
     setItems(convert(newUser));
-
     try {
       // Execute mutation and pass in defined parameter data as variables
       const { data } = await arrangeBookcase({

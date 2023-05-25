@@ -1,0 +1,41 @@
+div#defaultModal {
+  margin-top: 50px;
+}
+
+div.infoContainer {
+  flex-grow: 1;
+}
+
+img.bookImage {
+  width: 200px;
+  margin-right: 12px;
+}
+
+div.infoContainer span {
+  border-top: 1px solid #888888;
+  border-bottom: 1px solid #888888;
+  padding: 3px 0 3px;
+  display: block;
+  margin: 10px 0 10px;
+}
+
+div.infoContainer div {
+  margin: 10px 0 10px;
+}
+
+@media screen and (max-width: 400px) {
+  div.infoContainer {
+    font-size: 14px;
+    line-height: 16px;
+    margin-right: 10px;
+  }
+  img.bookImage {
+    width: 100px;
+  }
+
+  div.infoContainer h3 {
+    font-size: 16px;
+    line-height: 18px;
+    margin-bottom: 10px;
+  }
+}
