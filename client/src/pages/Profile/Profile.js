@@ -3,6 +3,7 @@ import { useRecoilState } from "recoil";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME, QUERY_BOOKCASE } from "../../utils/queries";
 import { convert } from "../../utils/dragUtils";
+import { Card } from "../../components";
 
 import {
   userBooksAtom,
@@ -67,6 +68,7 @@ function Profile() {
               </p>
             </div>
           );
+          return <Card book={book} />;
         })}
       </div>
     </section>

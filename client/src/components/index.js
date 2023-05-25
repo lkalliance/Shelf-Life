@@ -6,4 +6,5 @@ export { LoginForm, SignupForm } from "./Login";
 export { ViewModal } from "./ViewModal";
 export { AddBook } from "./AddBook/AddBook";
 export { About } from "./About/About";
+export { Card } from "./Card";
 export { Button } from "./Button";

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Draggable } from "@hello-pangea/dnd";
 import { useMutation } from "@apollo/client";
 import { ViewModal } from "../ViewModal";
-import { ARRANGE_BOOKCASE } from "../../utils/mutations";
+import { ARRANGE_BOOKCASE, REMOVE_BOOK } from "../../utils/mutations";
 import {
   isTight,
   abbreviateTitle,
@@ -14,13 +14,16 @@ import {
 import {
   userBookcaseAtom,
   userItemsAtom,
+  userBooksAtom,
 } from "../../recoil/atom/userBooksAtom";
 
 function Book({ bookId, book, bookIndex, stack }) {
-  const [userBooks, setUserBooks] = useRecoilState(userBookcaseAtom);
-  // eslint-disable-next-line no-unused-vars
+  const [userBookcase, setUserBookcase] = useRecoilState(userBookcaseAtom);
+  const [userBooks, setUserBooks] = useRecoilState(userBooksAtom);
   const [userItems, setUserItems] = useRecoilState(userItemsAtom);
-  const [arrangeBookcase, { error }] = useMutation(ARRANGE_BOOKCASE);
+  const [arrangeBookcase, { error: arrangeError }] =
+    useMutation(ARRANGE_BOOKCASE);
+  const [removeBook, { error: removeError }] = useMutation(REMOVE_BOOK);
   const [showModal, setShowModal] = useState(false);
 
   let timer;
@@ -45,7 +48,7 @@ function Book({ bookId, book, bookIndex, stack }) {
   async function unshelveBook() {
     const { 1: thisStack, 2: thisShelf } = stack.split("-");
     if (thisShelf === "unshelved") return;
-    const allBooks = booksDeepCopy(userBooks);
+    const allBooks = booksDeepCopy(userBookcase);
     const unshelved = allBooks.unshelved;
 
     const thisBook = allBooks.shelves[thisShelf][thisStack].splice(
@@ -53,7 +56,7 @@ function Book({ bookId, book, bookIndex, stack }) {
       1
     );
     unshelved.push(thisBook[0]);
-    setUserBooks(allBooks);
+    setUserBookcase(allBooks);
     setUserItems(convert(allBooks));
 
     try {
@@ -68,10 +71,56 @@ function Book({ bookId, book, bookIndex, stack }) {
     }
   }
 
+  async function deleteThisBook() {
+    const { 1: thisStack, 2: thisShelf } = stack.split("-");
+    const allBooks = booksDeepCopy(userBookcase);
+    const booklist = { ...userBooks, bookList: [...userBooks.bookList] };
+
+    const fromStack =
+      thisShelf === "unshelved"
+        ? allBooks.unshelved
+        : allBooks.shelves[thisShelf][thisStack];
+    fromStack.splice(bookIndex, 1);
+    let listIndex = 0;
+    for (let i = 0; i < booklist.bookList.length; i++) {
+      if (book.bookId === booklist.bookList[i].bookId) listIndex = i;
+    }
+
+    const thisListBook = booklist.bookList.splice(listIndex, 1);
+
+    setUserBookcase(allBooks);
+    setUserItems(convert(allBooks));
+    setUserBooks(booklist);
+
+    try {
+      // Execute mutation and pass in defined parameter data as variables
+      const { data: arrangeData } = await arrangeBookcase({
+        variables: { bookcase: allBooks },
+      });
+
+      // code needed to clear the form and dismiss the modal ---
+    } catch (err) {
+      console.error(err);
+    }
+
+    try {
+      const { data: removeData } = await removeBook({
+        variables: { bookId: thisListBook[0].bookId },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   const textStyle = isTight(book);
   return (
     <>
-      <ViewModal show={showModal} switcher={setShowModal} info={book} />
+      <ViewModal
+        show={showModal}
+        switcher={setShowModal}
+        info={book}
+        remover={deleteThisBook}
+      />
       <Draggable key={bookId} draggableId={bookId} index={bookIndex}>
         {(provided) => (
           <li
