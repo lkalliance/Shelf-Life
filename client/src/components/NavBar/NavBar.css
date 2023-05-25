@@ -4,3 +4,13 @@ nav {
 .logo {
   width: 100px;
 }
+
+nav ul {
+  padding: 0;
+}
+
+@media screen and (min-width: 768px) {
+  nav ul {
+    padding: 8px;
+  }
+}
