@@ -1,4 +1,5 @@
 import "./Card.css";
+import Star from "../../components/AddBook/Star";
 
 function Card({ book }) {
   return (
@@ -13,11 +14,19 @@ function Card({ book }) {
         {book.title}
       </h5>
       <p className="font-normal text-gray-700 dark:text-gray-400">
+        {" "}
         {book.authors.join(", ")}
       </p>
-      <p className="font-normal text-gray-700 dark:text-gray-400">
-        {book.rating === 1 ? `${book.rating} star` : `${book.rating} stars`}
-      </p>
+      {/* <p className="font-normal text-gray-700 dark:text-gray-400"> */}
+      <div className="star-container">
+        {book.rating >= 1 && <Star />} {book.rating >= 2 && <Star />}{" "}
+        {book.rating >= 3 && <Star />} {book.rating >= 4 && <Star />}{" "}
+        {book.rating >= 5 && <Star />}
+      </div>
+      {/* {book.rating === 1
+                  ? `${book.rating} star`
+                  : `${book.rating} stars`} */}
+      {/* </p> */}
       <p className="font-normal text-gray-700 dark:text-gray-400">
         {book.comment}{" "}
       </p>
