@@ -95,16 +95,21 @@ export const noSpace = (shelf, newBook) => {
 export const isTight = (book) => {
   // This utility performs logic to determine if the spine text needs shortening
   if (
-    book.title >= 25 ||
-    (book.title.length > 15 && ["short"].indexOf(book.height) >= 0) ||
-    (book.title.length > 22 && ["medium"].indexOf(book.height) >= 0)
+    book.title >= 60 ||
+    (book.title.length > 30 && ["short"].indexOf(book.height) >= 0) ||
+    (book.title.length > 22 &&
+      ["medium"].indexOf(book.height) >= 0 &&
+      book.thickness === "thin")
   ) {
     return "tightest";
-  } else if (book.thickness === "thin") {
+  } else if (
+    book.thickness === "thin" ||
+    (book.thickness === "medium" && book.title.length > 30)
+  ) {
     return "tighter";
   } else if (
     book.title.length >= 24 ||
-    (book.title.length > 18 && book.thickness === "mid") ||
+    (book.title.length > 15 && book.thickness === "mid") ||
     (book.title.length > 12 && book.style === "leather")
   ) {
     return "tight";
