@@ -6,7 +6,11 @@ div.infoContainer {
   flex-grow: 1;
 }
 
-img.bookImage {
+div.fullContainer {
+  position: relative;
+}
+
+div.fullContainer img.bookImage {
   width: 200px;
   margin-right: 12px;
 }
@@ -21,6 +25,13 @@ div.infoContainer span {
 
 div.infoContainer div {
   margin: 10px 0 10px;
+}
+
+div.infoContainer a {
+  position: absolute;
+  font-size: 12px;
+  bottom: 16px;
+  right: 20px;
 }
 
 @media screen and (max-width: 400px) {

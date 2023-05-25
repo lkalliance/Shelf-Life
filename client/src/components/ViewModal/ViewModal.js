@@ -31,7 +31,7 @@ function ViewModal({ show, switcher, info, remover }) {
       >
         <div className="mx-auto relative w-full max-w-2xl max-h-full">
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+            <div className="fullContainer flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
               {info.image ? (
                 <img src={info.image} alt={info.title} className="bookImage" />
               ) : (
@@ -45,12 +45,13 @@ function ViewModal({ show, switcher, info, remover }) {
                 <div className="dark:text-white">{info.comment}</div>
                 <a
                   href="#"
+                  className="dark:text-white"
                   onClick={(e) => {
                     e.preventDefault();
                     remover();
                   }}
                 >
-                  delete this book from your collection
+                  give book away
                 </a>
               </div>
               <button
