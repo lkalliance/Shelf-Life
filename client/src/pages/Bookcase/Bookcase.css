@@ -32,7 +32,7 @@ div#shelves {
 div#shelf-unshelved {
   border: none;
   align-items: start;
-  background-color: #dddddd;
+  background-color: #a09999;
   height: auto;
   padding: 10px 20px 0;
   width: 640px;
