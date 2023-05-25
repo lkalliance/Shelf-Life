@@ -5,6 +5,8 @@ section#profile {
   display: flex;
   flex-wrap: wrap;
   /* margin: auto; */
+  justify-content: center;
+  align-items: start;
 }
 .star-container{
   display: flex;
