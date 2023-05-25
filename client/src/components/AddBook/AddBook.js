@@ -77,6 +77,7 @@ function AddBook() {
 
       setSearchedBooks(bookData);
       setSearchInput("");
+      setSelected("")
     } catch (err) {
       console.error(err);
     }
@@ -84,6 +85,7 @@ function AddBook() {
 
   const handleSelectionClose = () => {
     setshowSelectModal(false);
+
   };
 
   const handleModalSelection = (book) => {
@@ -244,8 +246,8 @@ function AddBook() {
             {searchedBooks.length > 0
               ? `Viewing ${searchedBooks.length} results:`
               : selected.title
-              ? ""
-              : "Search for a book to begin"}
+                ? ""
+                : "Search for a book to begin"}
           </h2>
           <div className="text-center">
             {searchedBooks.length > 0 &&
@@ -441,7 +443,7 @@ function AddBook() {
                             }
                             id="Rating"
                             name="Rating"
-                            min="1"
+                            min="0"
                             max="5"
                           />
                         </label>
