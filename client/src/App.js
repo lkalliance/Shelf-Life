@@ -67,7 +67,7 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={Auth.loggedIn() ? <Profile /> : <Home />}
+              element={Auth.loggedIn() ? <Bookcase /> : <Home />}
             />
             <Route
               path="/profile"
@@ -79,7 +79,7 @@ function App() {
             />
             <Route
               path="/*"
-              element={Auth.loggedIn() ? <Profile /> : <Home />}
+              element={Auth.loggedIn() ? <Bookcase /> : <Home />}
             />
           </Routes>
         </div>
