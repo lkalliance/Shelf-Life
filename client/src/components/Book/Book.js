@@ -1,7 +1,9 @@
 import "./Book.css";
 import { useRecoilState } from "recoil";
+import { useState } from "react";
 import { Draggable } from "@hello-pangea/dnd";
 import { useMutation } from "@apollo/client";
+import { ViewModal } from "../ViewModal";
 import { ARRANGE_BOOKCASE } from "../../utils/mutations";
 import {
   isTight,
@@ -19,6 +21,7 @@ function Book({ bookId, book, bookIndex, stack }) {
   // eslint-disable-next-line no-unused-vars
   const [userItems, setUserItems] = useRecoilState(userItemsAtom);
   const [arrangeBookcase, { error }] = useMutation(ARRANGE_BOOKCASE);
+  const [showModal, setShowModal] = useState(false);
 
   let timer;
   function clickHandler(e) {
@@ -28,11 +31,15 @@ function Book({ bookId, book, bookIndex, stack }) {
 
     if (e.detail === 1) {
       timer = setTimeout(() => {
-        alert(book.title);
+        showInfo();
       }, 200);
     } else if (e.detail === 2) {
       unshelveBook();
     }
+  }
+
+  function showInfo() {
+    setShowModal(true);
   }
 
   async function unshelveBook() {
@@ -63,31 +70,34 @@ function Book({ bookId, book, bookIndex, stack }) {
 
   const textStyle = isTight(book);
   return (
-    <Draggable key={bookId} draggableId={bookId} index={bookIndex}>
-      {(provided) => (
-        <li
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
-          <div
-            className={`book ${book.color} ${book.thickness} ${book.height} ${book.style} ${textStyle}`}
-            id={bookId}
-            onClick={clickHandler}
+    <>
+      <ViewModal show={showModal} switcher={setShowModal} info={book} />
+      <Draggable key={bookId} draggableId={bookId} index={bookIndex}>
+        {(provided) => (
+          <li
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
           >
-            <div className="accent top"></div>
-            <div className="spineText">
-              <span key="title" className="title">
-                {textStyle === "tightest"
-                  ? abbreviateTitle(book.title)
-                  : book.title}
-              </span>
+            <div
+              className={`book ${book.color} ${book.thickness} ${book.height} ${book.style} ${textStyle}`}
+              id={bookId}
+              onClick={clickHandler}
+            >
+              <div className="accent top"></div>
+              <div className="spineText">
+                <span key="title" className="title">
+                  {textStyle === "tightest"
+                    ? abbreviateTitle(book.title)
+                    : book.title}
+                </span>
+              </div>
+              <div className="accent bottom"></div>
             </div>
-            <div className="accent bottom"></div>
-          </div>
-        </li>
-      )}
-    </Draggable>
+          </li>
+        )}
+      </Draggable>
+    </>
   );
 }
 

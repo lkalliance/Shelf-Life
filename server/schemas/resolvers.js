@@ -86,8 +86,6 @@ const resolvers = {
         if (args.thickness === "") updatedArgs.thickness = "mid";
         if (args.style === "") updatedArgs.style = "paperback";
 
-        console.log(updatedArgs);
-
         const updatebookList = await User.findOneAndUpdate(
           { _id: context.user._id }, //filter
           { $addToSet: { bookList: updatedArgs } },
@@ -100,6 +98,7 @@ const resolvers = {
           { $addToSet: { unshelved: updatedArgs } },
           { new: true }
         );
+        console.log(updatebookList);
         return { updatebookList, updateBook };
       }
       throw new AuthenticationError("You need to be logged in!");
@@ -124,7 +123,6 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
     arrangeBookcase: async (parent, args, context) => {
-      console.log(args.bookcase.shelves);
       if (context.user) {
         const updateShelves = await Bookcase.findOneAndUpdate(
           { user_id: context.user._id, year: args.bookcase.year },
