@@ -181,7 +181,7 @@
   color: gold;
 }
 .book.blue {
-  background-color: rgb(67, 67, 212);
+  background-color: rgb(59, 59, 189);
   color: white;
 }
 .book.navy {
@@ -189,7 +189,7 @@
   color: white;
 }
 .book.yellow {
-  background-color: rgb(206, 206, 49);
+  background-color: rgb(222, 206, 24);
   color: black;
 }
 .book.white {
@@ -201,7 +201,7 @@
   color: white;
 }
 .book.orange {
-  background-color: rgb(220, 155, 34);
+  background-color: rgb(218, 145, 10);
 }
 .book.green {
   background-color: rgb(26, 106, 26);
@@ -209,5 +209,5 @@
 }
 .book.black {
   background-color: black;
-  color: yellow;
+  color: rgb(216, 213, 36);
 }
