@@ -8,6 +8,11 @@ section#bookcase {
   /* width: 640px; */
 }
 
+button {
+  background-color: brown;
+  color: white;
+}
+
 div#shelves {
   width: 640px;
   /* border: 1px solid red; */
