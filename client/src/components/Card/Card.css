@@ -1,20 +1,20 @@
 section#profile {
   display: flex;
 }
-.bookCard{
+.bookCard {
   display: flex;
   flex-direction: column;
   width: 250px;
   min-height: 400px;
-  margin:6px
-  /* margin:auto; */
-
- 
+  margin: 6px;
 }
-.bookImage{
+.bookImage {
   width: 150px;
   height: 200px;
 }
-h5{
- font-weight: 500;
+h5 {
+  font-weight: 500;
+}
+.star-container {
+  margin: 6px 0;
 }

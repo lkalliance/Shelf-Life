@@ -1,7 +1,11 @@
 import "./Button.css";
 
-function Button({ children, handler }) {
-  return <button onClick={handler}>{children}</button>;
+function Button({ children, handler, className }) {
+  return (
+    <button className={className} onClick={handler}>
+      {children}
+    </button>
+  );
 }
 
 export { Button };

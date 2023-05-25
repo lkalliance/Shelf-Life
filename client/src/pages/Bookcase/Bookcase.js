@@ -167,8 +167,12 @@ function Bookcase() {
         </div>
         <Shelf key="unshelved" shelfIndex="unshelved" items={items} />
       </DragDropContext>
-      <Button handler={addShelf}>Add a shelf</Button>
-      <Button handler={removeEmpties}>Delete empty shelves</Button>
+      <Button className="bookcaseButton" handler={addShelf}>
+        Add a shelf
+      </Button>
+      <Button className="bookcaseButton" handler={removeEmpties}>
+        Delete empty shelves
+      </Button>
     </section>
   );
 }

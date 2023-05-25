@@ -23,7 +23,6 @@ function About() {
         }}
       >
         About
-
       </a>
 
       <div
@@ -68,12 +67,12 @@ function About() {
 
             <div className="p-6 space-y-6">
               <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Sapiente fugiat corrupti accusamus eveniet laborum consequuntur?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Sapiente fugiat corrupti accusamus eveniet laborum consequuntur?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Sapiente fugiat corrupti accusamus eveniet laborum consequuntur?
+                Shelf Life is a dedicated book diary with a creative twist. Keep
+                track of the books you've read, place them on your virtual
+                bookshelves, and rearrange them to your heart's conent by
+                dragging and dropping. Customize the look of the books with a
+                series of colors, sizes and styles. It's exactly the kind of
+                creative outlet that many book lovers crave!
               </p>
             </div>
           </div>

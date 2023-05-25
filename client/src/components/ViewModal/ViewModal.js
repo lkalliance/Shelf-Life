@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
+import Star from "../../components/AddBook/Star";
+
 import "./ViewModal.css";
 
 function ViewModal({ show, switcher, info, remover }) {
@@ -42,6 +44,11 @@ function ViewModal({ show, switcher, info, remover }) {
                   {info.title}
                 </h3>
                 {info.authors ? createAuthors(info.authors) : <span></span>}
+                <div className="star-container">
+                  {info.rating >= 1 && <Star />} {info.rating >= 2 && <Star />}{" "}
+                  {info.rating >= 3 && <Star />} {info.rating >= 4 && <Star />}{" "}
+                  {info.rating >= 5 && <Star />}
+                </div>
                 <div className="dark:text-white">{info.comment}</div>
                 <a
                   href="#"
@@ -51,7 +58,7 @@ function ViewModal({ show, switcher, info, remover }) {
                     remover();
                   }}
                 >
-                  give book away
+                  give away
                 </a>
               </div>
               <button
