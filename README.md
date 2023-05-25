@@ -58,7 +58,7 @@ In addition to the Bookcase, there is also a card-based Book List, which gives t
 
 ## Credits
 
-Shelf Life was created by Safia Ali, Ashton Balder, Justin Bureske, Micheala Holthus and Lee Klusky. We built Shelf Life on technologies like [React](https://react.dev), [Node](https://nodejs.org), [Express](https://expressjs.com), [Tailwind](https://tailwindcss.com), [Recoil](https://recoiljs.org), [React Beautiful DnD](https://www.npmjs.com/package/react-beautiful-dnd) and more. To the contributors to these open-source projects, we give our great thanks.
+Shelf Life was created by [Safia Ali](https://www.linkedin.com/in/safia-ali-840b53268/), [Ashton Balder](https://www.linkedin.com/in/ashton-balder-0138831a2/), [Justin Brueske](https://github.com/Justin-Brueske), [Micheala Holthus](https://github.com/Micheala-H) and [Lee Klusky](https://www.linkedin.com/in/lee-klusky/). We built Shelf Life on technologies like [React](https://react.dev), [Node](https://nodejs.org), [Express](https://expressjs.com), [Tailwind](https://tailwindcss.com), [Recoil](https://recoiljs.org), [React Beautiful DnD](https://www.npmjs.com/package/react-beautiful-dnd) and more. To the contributors to these open-source projects, we give our great thanks.
 
 This application would also not exist if it were not for the help, guidance and wisdom of the instructional staff of the [University of Minnesota Full Stack Coding Bootcamp](https://bootcamp.umn.edu/coding/): [Jack Linhard](https://www.linkedin.com/in/jack-linhart/), [Daniel Vitelli](https://www.linkedin.com/in/daniel-vitelli/), [Dillon Riecke](https://www.linkedin.com/in/dillon-riecke/) and [Konner Hartman](https://www.linkedin.com/in/konner-hartman/).
 
