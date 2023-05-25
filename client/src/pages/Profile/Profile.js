@@ -37,7 +37,7 @@ function Profile() {
 
   return (
     <section id="profile">
-      <div className="grid grid-cols-1 content-center">
+      <div className="bookList">
         {books.bookList.map((book, index) => {
           return (
             <div
