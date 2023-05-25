@@ -1,3 +1,17 @@
 section#profile {
   display: flex;
 }
+.bookCard{
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  /* margin:auto; */
+ 
+}
+.bookImage{
+  width: 250px;
+  height: 350px;
+}
+h5{
+ font-weight: 500;
+}
