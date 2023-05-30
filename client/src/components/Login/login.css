@@ -1,18 +1,59 @@
-.close-icon{
-right: 20px
+.close-icon {
+  right: 20px;
 }
-.sign{
- font-weight: 700;
- align-items: center;
-justify-content: center;
-display: flex;
+.sign {
+  font-weight: 700;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
-.loginLabel{
-    padding: 17px;
+.loginLabel {
+  padding: 17px;
+}
 
-
+div#loginForm,
+div#signupForm {
+  margin-top: 90px;
 }
-.switch {
-    padding-top: 10px;
-   
+
+div#loginForm h3,
+div#signupForm h3 {
+  padding: 10px 40px;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+div#loginForm label,
+div#signupForm label {
+  padding: 0;
+  margin-top: 15px;
+  margin-bottom: 4px;
+}
+
+div#loginForm input,
+div#signupForm input {
+  margin-top: 0;
+}
+
+div#loginForm button.w-full,
+div#signupForm button.w-full {
+  margin-top: 15px;
+}
+
+div#loginForm a.switcher,
+div#signupForm a.switcher {
+  padding: 0 5px;
+}
+
+div#loginForm div.switch,
+div#signupForm div.switch {
+  padding: 15px 0;
+  display: block;
+  text-align: center;
+}
+
+div#loginForm .close-icon,
+div#signupForm .close-icon {
+  top: 5px;
+  right: 5px;
 }

@@ -6,7 +6,6 @@ import { LOGIN } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { useNavigate } from "react-router";
 
-
 import { SignupContext } from "../../App";
 import { convert } from "../../utils/dragUtils";
 import { useRecoilState } from "recoil";
@@ -89,12 +88,8 @@ function LoginForm() {
     });
   };
 
-
-
   return (
     <>
-
-
       <div
         tabIndex="-1"
         className={
@@ -102,6 +97,7 @@ function LoginForm() {
             ? `fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`
             : `fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`
         }
+        id="loginForm"
       >
         <div className="mx-auto relative w-full max-w-md max-h-full">
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -130,7 +126,7 @@ function LoginForm() {
             </button>
             <div className=" loginForm px-6 py-6 lg:px-8">
               <h3 className=" sign mb-4 text-xl font-medium text-gray-900 dark:text-white">
-                Login to your account
+                Log in to your account
               </h3>
               <form
                 className="space-y-6"
@@ -138,7 +134,6 @@ function LoginForm() {
                 noValidate
                 onSubmit={handleFormSubmit}
               >
-
                 <div>
                   <label
                     htmlFor="email"
@@ -181,19 +176,20 @@ function LoginForm() {
                   type="submit"
                   className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
-                  Login to your account
+                  Log in to your account
                 </button>
               </form>
               <div className=" switch sign text-sm font-medium text-gray-500 dark:text-gray-300">
-                Not registered?{" "}
-                <button
+                No account?{" "}
+                <a
+                  href="#"
                   onClick={() => {
                     handleSwitch();
                   }}
-                  className="text-blue-700 hover:underline dark:text-blue-500"
+                  className="text-blue-700 hover:underline dark:text-blue-500 switcher"
                 >
-                  Create account
-                </button>
+                  Create one
+                </a>
               </div>
             </div>
           </div>
