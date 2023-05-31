@@ -1,7 +1,10 @@
 body {
-  background-color: #E1C699;
   margin: 0;
   padding: 0;
+}
+
+main {
+  padding: 12px 0 12px;
 }
 
 #shelf {

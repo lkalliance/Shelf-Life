@@ -36,51 +36,26 @@ function Profile() {
     setFetched(true);
   }
   return (
-    <Accordion collapseAll>
-      {books.bookList.map((book, index) => {
-        return (
-          <Accordion.Panel>
-            <Accordion.Title>
-              {book.title}
-              <span class="authors">{book.authors.join(", ")}</span>
-            </Accordion.Title>
-            <Accordion.Content>
-              <p className="mb-2 text-gray-500 dark:text-gray-400">
-                <p>
-                  Flowbite is an open-source library of interactive components
-                  built on top of Tailwind CSS including buttons, dropdowns,
-                  modals, navbars, and more.
-                </p>
-              </p>
-              <p className="text-gray-500 dark:text-gray-400">
-                <p>Check out this guide to learn how to</p>
-                <a
-                  className="text-cyan-600 hover:underline dark:text-cyan-500"
-                  href="https://flowbite.com/docs/getting-started/introduction/"
-                >
-                  <p>get started</p>
-                </a>
-                <p>
-                  and start developing websites even faster with components on
-                  top of Tailwind CSS.
-                </p>
-              </p>
-            </Accordion.Content>
-          </Accordion.Panel>
-        );
-      })}
-    </Accordion>
+    <main id="booklistContainer">
+      <section id="bookList">
+        <Accordion collapseAll>
+          {books.bookList.map((book, index) => {
+            return (
+              <Accordion.Panel>
+                <Accordion.Title>
+                  {book.title}
+                  <span class="authors">{book.authors.join(", ")}</span>
+                </Accordion.Title>
+                <Accordion.Content key={book.bookId}>
+                  <Card book={book} />
+                </Accordion.Content>
+              </Accordion.Panel>
+            );
+          })}
+        </Accordion>
+      </section>
+    </main>
   );
-
-  // return (
-  //   <section id="profile">
-  //     <div className="bookList">
-  //       {books.bookList.map((book, index) => {
-  //         return <Card book={book} />;
-  //       })}
-  //     </div>
-  //   </section>
-  // );
 }
 
 export { Profile };

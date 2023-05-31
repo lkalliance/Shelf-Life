@@ -77,7 +77,7 @@ function AddBook() {
 
       setSearchedBooks(bookData);
       setSearchInput("");
-      setSelected("")
+      setSelected("");
     } catch (err) {
       console.error(err);
     }
@@ -85,7 +85,6 @@ function AddBook() {
 
   const handleSelectionClose = () => {
     setshowSelectModal(false);
-
   };
 
   const handleModalSelection = (book) => {
@@ -104,7 +103,6 @@ function AddBook() {
   const handleSelectionForm = async (event) => {
     event.preventDefault();
 
-
     for (const book of books.bookList) {
       if (book.bookId === selected.bookId) {
         handleSelectionClose();
@@ -117,12 +115,9 @@ function AddBook() {
     const submission = { ...selected, year };
     const vettedSubmission = setDefaults(submission);
     try {
-
       const { data } = await addBook({
         variables: vettedSubmission,
       });
-
-
     } catch (err) {
       console.error(err);
     }
@@ -246,8 +241,8 @@ function AddBook() {
             {searchedBooks.length > 0
               ? `Viewing ${searchedBooks.length} results:`
               : selected.title
-                ? ""
-                : "Search for a book to begin"}
+              ? ""
+              : "Search for a book to begin"}
           </h2>
           <div className="text-center">
             {searchedBooks.length > 0 &&
@@ -424,13 +419,6 @@ function AddBook() {
                         >
                           {" "}
                           Rating{" "}
-                          <div className="star-container">
-                            {selected.rating >= 1 && <Star />}{" "}
-                            {selected.rating >= 2 && <Star />}{" "}
-                            {selected.rating >= 3 && <Star />}{" "}
-                            {selected.rating >= 4 && <Star />}{" "}
-                            {selected.rating >= 5 && <Star />}
-                          </div>
                           <input
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             type="number"

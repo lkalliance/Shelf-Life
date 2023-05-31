@@ -98,7 +98,6 @@ const resolvers = {
           { $addToSet: { unshelved: updatedArgs } },
           { new: true }
         );
-        console.log(updatebookList);
         return { updatebookList, updateBook };
       }
       throw new AuthenticationError("You need to be logged in!");

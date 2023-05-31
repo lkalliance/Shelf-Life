@@ -1,13 +1,54 @@
-section#profile {
+main#booklistContainer {
+  background-color: rgb(183, 190, 227);
+}
+
+section#bookList {
+  max-width: 800px;
+  margin: 0 auto;
   display: flex;
 }
-.bookList{
-  display: flex;
-  flex-wrap: wrap;
-  /* margin: auto; */
-  justify-content: center;
-  align-items: start;
+#bookList {
+  margin: 0 15px;
 }
-.star-container{
+#bookList .divide-y {
+  width: 100%;
+}
+#bookList div.py-5 {
+  background-color: #94a5d6;
+  max-width: 800px;
+}
+#bookList .bookInfo {
+  color: black;
+}
+
+#bookList button {
+  padding: 8px;
+  background-color: #cbd5f4;
+  color: black;
+  border-top: 1px solid #9194c5;
+}
+#bookList button h2 span {
+  margin-left: 10px;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  color: #888888;
+}
+.star-container {
   display: flex;
+}
+
+@media (prefers-color-scheme: dark) {
+  #bookList button {
+    background-color: #343346;
+    color: rgb(215, 215, 215);
+  }
+  #bookList button h2 span {
+    color: #a5a5a5;
+  }
+  #bookList div.py-5 {
+    background-color: #494e71;
+  }
+  main#booklistContainer {
+    background-color: #61668e;
+  }
 }
