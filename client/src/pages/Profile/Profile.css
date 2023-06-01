@@ -26,7 +26,6 @@ section#bookList div button:last-of-type {
   padding: 8px;
   background-color: #97a5cc;
   color: black;
-  border-top: 1px solid #8082ac;
 }
 #bookList button h2 span {
   margin-left: 10px;
