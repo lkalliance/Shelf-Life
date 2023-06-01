@@ -1,8 +1,7 @@
 import { atom } from "recoil";
-import { fakeUser, fakeBookcase } from "../../utils/dragUtils";
-import { convert } from "../../utils/dragUtils";
 
 export const userBooksAtom = atom({
+  // This atom is for the user's flat book list
   key: "userBooks",
   default: {
     userName: "",
@@ -11,6 +10,7 @@ export const userBooksAtom = atom({
 });
 
 export const userBookcaseAtom = atom({
+  // This atom is for the user's bookcase for this year
   key: "userBookcase",
   default: {
     year: "",
@@ -21,11 +21,13 @@ export const userBookcaseAtom = atom({
 });
 
 export const userItemsAtom = atom({
+  // This atom is for the drag-and-drop data object
   key: "userItems",
   default: {},
 });
 
 export const fetchedAtom = atom({
+  // This atom tracks whether the data has been fetched
   key: "fetched",
   default: false,
 });

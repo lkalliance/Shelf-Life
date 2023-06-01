@@ -1,11 +1,12 @@
+// This component is the "About us" modal
+
 import "./About.css";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState } from "react";
 
 function About() {
   const [showModal, setShowModal] = useState(false);
   const handleModalSubmit = () => {
     setShowModal(!showModal);
-    // document.body.style.filter = "blur(2px)";
   };
 
   const handleClose = () => {

@@ -1,3 +1,5 @@
+// This component renders a stack
+
 import "./Stack.css";
 import { Droppable } from "@hello-pangea/dnd";
 import { Book } from "../../components";

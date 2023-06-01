@@ -1,19 +1,14 @@
-main#bookcaseContainer {
-  background-color: #e1c699;
-}
 section#bookcase {
   display: flex;
   flex-direction: column;
   flex-wrap: no-wrap;
-  background-color: #e1c699;
   margin: 0 auto;
-  width: 640px;
-  /* border: 1px solid purple; */
-  /* width: 640px; */
+  width: 600px;
 }
 
 section#bookcase button.bookcaseButton {
-  background-color: rgb(146, 98, 34);
+  background-color: rgb(118, 76, 5);
+  border: 1px solid rgb(220, 177, 75);
   color: white;
   border-radius: 4px;
   font-size: 14px;
@@ -24,13 +19,13 @@ section#bookcase button.bookcaseButton {
 
 div#shelves {
   width: 640px;
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   height: auto;
   justify-content: start;
   align-items: start;
+  margin-bottom: 10px;
 }
 
 div#shelf-unshelved {
@@ -39,8 +34,12 @@ div#shelf-unshelved {
   background-color: #a09999;
   height: auto;
   padding: 10px 20px 0;
-  width: 640px;
+  width: 600px;
   margin: 10px 0;
+}
+
+div#shelf-unshelved.empty {
+  display: none;
 }
 
 div#shelf-unshelved ul.stack {
@@ -59,24 +58,16 @@ div#shelf-unshelved li {
 @media screen and (max-width: 639px) {
   section#bookcase {
     flex-direction: column;
-    width: 320px;
+    width: 300px;
   }
 
   section#bookcase div#shelves {
-    width: 320px;
+    width: 300px;
   }
 
   div#shelf-unshelved {
     align-items: start;
     height: auto;
-    width: 320px;
-    margin: 10px 0;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  main#bookcaseContainer,
-  section#bookcase {
-    background-color: #4b3609;
+    width: 300px;
   }
 }
