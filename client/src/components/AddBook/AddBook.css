@@ -1,8 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-}
-
 .close-icon.close-icon-book {
   right: -30px;
 }
@@ -18,6 +13,11 @@
   right: 10px;
   top: 10px;
 }
+#searchBtn,
+#styleBtn {
+  background-color: rgb(57, 57, 195);
+}
+
 #selection-modal {
   display: flex;
   justify-content: center;
@@ -32,8 +32,8 @@
 }
 .modalClass {
   /* background-color: rgba(255,255,255, 0.8); */
-  background-color: white;
-  max-width: 550px;
+  /* background-color: white; */
+  /* max-width: 550px; */
 }
 .star-container {
   display: flex;
@@ -46,14 +46,43 @@
   cursor: pointer;
 }
 
+h3.searchResult:last-of-type {
+  border-bottom: none;
+}
+
 .searchResult:hover {
-  background-color: #dddddd;
+  background-color: #b0b4c7;
 }
 
 .searchResult span {
   display: block;
-  color: #777777;
+  color: #454545;
   font-size: 12px;
+}
+
+#addBookContainer {
+  /* background-color: rgba(255, 255, 255, 0.3); */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+}
+
+#AddBook {
+  margin: 90px auto 0;
+  border-radius: 5px;
+  padding: 20px;
+  max-width: 550px;
+  background-color: #a0a3b9;
+  box-shadow: 5px 5px 10px;
+}
+
+#stylesForm {
+  background-color: #a0a3b9;
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px;
 }
 
 #AddBook h2 {
@@ -61,10 +90,35 @@
   text-transform: uppercase;
   font-weight: bold;
   margin: 8px 0 4px;
+  padding: 0 30px;
 }
 
 #AddBook #searchField {
   margin: 0 20px 0 0;
+}
+
+#AddBook select {
+  margin-top: 8px;
+}
+
+#AddBook input#Rating {
+  width: 80px;
+  margin: 0 auto;
+}
+
+#AddBook textarea {
+  font-size: 0.9em;
+  font-weight: normal;
+  padding: 8px;
+}
+
+#AddBook.selected {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+#AddBook.selected #searchField {
+  visibility: hidden;
 }
 
 #bookStyles {
@@ -82,4 +136,8 @@
 #bookStyles label {
   font-size: 12px;
   padding-bottom: 0;
+}
+
+#closeSelectBtn {
+  right: 0;
 }

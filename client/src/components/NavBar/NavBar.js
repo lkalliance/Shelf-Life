@@ -64,7 +64,7 @@ function NavBar({ showLogin }) {
                     Your Bookcase
                   </Link>
                 </li>
-                <li>
+                <li id="addLi">
                   <AddBook onClick={showHide} />
                 </li>
                 <li>

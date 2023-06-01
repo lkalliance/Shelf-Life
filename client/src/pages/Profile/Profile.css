@@ -1,5 +1,5 @@
 main#booklistContainer {
-  background-color: rgb(183, 190, 227);
+  background-color: rgb(221, 225, 246);
 }
 
 section#bookList {
@@ -14,7 +14,7 @@ section#bookList {
   width: 100%;
 }
 #bookList div.py-5 {
-  background-color: #94a5d6;
+  background-color: rgb(179, 187, 224);
   max-width: 800px;
 }
 #bookList .bookInfo {
@@ -23,15 +23,15 @@ section#bookList {
 
 #bookList button {
   padding: 8px;
-  background-color: #cbd5f4;
+  background-color: #97a5cc;
   color: black;
-  border-top: 1px solid #9194c5;
+  border-top: 1px solid #8082ac;
 }
 #bookList button h2 span {
   margin-left: 10px;
   font-size: 0.8em;
   text-transform: uppercase;
-  color: #888888;
+  color: #ffffff;
 }
 .star-container {
   display: flex;

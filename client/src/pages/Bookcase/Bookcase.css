@@ -75,7 +75,8 @@ div#shelf-unshelved li {
 }
 
 @media (prefers-color-scheme: dark) {
-  main#bookcaseContainer {
+  main#bookcaseContainer,
+  section#bookcase {
     background-color: #4b3609;
   }
 }
