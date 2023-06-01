@@ -1,7 +1,11 @@
+main#bookcaseContainer {
+  background-color: #e1c699;
+}
 section#bookcase {
   display: flex;
   flex-direction: column;
   flex-wrap: no-wrap;
+  background-color: #e1c699;
   margin: 0 auto;
   width: 640px;
   /* border: 1px solid purple; */
@@ -67,5 +71,12 @@ div#shelf-unshelved li {
     height: auto;
     width: 320px;
     margin: 10px 0;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  main#bookcaseContainer,
+  section#bookcase {
+    background-color: #4b3609;
   }
 }

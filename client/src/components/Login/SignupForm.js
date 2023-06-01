@@ -80,9 +80,10 @@ function SignupForm() {
         tabIndex="-1"
         className={
           showSignupModal
-            ? `fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`
-            : `fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`
+            ? `loginForm fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`
+            : `loginForm fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full`
         }
+        id="signupForm"
       >
         <div className=" mx-auto relative w-full max-w-md max-h-full">
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -111,7 +112,7 @@ function SignupForm() {
             </button>
             <div className="px-6 py-6 lg:px-8">
               <h3 className=" sign mb-4 text-xl font-medium text-gray-900 dark:text-white">
-                Sign in to our platform
+                Sign up for our platform
               </h3>
               <form
                 className="space-y-6"
@@ -188,19 +189,20 @@ function SignupForm() {
                   type="submit"
                   className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
-                  Signup
+                  Sign up
                 </button>
               </form>
               <div className=" switch sign text-sm font-medium text-gray-500 dark:text-gray-300">
-                login instead?
-                <button
+                Already signed up?{" "}
+                <a
+                  href="#"
                   onClick={() => {
                     handleSwitch();
                   }}
-                  className="text-blue-700 hover:underline dark:text-blue-500"
+                  className="switcher text-blue-700 hover:underline dark:text-blue-500"
                 >
-                  Login
-                </button>
+                  Log in
+                </a>
               </div>
             </div>
           </div>

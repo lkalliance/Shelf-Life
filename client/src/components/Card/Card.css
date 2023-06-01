@@ -10,11 +10,56 @@ section#profile {
 }
 .bookImage {
   width: 150px;
-  height: 200px;
 }
 h5 {
   font-weight: 500;
 }
 .star-container {
   margin: 6px 0;
+}
+
+.bookInfo {
+  display: flex;
+  flex-direction: row;
+}
+
+.bookInfo .imageDiv {
+  margin-right: 10px;
+  min-width: 150px;
+}
+
+.bookInfo .notesDiv p {
+  color: black;
+  flex-grow: 0;
+}
+
+.bookInfo .description {
+  font-size: 0.9em;
+  line-height: 1.2em;
+  color: rgb(110, 110, 110);
+}
+
+@media (prefers-color-scheme: dark) {
+  .bookInfo .notesDiv p {
+    color: rgb(255, 255, 255);
+  }
+
+  .bookInfo .description {
+    color: rgb(200, 206, 236);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .bookInfo {
+    flex-direction: column;
+  }
+
+  .bookInfo .imageDiv {
+    margin: 0 0 12px;
+    width: 100%;
+  }
+
+  .bookInfo .imageDiv img {
+    margin: 0 auto;
+  }
 }

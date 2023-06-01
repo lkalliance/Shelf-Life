@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 import { QUERY_ME, QUERY_BOOKCASE } from "../../utils/queries";
 import { convert } from "../../utils/dragUtils";
 import { Card } from "../../components";
+import { Accordion } from "flowbite-react";
 
 import {
   userBooksAtom,
@@ -34,15 +35,26 @@ function Profile() {
     setItems(convert(dataCase.bookcase));
     setFetched(true);
   }
-
   return (
-    <section id="profile">
-      <div className="bookList">
-        {books.bookList.map((book, index) => {
-          return <Card book={book} />;
-        })}
-      </div>
-    </section>
+    <main id="booklistContainer">
+      <section id="bookList">
+        <Accordion collapseAll>
+          {books.bookList.map((book, index) => {
+            return (
+              <Accordion.Panel>
+                <Accordion.Title>
+                  {book.title}
+                  <span class="authors">{book.authors.join(", ")}</span>
+                </Accordion.Title>
+                <Accordion.Content key={book.bookId}>
+                  <Card book={book} />
+                </Accordion.Content>
+              </Accordion.Panel>
+            );
+          })}
+        </Accordion>
+      </section>
+    </main>
   );
 }
 

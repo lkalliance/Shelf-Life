@@ -2,6 +2,18 @@ div#defaultModal {
   margin-top: 50px;
 }
 
+div.star-container {
+  background-color: #888888;
+  padding: 6px;
+  display: inline-block;
+  line-height: 10px;
+  white-space: nowrap;
+}
+
+div.star-container svg {
+  display: inline;
+}
+
 div.infoContainer {
   flex-grow: 1;
 }

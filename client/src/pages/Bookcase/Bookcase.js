@@ -158,22 +158,24 @@ function Bookcase() {
   };
 
   return (
-    <section id="bookcase">
-      <DragDropContext onDragEnd={handleDrop}>
-        <div id="shelves">
-          {bookCase.shelves.map((shelf, shelfIndex) => {
-            return <Shelf key={shelfIndex} shelfIndex={shelfIndex} />;
-          })}
-        </div>
-        <Shelf key="unshelved" shelfIndex="unshelved" items={items} />
-      </DragDropContext>
-      <Button className="bookcaseButton" handler={addShelf}>
-        Add a shelf
-      </Button>
-      <Button className="bookcaseButton" handler={removeEmpties}>
-        Delete empty shelves
-      </Button>
-    </section>
+    <main id="bookcaseContainer">
+      <section id="bookcase">
+        <DragDropContext onDragEnd={handleDrop}>
+          <div id="shelves">
+            {bookCase.shelves.map((shelf, shelfIndex) => {
+              return <Shelf key={shelfIndex} shelfIndex={shelfIndex} />;
+            })}
+          </div>
+          <Shelf key="unshelved" shelfIndex="unshelved" items={items} />
+        </DragDropContext>
+        <Button className="bookcaseButton" handler={addShelf}>
+          Add a shelf
+        </Button>
+        <Button className="bookcaseButton" handler={removeEmpties}>
+          Delete empty shelves
+        </Button>
+      </section>
+    </main>
   );
 }
 

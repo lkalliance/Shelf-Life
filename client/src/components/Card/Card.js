@@ -2,34 +2,32 @@ import "./Card.css";
 import Star from "../../components/AddBook/Star";
 
 function Card({ book }) {
+  console.log(book);
   return (
- 
-      <div
-        key={book.bookId}
-        className=" bookCard  block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
-      >
+    <div className="bookInfo">
+      <div className="imageDiv">
         {book.image ? (
-          <img src={book.image} className="bookImage" alt={`The cover for ${book.title}`} />
+          <img
+            src={book.image}
+            className="bookImage"
+            alt={`The cover for ${book.title}`}
+          />
         ) : null}
-        <h5 className="mb-2 text-md  tracking-tight text-gray-900 dark:text-white">
-          {book.title}
-        </h5>
-        <p className=" authors text-gray-700 dark:text-gray-400">
-          {" "}
-          {book.authors.join(", ")}
-        </p>
-        <p className="font-normal text-gray-700 dark:text-gray-400">
-          {book.comment}{" "}
-        </p>
+      </div>
+
+      <div className="notesDiv">
+        <p className="font-normal dark:text-gray-400">{book.comment} </p>
 
         <div className="star-container">
           {book.rating >= 1 && <Star />} {book.rating >= 2 && <Star />}{" "}
           {book.rating >= 3 && <Star />} {book.rating >= 4 && <Star />}{" "}
           {book.rating >= 5 && <Star />}
         </div>
-
+        {book.description ? (
+          <div className="description">{book.description}</div>
+        ) : null}
       </div>
- 
+    </div>
   );
 }
 

@@ -10,6 +10,7 @@ export const LOGIN = gql`
         bookList {
           title
           authors
+          description
           image
           bookId
           rating
@@ -24,6 +25,7 @@ export const LOGIN = gql`
             bookId
             title
             authors
+            description
             image
             style
             height
@@ -34,6 +36,7 @@ export const LOGIN = gql`
             bookId
             title
             authors
+            description
             image
             style
             height
@@ -45,6 +48,7 @@ export const LOGIN = gql`
           bookId
           title
           authors
+          description
           image
           style
           height
@@ -98,7 +102,16 @@ export const ADD_BOOK = gql`
       year: $year
     ) {
       bookList {
+        authors
         bookId
+        color
+        comment
+        description
+        height
+        image
+        rating
+        style
+        thickness
         title
         year
       }
