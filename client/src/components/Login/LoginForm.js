@@ -1,52 +1,46 @@
-import React, { useState, useEffect, useContext } from "react";
-import "./login.css";
-import { ApolloClient } from "@apollo/client";
-import { useMutation } from "@apollo/client";
-import { LOGIN } from "../../utils/mutations";
-import Auth from "../../utils/auth";
-import { useNavigate } from "react-router";
+// This component renders the login form
 
-import { SignupContext } from "../../App";
-import { convert } from "../../utils/dragUtils";
+import "./login.css";
+import React, { useState, useEffect, useContext } from "react";
 import { useRecoilState } from "recoil";
 import {
   userBookcaseAtom,
   userBooksAtom,
   userItemsAtom,
 } from "../../recoil/atom/userBooksAtom";
+import { useMutation } from "@apollo/client";
+import { LOGIN } from "../../utils/mutations";
+import { SignupContext } from "../../App";
+import Auth from "../../utils/auth";
+import { convert } from "../../utils/dragUtils";
 
 function LoginForm() {
-  const navigate = useNavigate();
-
-  const {
-    showSignupModal,
-    setShowSignupModal,
-    showloginModal,
-    setShowloginModal,
-  } = useContext(SignupContext);
+  // Contexts and states to manage the modals
+  const { setShowSignupModal, showloginModal, setShowloginModal } =
+    useContext(SignupContext);
   const [userFormData, setUserFormData] = useState({ email: "", password: "" });
-  const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  // Atoms to accept the user's books and bookcase
   const [books, setBooks] = useRecoilState(userBooksAtom);
   const [bcase, setbCase] = useRecoilState(userBookcaseAtom);
   const [items, setItems] = useRecoilState(userItemsAtom);
+  // Mutation
   const [login, { error, data }] = useMutation(LOGIN);
 
-  const handleModalSubmit = () => {
-    setShowloginModal(true);
-    setShowSignupModal(false);
-  };
-
   const handleSwitch = () => {
+    // Switches between login and signup
     setShowloginModal(false);
     setShowSignupModal(true);
   };
 
   const handleClose = () => {
+    // Closes both login and signup
     setShowloginModal(false);
     setShowSignupModal(false);
   };
+
   useEffect(() => {
+    // Shows an error if login fails
     if (error) {
       setShowAlert(true);
     } else {
@@ -55,11 +49,13 @@ function LoginForm() {
   }, [error]);
 
   const handleInputChange = (event) => {
+    // Keeps track of user input into forms
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
 
   const handleFormSubmit = async (event) => {
+    // Handles login submission
     event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -71,8 +67,6 @@ function LoginForm() {
       const { data } = await login({
         variables: { ...userFormData },
       });
-
-      console.log(data);
 
       setBooks(data.login.user);
       setbCase(data.login.bookcase);

@@ -1,39 +1,45 @@
+// This component is the set of modals to add a book to the user's list
+
 import "./AddBook.css";
-import React, { useState, useEffect, useContext } from "react";
-import Auth from "../../utils/auth";
-import { ADD_BOOK } from "../../utils/mutations";
-import { useMutation } from "@apollo/client";
-import { booksDeepCopy, convert } from "../../utils/dragUtils";
+import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import {
   userBooksAtom,
   userItemsAtom,
   userBookcaseAtom,
 } from "../../recoil/atom/userBooksAtom";
-import Star from "./Star";
-import { Select } from "flowbite-react";
+import { useMutation } from "@apollo/client";
+import { ADD_BOOK } from "../../utils/mutations";
+import { convert } from "../../utils/dragUtils";
 
 function AddBook() {
+  // States to determine whether the search or select modal is visible
   const [showModal, setShowModal] = useState(false);
   const [showSelectModal, setshowSelectModal] = useState(false);
+  // State to track what search results and selected result
+  const [searchedBooks, setSearchedBooks] = useState([]);
   const [selected, setSelected] = useState({});
+  // States to track user form inputs
+  const [searchInput, setSearchInput] = useState("");
+  // Data atoms of the user's books and bookcase
   const [books, setBooks] = useRecoilState(userBooksAtom);
   const [bcase, setbCase] = useRecoilState(userBookcaseAtom);
-
   const [items, setItems] = useRecoilState(userItemsAtom);
-
-  const handleModalSubmit = () => {
-    setShowModal(!showModal);
-  };
-  const handleClose = () => {
-    setShowModal(false);
-  };
-  const [searchedBooks, setSearchedBooks] = useState([]);
-
-  const [searchInput, setSearchInput] = useState("");
+  // Mutation to add a book
   const [addBook, { error }] = useMutation(ADD_BOOK);
 
+  const handleModalSubmit = () => {
+    // Shows or hides the entire Add Book set of modals
+    setShowModal(!showModal);
+  };
+
+  const handleClose = () => {
+    // Shows or hides the entire Add Book set of modals
+    setShowModal(false);
+  };
+
   const setDefaults = (book) => {
+    // Assigns default values if none provided by the user
     let bookCopy = { ...book };
     bookCopy.color = bookCopy.color || "white";
     bookCopy.height = bookCopy.height || "medium";
@@ -43,14 +49,15 @@ function AddBook() {
   };
 
   const handleFormSubmit = async (event) => {
+    // Handles the submission of search term
     event.preventDefault();
-
     if (!searchInput) {
       return false;
     }
 
     try {
       const response = await fetch(
+        // Call the Google API
         `https://www.googleapis.com/books/v1/volumes?q=${searchInput}`
       );
 
@@ -59,9 +66,10 @@ function AddBook() {
       }
 
       const { items } = await response.json();
+
+      // Craft the results list, removing duplicate titles
       const foundBooks = [];
       const bookData = [];
-
       for (let i = 0; i < items.length; i++) {
         const book = items[i];
         if (foundBooks.indexOf(book.volumeInfo.title.toLowerCase()) < 0) {
@@ -76,6 +84,7 @@ function AddBook() {
         }
       }
 
+      // Set the searched books state and clear the input
       setSearchedBooks(bookData);
       setSearchInput("");
       setSelected("");
@@ -85,12 +94,14 @@ function AddBook() {
   };
 
   const handleSelectionClose = () => {
+    // Closes the style selection modal
     setshowSelectModal(false);
     setShowModal(false);
     setSelected({});
   };
 
   const handleModalSelection = (book) => {
+    // Handles the selection of a search result
     setshowSelectModal(true);
     setSelected({
       ...selected,
@@ -101,12 +112,13 @@ function AddBook() {
       image: book.image,
     });
     setSearchedBooks([]);
-    console.log("I chose a book");
   };
 
   const handleSelectionForm = async (event) => {
+    // Handles the submission of the style form
     event.preventDefault();
 
+    // If the selected book is already on the user's list, don't add again
     for (const book of books.bookList) {
       if (book.bookId === selected.bookId) {
         handleSelectionClose();
@@ -115,6 +127,7 @@ function AddBook() {
       }
     }
 
+    // Prep the added book, then add it to the database
     const year = new Date().getFullYear().toString();
     const submission = { ...selected, year };
     const vettedSubmission = setDefaults(submission);
@@ -126,6 +139,7 @@ function AddBook() {
       console.error(err);
     }
 
+    // Now add the book to the book list state, and to the unshelved state
     const newBooks = {
       ...books,
       bookList: [...books.bookList, vettedSubmission],
@@ -138,6 +152,8 @@ function AddBook() {
     setBooks(newBooks);
     setbCase(newCase);
     setItems(convert(newCase));
+
+    // Close all the modals
     handleClose();
     handleSelectionClose();
   };
@@ -274,6 +290,7 @@ function AddBook() {
                         <span>{book.authors.join(", ")}</span>
                       </h3>
                     );
+                  return null;
                 })}
             </div>
 
@@ -321,13 +338,6 @@ function AddBook() {
                       <h2 className="dark:text-white">{selected.title}</h2>
                       <div className="select_bookOptions relative w-full max-w-xl max-h-full">
                         <div>
-                          {/* <label
-                            htmlFor="Color"
-                            className="label block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                          >
-                            Color
-                          </label> */}
-
                           <select
                             id="book_color"
                             name="bookColor"
@@ -353,13 +363,6 @@ function AddBook() {
                           </select>
                         </div>
                         <div>
-                          {/* <label
-                            htmlFor="Height"
-                            className="label block mb-2 label text-sm font-medium text-gray-900 dark:text-white"
-                          >
-                            Height
-                          </label> */}
-
                           <select
                             id="book_height"
                             name="bookHeight"
@@ -380,13 +383,6 @@ function AddBook() {
                         </div>
 
                         <div>
-                          {/* <label
-                            htmlFor="Thickness"
-                            className=" label block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                          >
-                            Thickness
-                          </label> */}
-
                           <select
                             id="book_thickness"
                             name="bookThickness"
@@ -407,13 +403,6 @@ function AddBook() {
                         </div>
 
                         <div>
-                          {/* <label
-                            htmlFor="style"
-                            className="label block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                          >
-                            Style
-                          </label> */}
-
                           <select
                             id="book_style"
                             name="bookStyle"

@@ -1,27 +1,22 @@
-import React, { useState, useEffect, useContext } from "react";
-import Star from "../../components/AddBook/Star";
+// This component renders the book details modal from the bookcase
 
 import "./ViewModal.css";
+import React from "react";
+import Star from "../../components/AddBook/Star";
 
 function ViewModal({ show, switcher, info, remover }) {
   const handleClose = () => {
+    // This handler closes the modal
     switcher(false);
   };
 
   const createAuthors = (authors) => {
+    // This function returns a span with the authors' names
     return <span className="dark:text-white">{authors.join(", ")}</span>;
   };
 
   return (
     <div className="ViewModal">
-      {/* 
-      <button onClick={() => {
-        handleModalSubmit();
-      }} className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-        About
-      </button>
- */}
-
       <div
         id="defaultModal"
         tabIndex="-1"
@@ -44,11 +39,15 @@ function ViewModal({ show, switcher, info, remover }) {
                   {info.title}
                 </h3>
                 {info.authors ? createAuthors(info.authors) : <span></span>}
-                <div className="star-container">
-                  {info.rating >= 1 && <Star />} {info.rating >= 2 && <Star />}{" "}
-                  {info.rating >= 3 && <Star />} {info.rating >= 4 && <Star />}{" "}
-                  {info.rating >= 5 && <Star />}
-                </div>
+                {info.rating > 0 ? (
+                  <div className="star-container">
+                    {info.rating >= 1 && <Star />}{" "}
+                    {info.rating >= 2 && <Star />}{" "}
+                    {info.rating >= 3 && <Star />}{" "}
+                    {info.rating >= 4 && <Star />}{" "}
+                    {info.rating >= 5 && <Star />}
+                  </div>
+                ) : null}
                 <div className="dark:text-white">{info.comment}</div>
                 <a
                   href="#"

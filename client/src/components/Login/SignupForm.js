@@ -1,41 +1,39 @@
-import React, { useState, useEffect, useContext } from "react";
-import { ApolloClient } from "@apollo/client";
-import { ADD_USER } from "../../utils/mutations";
-import { useMutation } from "@apollo/client";
-import Auth from "../../utils/auth";
-import { SignupContext } from "../../App";
+// This component renders the signup form
+
 import "./login.css";
+import React, { useState, useEffect, useContext } from "react";
+import { useMutation } from "@apollo/client";
+import { ADD_USER } from "../../utils/mutations";
+import { SignupContext } from "../../App";
+import Auth from "../../utils/auth";
 
 function SignupForm() {
-  const [showModal, setShowModal] = useState(false);
-  const {
-    showSignupModal,
-    setShowSignupModal,
-    showloginModal,
-    setShowloginModal,
-  } = useContext(SignupContext);
-  // set initial form state
+  // Contexts to manage showing which modal
+  const { showSignupModal, setShowSignupModal, setShowloginModal } =
+    useContext(SignupContext);
+  // States for alerts and form data
   const [userFormData, setUserFormData] = useState({
     userName: "",
     email: "",
     password: "",
   });
-  // set state for form validation
-  const [validated] = useState(false);
-  // set state for alert
   const [showAlert, setShowAlert] = useState(false);
+  // Mutation
   const [addUser, { error }] = useMutation(ADD_USER);
 
   const handleModalSubmit = () => {
+    // Handler to remove the signup modal
     setShowSignupModal(!showSignupModal);
   };
 
   const handleSwitch = () => {
+    // Handler to switch to login modal
     setShowSignupModal(false);
     setShowloginModal(true);
   };
 
   useEffect(() => {
+    // Check for alert status
     if (error) {
       setShowAlert(true);
     } else {
@@ -44,11 +42,13 @@ function SignupForm() {
   }, [error]);
 
   const handleInputChange = (event) => {
+    // Handler to follow changing input values
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
 
   const handleFormSubmit = async (event) => {
+    // Handler to submit form data
     event.preventDefault();
 
     const form = event.currentTarget;

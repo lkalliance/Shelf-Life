@@ -1,11 +1,12 @@
-main#booklistContainer {
-  background-color: rgb(221, 225, 246);
-}
-
 section#bookList {
-  max-width: 800px;
+  max-width: 75%;
   margin: 0 auto;
   display: flex;
+}
+
+section#bookList div button:last-of-type {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 #bookList {
   margin: 0 15px;
@@ -50,5 +51,11 @@ section#bookList {
   }
   main#booklistContainer {
     background-color: #61668e;
+  }
+}
+
+@media (max-width: 768px) {
+  section#bookList {
+    max-width: 95%;
   }
 }
