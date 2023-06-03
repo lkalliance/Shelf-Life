@@ -1,5 +1,6 @@
 section#bookList {
-  max-width: 75%;
+  width: 75%;
+  max-width: 900px;
   margin: 0 auto;
   display: flex;
 }
@@ -16,7 +17,6 @@ section#bookList div button:last-of-type {
 }
 #bookList div.py-5 {
   background-color: rgb(179, 187, 224);
-  max-width: 800px;
 }
 #bookList .bookInfo {
   color: black;
@@ -55,6 +55,6 @@ section#bookList div button:last-of-type {
 
 @media (max-width: 768px) {
   section#bookList {
-    max-width: 95%;
+    width: 95%;
   }
 }
