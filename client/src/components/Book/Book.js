@@ -147,7 +147,8 @@ function Book({ bookId, book, bookIndex, stack }) {
             {...provided.dragHandleProps}
           >
             <div
-              className={`book ${book.color} ${book.thickness} ${book.height} ${book.style} ${textStyle}`}
+              className={`book ${book.thickness} ${book.height} ${book.style} ${textStyle}`}
+              style={{ backgroundColor: book.color }}
               id={bookId}
               onClick={clickHandler}
             >

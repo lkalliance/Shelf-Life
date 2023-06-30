@@ -131,6 +131,7 @@ function AddBook() {
     const year = new Date().getFullYear().toString();
     const submission = { ...selected, year };
     const vettedSubmission = setDefaults(submission);
+    console.log(submission);
     try {
       const { data } = await addBook({
         variables: vettedSubmission,
@@ -338,7 +339,18 @@ function AddBook() {
                       <h2 className="dark:text-white">{selected.title}</h2>
                       <div className="select_bookOptions relative w-full max-w-xl max-h-full">
                         <div>
-                          <select
+                          <input
+                            type="color"
+                            id="book_color"
+                            name="bookColor"
+                            onChange={(e) =>
+                              setSelected({
+                                ...selected,
+                                color: e.target.value,
+                              })
+                            }
+                          />
+                          {/* <select
                             id="book_color"
                             name="bookColor"
                             onChange={(e) =>
@@ -360,7 +372,7 @@ function AddBook() {
                             <option value="black">Black</option>
                             <option value="white">White</option>
                             <option value="purple">Purple</option>
-                          </select>
+                          </select> */}
                         </div>
                         <div>
                           <select
