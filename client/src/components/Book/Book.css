@@ -2,7 +2,7 @@
   list-style-type: none;
   margin: 0;
   position: relative;
-  /* writing-mode: vertical-rl; */
+  writing-mode: vertical-rl;
   line-height: 13px;
   vertical-align: middle;
   border-radius: 1px;
@@ -134,43 +134,13 @@
 /* TEXT */
 
 .book .spineText {
-  position: absolute;
-  border: 1px solid red;
-  left: -80px;
-  top: 0;
-  bottom: 0;
-  margin: auto;
   padding: 6px 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  transform: rotate(90deg);
-  transform-origin: 50% 50%;
-}
-
-.book.tall .spineText {
-  width: 160px;
-}
-
-.book.medium .spineText {
-  width: 145px;
-}
-
-.book.short .spineText {
-  width: 125px;
-}
-
-.book.thin .spineText {
-  height: 20px;
-}
-
-.book.mid .spineText {
-  height: 30px;
-}
-
-.book.thick .spineText {
-  height: 45px;
+  width: 100%;
+  height: 100%;
 }
 
 .book .author,
