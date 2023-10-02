@@ -48,6 +48,42 @@ function Book({ bookId, book, bookIndex, stack }) {
     }
   }
 
+  function lightOrDark(color) {
+    // Variables for red, green, blue values
+    var r, g, b, hsp;
+
+    // Check the format of the color, HEX or RGB?
+    if (color.match(/^rgb/)) {
+      // If RGB --> store the red, green, blue values in separate variables
+      color = color.match(
+        /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/
+      );
+
+      r = color[1];
+      g = color[2];
+      b = color[3];
+    } else {
+      // If hex --> Convert it to RGB: http://gist.github.com/983661
+      color = +(
+        "0x" + color.slice(1).replace(color.length < 5 && /./g, "$&$&")
+      );
+
+      r = color >> 16;
+      g = (color >> 8) & 255;
+      b = color & 255;
+    }
+
+    // HSP (Highly Sensitive Poo) equation from http://alienryderflex.com/hsp.html
+    hsp = Math.sqrt(0.299 * (r * r) + 0.587 * (g * g) + 0.114 * (b * b));
+
+    // Using the HSP value, determine whether the color is light or dark
+    if (hsp > 127.5) {
+      return "light";
+    } else {
+      return "dark";
+    }
+  }
+
   function showInfo() {
     // Show the book details modal
     setShowModal(true);
@@ -129,6 +165,9 @@ function Book({ bookId, book, bookIndex, stack }) {
     }
   }
 
+  const color = lightOrDark(book.color) === "light" ? "#000000" : "#ffffff";
+  console.log(`Spine is ${book.color} and text is ${color}`);
+
   // Reference logic to set book title style
   const textStyle = isTight(book);
   return (
@@ -148,7 +187,10 @@ function Book({ bookId, book, bookIndex, stack }) {
           >
             <div
               className={`book ${book.thickness} ${book.height} ${book.style} ${textStyle}`}
-              style={{ backgroundColor: book.color }}
+              style={{
+                backgroundColor: book.color,
+                color: color,
+              }}
               id={bookId}
               onClick={clickHandler}
             >
