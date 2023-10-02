@@ -1,6 +1,8 @@
 // This page displays the bookcase
 
 import "./Bookcase.css";
+import { useRef } from "react";
+import { exportAsImage } from "../../utils/exportAsImage";
 import { useRecoilState } from "recoil";
 import {
   userBookcaseAtom,
@@ -20,6 +22,8 @@ import { booksDeepCopy, convert, noSpace } from "../../utils/dragUtils";
 function Bookcase() {
   // If the user isn't logged in, send them to the home page
   if (!Auth.loggedIn()) window.location.href = "/";
+
+  const bookcaseRef = useRef(null);
   const today = new Date();
   const thisYear = today.getFullYear();
 
@@ -173,7 +177,10 @@ function Bookcase() {
 
   return (
     <main id="bookcaseContainer">
-      <section id="bookcase">
+      <button onClick={() => exportAsImage(bookcaseRef.current, "test")}>
+        Capture image
+      </button>
+      <section id="bookcase" ref={bookcaseRef}>
         <DragDropContext onDragEnd={handleDrop}>
           <div id="shelves">
             {bookCase.shelves.map((shelf, shelfIndex) => {

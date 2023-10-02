@@ -58,3 +58,14 @@ div#signupForm .close-icon {
   top: 5px;
   right: 5px;
 }
+
+div#loginForm button.w-full,
+div#signupForm button.w-full {
+  border-width: 1px;
+  background-color: #61668e;
+}
+
+div#loginForm button.w-full:hover,
+div#signupForm button.w-full:hover {
+  background-color: #474c70;
+}
