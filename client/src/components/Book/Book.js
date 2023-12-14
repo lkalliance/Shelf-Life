@@ -2,12 +2,12 @@
 
 import "./Book.css";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
-import {
-  userBookcaseAtom,
-  userItemsAtom,
-  userBooksAtom,
-} from "../../recoil/atom/userBooksAtom";
+// import { useRecoilState } from "recoil";
+// import {
+//   userBookcaseAtom,
+//   userItemsAtom,
+//   userBooksAtom,
+// } from "../../recoil/atom/userBooksAtom";
 import { useMutation } from "@apollo/client";
 import { ARRANGE_BOOKCASE, REMOVE_BOOK } from "../../utils/mutations";
 import { Draggable } from "@hello-pangea/dnd";
@@ -19,11 +19,21 @@ import {
   convert,
 } from "../../utils/dragUtils";
 
-function Book({ bookId, book, bookIndex, stack }) {
+function Book({
+  uCase,
+  uBooks,
+  uSetCase,
+  uSetBooks,
+  uSetItems,
+  bookId,
+  book,
+  bookIndex,
+  stack,
+}) {
   // Data atoms for user's book list and bookcase
-  const [userBookcase, setUserBookcase] = useRecoilState(userBookcaseAtom);
-  const [userBooks, setUserBooks] = useRecoilState(userBooksAtom);
-  const [userItems, setUserItems] = useRecoilState(userItemsAtom);
+  // const [userBookcase, setUserBookcase] = useRecoilState(userBookcaseAtom);
+  // const [userBooks, setUserBooks] = useRecoilState(userBooksAtom);
+  // const [userItems, setUserItems] = useRecoilState(userItemsAtom);
   // State to control showing the details modal
   const [showModal, setShowModal] = useState(false);
   // Mutations
@@ -60,7 +70,7 @@ function Book({ bookId, book, bookIndex, stack }) {
     // If the book is already unshelved, never mind
     if (thisShelf === "unshelved") return;
 
-    const allBooks = booksDeepCopy(userBookcase);
+    const allBooks = booksDeepCopy(uCase);
     const unshelved = allBooks.unshelved;
     // Remove the book from its current stack
     const thisBook = allBooks.shelves[thisShelf][thisStack].splice(
@@ -70,8 +80,8 @@ function Book({ bookId, book, bookIndex, stack }) {
     // Now place it at the end of the Unshelved stack
     unshelved.push(thisBook[0]);
     // Now update the states of the bookcase
-    setUserBookcase(allBooks);
-    setUserItems(convert(allBooks));
+    uSetCase(allBooks);
+    uSetItems(convert(allBooks));
 
     try {
       // Save the newly arranged bookcase
@@ -87,8 +97,8 @@ function Book({ bookId, book, bookIndex, stack }) {
     // This function removes a book from the user's list and bookcase
 
     const { 1: thisStack, 2: thisShelf } = stack.split("-");
-    const allBooks = booksDeepCopy(userBookcase);
-    const booklist = { ...userBooks, bookList: [...userBooks.bookList] };
+    const allBooks = booksDeepCopy(uCase);
+    const booklist = { ...uBooks, bookList: [...uBooks.bookList] };
 
     // Which stack is it from?
     const fromStack =
@@ -106,9 +116,9 @@ function Book({ bookId, book, bookIndex, stack }) {
     const thisListBook = booklist.bookList.splice(listIndex, 1);
 
     // Set all the states and atoms
-    setUserBookcase(allBooks);
-    setUserItems(convert(allBooks));
-    setUserBooks(booklist);
+    uSetCase(allBooks);
+    uSetItems(convert(allBooks));
+    uSetBooks(booklist);
 
     try {
       // Save the new bookshelf arrangement

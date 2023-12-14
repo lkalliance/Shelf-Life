@@ -2,31 +2,36 @@
 
 import "./AddBook.css";
 import React, { useState } from "react";
-import { useRecoilState } from "recoil";
-import {
-  userBooksAtom,
-  userItemsAtom,
-  userBookcaseAtom,
-} from "../../recoil/atom/userBooksAtom";
+// import { useRecoilState } from "recoil";
+// import {
+//   userBooksAtom,
+//   userItemsAtom,
+//   userBookcaseAtom,
+//   yearAtom,
+// } from "../../recoil/atom/userBooksAtom";
 import { useMutation } from "@apollo/client";
 import { ADD_BOOK } from "../../utils/mutations";
 import { convert } from "../../utils/dragUtils";
 
-function AddBook() {
+function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase, uSetItems }) {
   // States to determine whether the search or select modal is visible
   const [showModal, setShowModal] = useState(false);
   const [showSelectModal, setshowSelectModal] = useState(false);
   // State to track what search results and selected result
   const [searchedBooks, setSearchedBooks] = useState([]);
-  const [selected, setSelected] = useState({});
+  const [selected, setSelected] = useState({ year: { uYear } });
   // States to track user form inputs
   const [searchInput, setSearchInput] = useState("");
   // Data atoms of the user's books and bookcase
-  const [books, setBooks] = useRecoilState(userBooksAtom);
-  const [bcase, setbCase] = useRecoilState(userBookcaseAtom);
-  const [items, setItems] = useRecoilState(userItemsAtom);
+  // const [books, setBooks] = useRecoilState(userBooksAtom);
+  // const [bcase, setbCase] = useRecoilState(userBookcaseAtom);
+  // const [items, setItems] = useRecoilState(userItemsAtom);
+  // const [year, setYear] = useRecoilState(yearAtom);
   // Mutation to add a book
   const [addBook, { error }] = useMutation(ADD_BOOK);
+  // Calculate the current year for year menu
+  const today = new Date();
+  const thisYear = today.getFullYear();
 
   const handleModalSubmit = () => {
     // Shows or hides the entire Add Book set of modals
@@ -45,6 +50,7 @@ function AddBook() {
     bookCopy.height = bookCopy.height || "medium";
     bookCopy.thickness = bookCopy.thickness || "mid";
     bookCopy.style = bookCopy.style || "paperback";
+    bookCopy.year = uYear;
     return bookCopy;
   };
 
@@ -119,7 +125,7 @@ function AddBook() {
     event.preventDefault();
 
     // If the selected book is already on the user's list, don't add again
-    for (const book of books.bookList) {
+    for (const book of uBooks.bookList) {
       if (book.bookId === selected.bookId) {
         handleSelectionClose();
         handleClose();
@@ -128,8 +134,7 @@ function AddBook() {
     }
 
     // Prep the added book, then add it to the database
-    const year = new Date().getFullYear().toString();
-    const submission = { ...selected, year };
+    const submission = { ...selected };
     const vettedSubmission = setDefaults(submission);
     try {
       const { data } = await addBook({
@@ -141,17 +146,22 @@ function AddBook() {
 
     // Now add the book to the book list state, and to the unshelved state
     const newBooks = {
-      ...books,
-      bookList: [...books.bookList, vettedSubmission],
+      ...uBooks,
+      bookList: [...uBooks.bookList, vettedSubmission],
+      fetched: false,
     };
     const newCase = {
-      ...bcase,
-      unshelved: [...bcase.unshelved, vettedSubmission],
+      ...uCase,
+      unshelved: [...uCase.unshelved, vettedSubmission],
+      fetched: false,
     };
 
-    setBooks(newBooks);
-    setbCase(newCase);
-    setItems(convert(newCase));
+    // setBooks(newBooks);
+    uSetBooks(newBooks);
+    // setbCase(newCase);
+    uSetCase(newCase);
+    // setItems(convert(newCase));
+    uSetItems(convert(newCase));
 
     // Close all the modals
     handleClose();
@@ -465,6 +475,7 @@ function AddBook() {
                             className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                           ></textarea>
                         </div>
+                        <div>Adding to {uYear} reading list.</div>
 
                         <button
                           type="submit"

@@ -7,19 +7,29 @@ const { User, Bookcase } = require("../models");
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
+      console.log("fetching me");
+      console.log(args);
       if (context.user && args.fetchMe) {
-        return User.findOne({ _id: context.user._id });
+        const thisUser = await User.findOne({ _id: context.user._id });
+        return thisUser;
       }
       throw new AuthenticationError(
         "Either you are not logged in or you already have the data!"
       );
     },
     bookcase: async (parent, args, context) => {
-      if (context.user && args.fetchMe) {
-        return Bookcase.findOne({
+      console.log("fetching case");
+      console.log(args);
+      if (context.user) {
+        const thisCase = await Bookcase.findOne({
           user_id: context.user._id,
           year: args.year,
         });
+        return thisCase;
+        // return Bookcase.findOne({
+        //   user_id: context.user._id,
+        //   year: args.year,
+        // });
       }
       throw new AuthenticationError(
         "Either you are not logged in or you already have the data!"
@@ -29,6 +39,8 @@ const resolvers = {
 
   Mutation: {
     addUser: async (parent, args) => {
+      const today = new Date();
+      const thisYear = today.getFullYear().toString();
       const { userName, email, password } = args;
       const newUser = {
         userName,
@@ -41,7 +53,7 @@ const resolvers = {
       const token = signToken(user);
       const newBookcase = {
         user_id: user._id,
-        year: "2023",
+        year: thisYear,
         shelves: [
           { left: [], right: [] },
           { left: [], right: [] },
@@ -79,12 +91,18 @@ const resolvers = {
 
     addBook: async (parent, args, context) => {
       if (context.user) {
+        // current year for default
+        const today = new Date();
+        const thisYear = today.getFullYear().toString();
         // updatedbookList works
         const updatedArgs = { ...args };
         if (args.color === "") updatedArgs.color = "white";
         if (args.height === "") updatedArgs.height = "medium";
         if (args.thickness === "") updatedArgs.thickness = "mid";
         if (args.style === "") updatedArgs.style = "paperback";
+        if (args.year === "") updatedArgs.year = thisYear;
+
+        console.log(`Updated args for added book:\n\n${updatedArgs}\n\n`);
 
         const updatebookList = await User.findOneAndUpdate(
           { _id: context.user._id }, //filter
@@ -93,12 +111,33 @@ const resolvers = {
         );
 
         // adds book
+        let bookcase;
         const updateBook = await Bookcase.findOneAndUpdate(
-          { user_id: context.user._id, year: args.year }, //filter
+          { user_id: context.user._id, year: updatedArgs.year }, //filter
           { $addToSet: { unshelved: updatedArgs } },
           { new: true }
         );
-        return { updatebookList, updateBook };
+        // if there is no case, create one and add the book
+        if (!updateBook) {
+          console.log("I'm about to create a new bookcase\n\n");
+          const newBookcase = {
+            user_id: context.user._id,
+            year: updatedArgs.year,
+            shelves: [
+              { left: [], right: [] },
+              { left: [], right: [] },
+            ],
+            unshelved: [updatedArgs],
+          };
+          console.log(`Here is the new bookcase:\n\n${newBookcase}\n\n`);
+
+          bookcase = await Bookcase.create(newBookcase);
+        }
+        const returnCase = updateBook || bookcase;
+        console.log(
+          `Here is what was updated or created:\n\n${returnCase}\n\n`
+        );
+        return { updatebookList, returnCase };
       }
       throw new AuthenticationError("You need to be logged in!");
     },

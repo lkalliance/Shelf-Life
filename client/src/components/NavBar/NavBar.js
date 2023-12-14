@@ -2,15 +2,43 @@
 
 import "./NavBar.css";
 import { Link } from "react-router-dom";
+// import { useRecoilState } from "recoil";
+// import { yearAtom, fetchedAtom } from "../../recoil/atom/userBooksAtom";
 import { About, AddBook } from "..";
 import auth from "../../utils/auth";
+import { convert } from "../../utils/dragUtils";
 
-function NavBar({ showLogin }) {
+function NavBar({
+  showLogin,
+  uYear,
+  uSetYear,
+  uSetFetched,
+  bSetFetched,
+  uBooks,
+  uSetItems,
+  uCase,
+  uSetCase,
+  uSetBooks,
+  uFetched,
+  bFetched,
+}) {
   // This function shows or hides the nav elements when window is narrow
   const showHide = (e) => {
     const navContainer = document.querySelector("#navbar-default");
     navContainer.classList.toggle("hidden");
   };
+  const changeYear = (e) => {
+    console.log(`Changed year to ${e.target.value}`);
+    uSetCase({ ...uCase, fetched: false });
+    uSetYear(e.target.value);
+  };
+  // Get the current year for the selection menu
+  const today = new Date();
+  const thisYear = today.getFullYear();
+  const yearlist = [];
+  for (let i = 2000; i <= thisYear; i++) {
+    yearlist.push(i);
+  }
 
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -51,7 +79,16 @@ function NavBar({ showLogin }) {
               // Show one version of the nav if logged in, a different if logged out
               auth.loggedIn() ? (
                 <>
-                  <li>
+                  <select value={uYear} onChange={changeYear}>
+                    {yearlist.map((y, index) => {
+                      return (
+                        <option key={index} value={y}>
+                          {y}
+                        </option>
+                      );
+                    })}
+                  </select>
+                  <li key="to-book-list">
                     <Link
                       to="/profile"
                       className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
@@ -60,7 +97,7 @@ function NavBar({ showLogin }) {
                       Your Book List
                     </Link>
                   </li>
-                  <li>
+                  <li key="to-book-case">
                     <Link
                       to="/bookcase"
                       className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
@@ -69,13 +106,21 @@ function NavBar({ showLogin }) {
                       Your Bookcase
                     </Link>
                   </li>
-                  <li id="addLi">
-                    <AddBook onClick={showHide} />
+                  <li key="add-book" id="addLi">
+                    <AddBook
+                      onClick={showHide}
+                      uYear={uYear}
+                      uBooks={uBooks}
+                      uCase={uCase}
+                      uSetBooks={uSetBooks}
+                      uSetCase={uSetCase}
+                      uSetItems={uSetItems}
+                    />
                   </li>
-                  <li>
+                  <li key="about">
                     <About onClick={showHide} />
                   </li>
-                  <li>
+                  <li key="log-out">
                     <a
                       href="#"
                       className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
@@ -90,7 +135,7 @@ function NavBar({ showLogin }) {
                   </li>
                 </>
               ) : (
-                <li>
+                <li key="log-in">
                   <a
                     href="@"
                     className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"

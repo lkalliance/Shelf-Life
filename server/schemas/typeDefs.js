@@ -81,7 +81,7 @@ const typeDefs = gql`
 
   type Query {
     me(fetchMe: Boolean): User
-    bookcase(year: Int!, fetchMe: Boolean): Bookcase
+    bookcase(year: String!, fetchMe: Boolean): Bookcase
   }
 
   type Mutation {
