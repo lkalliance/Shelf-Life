@@ -31,7 +31,6 @@ export const booksDeepCopy = (data) => {
 
   // Create a framework for the data
   const newBookcase = {
-    fetche: data.fetched,
     user_id: data.user_id,
     year: data.year,
     shelves: [],

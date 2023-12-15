@@ -30,6 +30,7 @@ const typeDefs = gql`
   }
 
   input BookcaseInput {
+    fetched: Boolean
     user_id: ID
     year: String
     shelves: [ShelfInput]
@@ -110,7 +111,7 @@ const typeDefs = gql`
       year: String
     ): User
     removeBook(bookId: String!): User
-    arrangeBookcase(bookcase: BookcaseInput): Bookcase
+    arrangeBookcase(bookcase: BookcaseInput!): Bookcase
   }
 `;
 

@@ -72,9 +72,11 @@ function Bookcase({ uCase, uBooks, uSetBooks, uSetCase }) {
       : (newUser.shelves[toShelf][toStack] = bDestStack);
 
     // setBookcase(newUser);
-    uSetCase(newUser);
+    uSetCase({ ...newUser, fetched: true });
     // setItems(convert(newUser));
     setItems(convert(newUser));
+
+    console.log(newUser);
 
     try {
       // Execute mutation and pass in defined parameter data as variables

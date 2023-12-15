@@ -154,12 +154,12 @@ function AddBook({
     const newBooks = {
       ...uBooks,
       bookList: [...uBooks.bookList, vettedSubmission],
-      fetched: false,
+      fetched: true,
     };
     const newCase = {
       ...uCase,
       unshelved: [...uCase.unshelved, vettedSubmission],
-      fetched: false,
+      fetched: true,
     };
 
     // setBooks(newBooks);
