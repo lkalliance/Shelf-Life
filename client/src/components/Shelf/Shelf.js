@@ -1,11 +1,6 @@
 // This component renders a single shelf in the bookcase
 
 import "./Shelf.css";
-// import { useRecoilState } from "recoil";
-// import {
-//   userBookcaseAtom,
-//   userItemsAtom,
-// } from "../../recoil/atom/userBooksAtom";
 import { Stack } from "../../components";
 import { booksDeepCopy, convert } from "../../utils/dragUtils";
 
@@ -18,10 +13,8 @@ function Shelf({
   uSetBooks,
   uSetItems,
 }) {
-  // Atoms for user's bookcase data
-  // const [userBooks, setUserBooks] = useRecoilState(userBookcaseAtom);
-  // const [userItems, setUserItems] = useRecoilState(userItemsAtom);
-
+  // console.log(`This came to shelf ${shelfIndex}`);
+  // console.log(uCase);
   // Determine what books are on this shelf
   const books =
     shelfIndex === "unshelved" ? uCase.unshelved : uCase.shelves[shelfIndex];
@@ -29,6 +22,16 @@ function Shelf({
   const leftItem = uItems[`shelf-left-${shelfIndex}`];
   const rightItem = uItems[`shelf-right-${shelfIndex}`];
   const unshelvedItem = uItems[`shelf-unshelved-unshelved`];
+  // if (shelfIndex === "unshelved") {
+  //   console.log(`unshelved:`);
+  //   console.log(unshelvedItem);
+  // } else {
+  //   console.log(`shelf ${shelfIndex} left:`);
+
+  //   console.log(leftItem);
+  //   console.log(`shelf ${shelfIndex} right:`);
+  //   console.log(rightItem);
+  // }
 
   const doubleClickHandler = (e) => {
     // When the shelf is double-clicked, move it all to unshelved

@@ -1,14 +1,13 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 const { User, Bookcase } = require("../models");
+const _ = require("lodash");
 
 // saving of shelves add shelves
 
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
-      console.log("fetching me");
-      console.log(args);
       if (context.user && args.fetchMe) {
         const thisUser = await User.findOne({ _id: context.user._id });
         return thisUser;
@@ -18,8 +17,6 @@ const resolvers = {
       );
     },
     bookcase: async (parent, args, context) => {
-      console.log("fetching case");
-      console.log(args);
       if (context.user) {
         const thisCase = await Bookcase.findOne({
           user_id: context.user._id,
@@ -66,7 +63,7 @@ const resolvers = {
       return { token, user, bookcase };
     },
 
-    login: async (parent, { email, password }) => {
+    login: async (parent, { email, password, year }) => {
       const user = await User.findOne({ email });
 
       if (!user) {
@@ -80,10 +77,9 @@ const resolvers = {
       }
 
       const token = signToken(user);
-      const year = new Date();
       const bookcase = await Bookcase.findOne({
         user_id: user._id,
-        year: year.getFullYear(),
+        year,
       });
 
       return { token, user, bookcase };
@@ -102,8 +98,6 @@ const resolvers = {
         if (args.style === "") updatedArgs.style = "paperback";
         if (args.year === "") updatedArgs.year = thisYear;
 
-        console.log(`Updated args for added book:\n\n${updatedArgs}\n\n`);
-
         const updatebookList = await User.findOneAndUpdate(
           { _id: context.user._id }, //filter
           { $addToSet: { bookList: updatedArgs } },
@@ -119,7 +113,6 @@ const resolvers = {
         );
         // if there is no case, create one and add the book
         if (!updateBook) {
-          console.log("I'm about to create a new bookcase\n\n");
           const newBookcase = {
             user_id: context.user._id,
             year: updatedArgs.year,
@@ -129,14 +122,10 @@ const resolvers = {
             ],
             unshelved: [updatedArgs],
           };
-          console.log(`Here is the new bookcase:\n\n${newBookcase}\n\n`);
 
           bookcase = await Bookcase.create(newBookcase);
         }
         const returnCase = updateBook || bookcase;
-        console.log(
-          `Here is what was updated or created:\n\n${returnCase}\n\n`
-        );
         return { updatebookList, returnCase };
       }
       throw new AuthenticationError("You need to be logged in!");
@@ -156,6 +145,7 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
     arrangeBookcase: async (parent, args, context) => {
+      console.log(args);
       if (context.user) {
         const updateShelves = await Bookcase.findOneAndUpdate(
           { user_id: context.user._id, year: args.bookcase.year },

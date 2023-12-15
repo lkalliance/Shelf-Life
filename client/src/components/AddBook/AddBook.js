@@ -13,7 +13,16 @@ import { useMutation } from "@apollo/client";
 import { ADD_BOOK } from "../../utils/mutations";
 import { convert } from "../../utils/dragUtils";
 
-function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase, uSetItems }) {
+function AddBook({
+  uYear,
+  uBooks,
+  uCase,
+  uSetBooks,
+  uSetCase,
+  uSetItems,
+  uSetFetched,
+  bSetFetched,
+}) {
   // States to determine whether the search or select modal is visible
   const [showModal, setShowModal] = useState(false);
   const [showSelectModal, setshowSelectModal] = useState(false);
@@ -29,9 +38,6 @@ function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase, uSetItems }) {
   // const [year, setYear] = useRecoilState(yearAtom);
   // Mutation to add a book
   const [addBook, { error }] = useMutation(ADD_BOOK);
-  // Calculate the current year for year menu
-  const today = new Date();
-  const thisYear = today.getFullYear();
 
   const handleModalSubmit = () => {
     // Shows or hides the entire Add Book set of modals
@@ -124,9 +130,9 @@ function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase, uSetItems }) {
     // Handles the submission of the style form
     event.preventDefault();
 
-    // If the selected book is already on the user's list, don't add again
+    // If the selected book is already on the user's list for this year, don't add again
     for (const book of uBooks.bookList) {
-      if (book.bookId === selected.bookId) {
+      if (book.bookId === selected.bookId && book.year === uYear) {
         handleSelectionClose();
         handleClose();
         return;

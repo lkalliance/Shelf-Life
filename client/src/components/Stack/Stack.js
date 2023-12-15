@@ -16,6 +16,8 @@ function Stack({
   bookItems,
   clearHandler,
 }) {
+  // console.log(`position ${position}, shelf ${shelf}`);
+  // console.log(books);
   return (
     <Droppable
       droppableId={`shelf-${position}-${shelf}`}

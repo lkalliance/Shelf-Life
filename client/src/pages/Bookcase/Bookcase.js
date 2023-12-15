@@ -1,67 +1,24 @@
 // This page displays the bookcase
 
 import "./Bookcase.css";
-// import { useRecoilState } from "recoil";
-// import {
-//   userBookcaseAtom,
-//   userItemsAtom,
-//   userBooksAtom,
-//   fetchedAtom,
-//   yearAtom,
-// } from "../../recoil/atom/userBooksAtom";
+import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ARRANGE_BOOKCASE } from "../../utils/mutations";
-import { useQuery } from "@apollo/client";
-import { QUERY_ME, QUERY_BOOKCASE } from "../../utils/queries";
 import { DragDropContext } from "@hello-pangea/dnd";
 import { Shelf, Button } from "../../components";
 import Auth from "../../utils/auth";
-import { booksDeepCopy, convert, noSpace } from "../../utils/dragUtils";
+import { convert, noSpace } from "../../utils/dragUtils";
+import { cloneDeep } from "lodash";
 
-function Bookcase({
-  uCase,
-  uItems,
-  uBooks,
-  uYear,
-  bFetched,
-  uFetched,
-  uSetBooks,
-  uSetCase,
-  uSetItems,
-  uSetFetched,
-  bSetFetched,
-}) {
+function Bookcase({ uCase, uBooks, uSetBooks, uSetCase }) {
   // If the user isn't logged in, send them to the home page
   if (!Auth.loggedIn()) window.location.href = "/";
 
-  // Atoms for user's booklist, bookcase, and fetched flag
-  // const [books, setBooks] = useRecoilState(userBooksAtom);
-  // const [bookCase, setBookcase] = useRecoilState(userBookcaseAtom);
-  // const [items, setItems] = useRecoilState(userItemsAtom);
-  // const [fetched, setFetched] = useRecoilState(fetchedAtom);
-  // const [year, setYear] = useRecoilState(yearAtom);
+  // State to arrange books on shelves
+  const [items, setItems] = useState(convert(uCase));
+
   // Mutation
   const [arrangeBookcase, { error }] = useMutation(ARRANGE_BOOKCASE);
-  // Queries for user data and bookcase data
-  // const { loading: loadingMe, data: dataMe } = useQuery(QUERY_ME, {
-  //   variables: { fetchMe: !uFetched, year: uYear },
-  // });
-  // const { loading: loadingCase, data: dataCase } = useQuery(QUERY_BOOKCASE, {
-  //   variables: { year: uYear, fetchMe: !bFetched },
-  // });
-
-  // if (dataMe && dataCase) {
-  //   // If the data comes back, set all the Atoms
-  //   // setBooks(dataMe.me);
-  //   uSetBooks(dataMe.me);
-  //   // setBookcase(dataCase.bookcase);
-  //   uSetCase(dataCase.bookcase);
-  //   // setItems(convert(dataCase.bookcase));
-  //   uSetItems(convert(dataCase.bookcase));
-  //   // setFetched(true);
-  //   uSetFetched(true);
-  //   bSetFetched(true);
-  // }
 
   async function handleDrop({ source, destination }) {
     // Handler for when a book is dropped onto a stack
@@ -87,19 +44,19 @@ function Bookcase({
     }
 
     // OK to drop it here, handle the drop
-    const newUser = booksDeepCopy(uCase);
+    const newUser = cloneDeep(uCase);
 
     // Create a copy of the source and destination stacks
     const bSourceStack =
       fromStack === "unshelved"
-        ? [...uCase.unshelved]
-        : [...uCase.shelves[fromShelf][fromStack]];
+        ? cloneDeep(uCase.unshelved)
+        : cloneDeep(uCase.shelves[fromShelf][fromStack]);
     const bDestStack =
       source.droppableId === destination.droppableId
         ? bSourceStack
         : toStack === "unshelved"
-        ? [...uCase.unshelved]
-        : [...uCase.shelves[toShelf][toStack]];
+        ? cloneDeep(uCase.unshelved)
+        : cloneDeep(uCase.shelves[toShelf][toStack]);
 
     // Remove the book from the source...
     const [removedBook] = bSourceStack.splice(source.index, 1);
@@ -117,10 +74,9 @@ function Bookcase({
     // setBookcase(newUser);
     uSetCase(newUser);
     // setItems(convert(newUser));
-    uSetItems(convert(newUser));
+    setItems(convert(newUser));
 
     try {
-      console.log(newUser);
       // Execute mutation and pass in defined parameter data as variables
       const { data } = await arrangeBookcase({
         variables: { bookcase: newUser },
@@ -134,13 +90,13 @@ function Bookcase({
     // This function adds two shelves
 
     // Create a copy of the current bookcase
-    const newUser = booksDeepCopy(uCase);
+    const newUser = cloneDeep(uCase);
     // Push two new shelves on
     newUser.shelves.push({ left: [], right: [] });
     newUser.shelves.push({ left: [], right: [] });
     // Set states
     uSetCase(newUser);
-    uSetItems(convert(newUser));
+    setItems(convert(newUser));
     try {
       // Save the new bookcase configuration
       const { data } = await arrangeBookcase({
@@ -181,7 +137,7 @@ function Bookcase({
     // setBookcase(newUser);
     uSetCase(newUser);
     // setItems(convert(newUser));
-    uSetItems(convert(newUser));
+    setItems(convert(newUser));
 
     try {
       // Save the new bookcase arrangement
@@ -205,9 +161,9 @@ function Bookcase({
                   shelfIndex={shelfIndex}
                   uBooks={uBooks}
                   uCase={uCase}
-                  uItems={uItems}
+                  uItems={items}
                   uSetBooks={uSetBooks}
-                  uSetItems={uSetItems}
+                  uSetItems={setItems}
                   uSetCase={uSetCase}
                 />
               );
@@ -218,9 +174,9 @@ function Bookcase({
             shelfIndex="unshelved"
             uCase={uCase}
             uBooks={uBooks}
-            uItems={uItems}
+            uItems={items}
             uSetBooks={uSetBooks}
-            uSetItems={uSetItems}
+            uSetItems={setItems}
             uSetCase={uSetCase}
           />
         </DragDropContext>

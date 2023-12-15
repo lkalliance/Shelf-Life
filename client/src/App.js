@@ -6,40 +6,15 @@ import { SignupForm } from "./components";
 import { createContext, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { QUERY_ME, QUERY_BOOKCASE } from "./utils/queries";
-import { convert } from "./utils/dragUtils";
 
 import Auth from "./utils/auth";
 
-import {
-  // ApolloClient,
-  // InMemoryCache,
-  // ApolloProvider,
-  // createHttpLink,
-  useQuery,
-} from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
+import { useQuery } from "@apollo/client";
 export const SignupContext = createContext();
-// const httpLink = createHttpLink({ uri: "/graphql" });
-// const authLink = setContext((_, { headers }) => {
-//   const token = localStorage.getItem("id_token");
-//   return {
-//     headers: {
-//       ...headers,
-//       authorization: token ? `Bearer ${token}` : "",
-//     },
-//   };
-// });
-// const client = new ApolloClient({
-//   link: authLink.concat(httpLink),
-
-//   uri: "http://:3001/graphql",
-//   cache: new InMemoryCache({
-//     addTypename: false,
-//   }),
-// });
 
 function App() {
   // set current year as default
+
   const today = new Date();
   const thisYear = parseInt(today.getFullYear());
   const [books, setBooks] = useState({
@@ -54,7 +29,6 @@ function App() {
     shelves: [],
     unshelved: [],
   });
-  const [items, setItems] = useState({});
   const [year, setYear] = useState(thisYear.toString());
   const [uFetched, setUFetched] = useState(false);
   const [bFetched, setBFetched] = useState(false);
@@ -66,12 +40,11 @@ function App() {
   };
 
   const setTheCase = (data) => {
-    console.log(data);
     setBookCase(
       data.shelves
         ? { ...data, fetched: true }
         : {
-            fetched: true,
+            fetched: false,
             year: "",
             user_id: "",
             shelves: [
@@ -90,11 +63,14 @@ function App() {
     variables: { year, fetchMe: !bookCase.fetched },
   });
 
-  if (!loadingMe && !books.fetched) setTheBooks({ ...dataMe.me });
-  if (!loadingCase && !bookCase.fetched) setTheCase({ ...dataCase.bookcase });
+  if (Auth.loggedIn() && !loadingMe && !books.fetched) {
+    setTheBooks({ ...dataMe.me });
+  }
+  if (Auth.loggedIn() && !loadingCase && !bookCase.fetched) {
+    setTheCase({ ...dataCase.bookcase });
+  }
 
   return (
-    // <ApolloProvider client={client}>
     <SignupContext.Provider
       value={{
         showloginModal,
@@ -104,10 +80,22 @@ function App() {
       }}
     >
       <div className="App">
-        {showloginModal ? <LoginForm /> : <div></div>}
+        {showloginModal ? (
+          <LoginForm
+            uSetBooks={setBooks}
+            uSetCase={setBookCase}
+            // uSetItems={setItems}
+            uYear={year}
+          />
+        ) : (
+          <div></div>
+        )}
         {showSignupModal ? <SignupForm /> : <div></div>}
         <NavBar
           showLogin={setShowloginModal}
+          uBooks={books}
+          uSetBooks={setBooks}
+          // uSetItems={setItems}
           uYear={year}
           uCase={bookCase}
           uSetYear={setYear}
@@ -120,18 +108,7 @@ function App() {
             path="/"
             element={
               Auth.loggedIn() ? (
-                <Profile
-                  uBooks={books}
-                  uCase={bookCase}
-                  uItems={items}
-                  uYear={year}
-                  uSetBooks={setBooks}
-                  uSetCase={setBookCase}
-                  uSetItems={setItems}
-                  uFetched={uFetched}
-                  uSetFetched={setUFetched}
-                  bSetFetched={setBFetched}
-                />
+                <Profile uBooks={books} uYear={year} />
               ) : (
                 <Home />
               )
@@ -141,19 +118,7 @@ function App() {
             path="/profile"
             element={
               Auth.loggedIn() ? (
-                <Profile
-                  uBooks={books}
-                  uCase={bookCase}
-                  uItems={items}
-                  uYear={year}
-                  uSetBooks={setBooks}
-                  uSetCase={setBookCase}
-                  uSetItems={setItems}
-                  uFetched={uFetched}
-                  uSetFetched={setUFetched}
-                  bFetched={bFetched}
-                  bSetFetched={setBFetched}
-                />
+                <Profile uBooks={books} uYear={year} />
               ) : (
                 <Home />
               )
@@ -166,15 +131,8 @@ function App() {
                 <Bookcase
                   uBooks={books}
                   uCase={bookCase}
-                  uItems={items}
-                  uYear={year}
-                  uFetched={uFetched}
-                  bFetched={bFetched}
                   uSetBooks={setBooks}
-                  uSetItems={setItems}
                   uSetCase={setBookCase}
-                  uSetFetched={setUFetched}
-                  bSetFetched={setBFetched}
                 />
               ) : (
                 <Home />
@@ -188,15 +146,8 @@ function App() {
                 <Bookcase
                   uBooks={books}
                   uCase={bookCase}
-                  uItems={items}
-                  uYear={year}
-                  uFetched={uFetched}
-                  bFetched={bFetched}
                   uSetBooks={setBooks}
-                  uSetItems={setItems}
                   uSetCase={setBookCase}
-                  uSetFetched={setUFetched}
-                  bSetFetched={setBFetched}
                 />
               ) : (
                 <Home />
@@ -206,7 +157,6 @@ function App() {
         </Routes>
       </div>
     </SignupContext.Provider>
-    // </ApolloProvider>
   );
 }
 

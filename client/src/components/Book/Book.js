@@ -2,12 +2,6 @@
 
 import "./Book.css";
 import { useState } from "react";
-// import { useRecoilState } from "recoil";
-// import {
-//   userBookcaseAtom,
-//   userItemsAtom,
-//   userBooksAtom,
-// } from "../../recoil/atom/userBooksAtom";
 import { useMutation } from "@apollo/client";
 import { ARRANGE_BOOKCASE, REMOVE_BOOK } from "../../utils/mutations";
 import { Draggable } from "@hello-pangea/dnd";
@@ -30,11 +24,6 @@ function Book({
   bookIndex,
   stack,
 }) {
-  // Data atoms for user's book list and bookcase
-  // const [userBookcase, setUserBookcase] = useRecoilState(userBookcaseAtom);
-  // const [userBooks, setUserBooks] = useRecoilState(userBooksAtom);
-  // const [userItems, setUserItems] = useRecoilState(userItemsAtom);
-  // State to control showing the details modal
   const [showModal, setShowModal] = useState(false);
   // Mutations
   const [arrangeBookcase, { error: arrangeError }] =

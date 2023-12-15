@@ -22,6 +22,7 @@ const typeDefs = gql`
 
   type Bookcase {
     _id: ID
+    fetched: Boolean
     user_id: ID
     year: String
     shelves: [Shelf]
@@ -92,7 +93,7 @@ const typeDefs = gql`
       shelves: [ShelfInput]
       unshelved: [BookInput]
     ): Bookcase
-    login(email: String!, password: String!): AuthReturn
+    login(email: String!, password: String!, year: String!): AuthReturn
     addBook(
       title: String!
       shortTitle: String

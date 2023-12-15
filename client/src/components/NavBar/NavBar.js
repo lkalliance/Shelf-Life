@@ -2,11 +2,8 @@
 
 import "./NavBar.css";
 import { Link } from "react-router-dom";
-// import { useRecoilState } from "recoil";
-// import { yearAtom, fetchedAtom } from "../../recoil/atom/userBooksAtom";
 import { About, AddBook } from "..";
 import auth from "../../utils/auth";
-import { convert } from "../../utils/dragUtils";
 
 function NavBar({
   showLogin,
@@ -15,12 +12,9 @@ function NavBar({
   uSetFetched,
   bSetFetched,
   uBooks,
-  uSetItems,
   uCase,
   uSetCase,
   uSetBooks,
-  uFetched,
-  bFetched,
 }) {
   // This function shows or hides the nav elements when window is narrow
   const showHide = (e) => {
@@ -28,7 +22,6 @@ function NavBar({
     navContainer.classList.toggle("hidden");
   };
   const changeYear = (e) => {
-    console.log(`Changed year to ${e.target.value}`);
     uSetCase({ ...uCase, fetched: false });
     uSetYear(e.target.value);
   };
@@ -114,7 +107,9 @@ function NavBar({
                       uCase={uCase}
                       uSetBooks={uSetBooks}
                       uSetCase={uSetCase}
-                      uSetItems={uSetItems}
+                      // uSetItems={uSetItems}
+                      uSetFetched={uSetFetched}
+                      bSetFetched={bSetFetched}
                     />
                   </li>
                   <li key="about">
