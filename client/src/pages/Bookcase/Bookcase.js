@@ -7,7 +7,7 @@ import { ARRANGE_BOOKCASE } from "../../utils/mutations";
 import { DragDropContext } from "@hello-pangea/dnd";
 import { Shelf, Button } from "../../components";
 import Auth from "../../utils/auth";
-import { convert, noSpace } from "../../utils/dragUtils";
+import { booksDeepCopy, convert, noSpace } from "../../utils/dragUtils";
 import { cloneDeep } from "lodash";
 
 function Bookcase({ uCase, uBooks, uSetBooks, uSetCase }) {
@@ -49,14 +49,14 @@ function Bookcase({ uCase, uBooks, uSetBooks, uSetCase }) {
     // Create a copy of the source and destination stacks
     const bSourceStack =
       fromStack === "unshelved"
-        ? cloneDeep(uCase.unshelved)
-        : cloneDeep(uCase.shelves[fromShelf][fromStack]);
+        ? [...uCase.unshelved]
+        : [...uCase.shelves[fromShelf][fromStack]];
     const bDestStack =
       source.droppableId === destination.droppableId
         ? bSourceStack
         : toStack === "unshelved"
-        ? cloneDeep(uCase.unshelved)
-        : cloneDeep(uCase.shelves[toShelf][toStack]);
+        ? [...uCase.unshelved]
+        : [...uCase.shelves[toShelf][toStack]];
 
     // Remove the book from the source...
     const [removedBook] = bSourceStack.splice(source.index, 1);

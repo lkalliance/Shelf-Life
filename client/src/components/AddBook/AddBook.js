@@ -166,8 +166,6 @@ function AddBook({
     uSetBooks(newBooks);
     // setbCase(newCase);
     uSetCase(newCase);
-    // setItems(convert(newCase));
-    uSetItems(convert(newCase));
 
     // Close all the modals
     handleClose();

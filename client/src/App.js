@@ -26,7 +26,10 @@ function App() {
     fetched: false,
     year: "",
     user_id: "",
-    shelves: [],
+    shelves: [
+      { left: [], right: [] },
+      { left: [], right: [] },
+    ],
     unshelved: [],
   });
   const [year, setYear] = useState(thisYear.toString());
@@ -66,10 +69,30 @@ function App() {
   if (Auth.loggedIn() && !loadingMe && !books.fetched) {
     setTheBooks({ ...dataMe.me });
   }
-  if (Auth.loggedIn() && !loadingCase && !bookCase.fetched) {
+  if (
+    Auth.loggedIn() &&
+    !loadingCase &&
+    !bookCase.fetched &&
+    dataCase.bookcase.year === year
+  ) {
     setTheCase({ ...dataCase.bookcase });
+  } else if (
+    Auth.loggedIn() &&
+    !loadingCase &&
+    !bookCase.fetched &&
+    dataCase.bookcase.year !== year
+  ) {
+    setBookCase({
+      fetched: true,
+      year: "",
+      user_id: "",
+      shelves: [
+        { left: [], right: [] },
+        { left: [], right: [] },
+      ],
+      unshelved: [],
+    });
   }
-
   return (
     <SignupContext.Provider
       value={{

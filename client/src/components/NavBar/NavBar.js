@@ -3,6 +3,7 @@
 import "./NavBar.css";
 import { Link } from "react-router-dom";
 import { About, AddBook } from "..";
+
 import auth from "../../utils/auth";
 
 function NavBar({

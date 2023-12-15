@@ -22,7 +22,7 @@ const resolvers = {
           user_id: context.user._id,
           year: args.year,
         });
-        return thisCase;
+        return thisCase || false;
         // return Bookcase.findOne({
         //   user_id: context.user._id,
         //   year: args.year,
