@@ -121,15 +121,15 @@ export const ADD_BOOK = gql`
 `;
 
 export const REMOVE_BOOK = gql`
-  mutation Mutation($bookId: String!) {
-    removeBook(bookId: $bookId) {
+  mutation Mutation($bookId: String!, $year: String) {
+    removeBook(bookId: $bookId, year: $year) {
       _id
     }
   }
 `;
 
 export const ARRANGE_BOOKCASE = gql`
-  mutation Mutation($bookcase: BookcaseInput) {
+  mutation ArrangeBookcase($bookcase: BookcaseInput!) {
     arrangeBookcase(bookcase: $bookcase) {
       year
       shelves {

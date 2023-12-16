@@ -56,6 +56,8 @@ function AddBook({
     bookCopy.height = bookCopy.height || "medium";
     bookCopy.thickness = bookCopy.thickness || "mid";
     bookCopy.style = bookCopy.style || "paperback";
+    bookCopy.rating = bookCopy.rating || 0;
+    bookCopy.comment = bookCopy.comment || "";
     bookCopy.year = uYear;
     return bookCopy;
   };

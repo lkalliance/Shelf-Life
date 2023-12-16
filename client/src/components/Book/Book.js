@@ -23,6 +23,7 @@ function Book({
   book,
   bookIndex,
   stack,
+  shelf,
 }) {
   const [showModal, setShowModal] = useState(false);
   // Mutations
@@ -121,7 +122,10 @@ function Book({
     try {
       // Save the book's removal
       const { data: removeData } = await removeBook({
-        variables: { bookId: thisListBook[0].bookId },
+        variables: {
+          bookId: thisListBook[0].bookId,
+          year: book.year,
+        },
       });
     } catch (err) {
       console.error(err);
@@ -136,6 +140,7 @@ function Book({
         show={showModal}
         switcher={setShowModal}
         info={book}
+        shelf={shelf}
         remover={deleteThisBook}
       />
       <Draggable key={bookId} draggableId={bookId} index={bookIndex}>

@@ -86,7 +86,6 @@ const resolvers = {
     },
 
     addBook: async (parent, args, context) => {
-      console.log(args);
       if (context.user) {
         // current year for default
         const today = new Date();
@@ -133,32 +132,51 @@ const resolvers = {
     },
 
     // updatedbookList works, updateBook still needs to be fix to pull book from nested
-    removeBook: async (parent, { bookId }, context) => {
+    removeBook: async (parent, { bookId, year }, context) => {
       if (context.user) {
-        const updatebookList = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { bookList: { bookId } } },
-          { new: true }
-        );
+        try {
+          const updatebookList = await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $pull: { bookList: { bookId: bookId, year } } },
+            { new: true }
+          );
 
-        return { updatebookList, updateBook };
+          const updateBookCase = await Bookcase.findOneAndUpdate(
+            {
+              user_id: context.user._id,
+              year,
+            },
+            { $pull: { unshelved: { bookId: bookId } } },
+            { new: true }
+          );
+
+          return { updatebookList };
+        } catch (err) {
+          console.log("There's a removal error!");
+          console.log(err);
+        }
       }
       throw new AuthenticationError("You need to be logged in!");
     },
     arrangeBookcase: async (parent, args, context) => {
       console.log(args);
       if (context.user) {
-        const updateShelves = await Bookcase.findOneAndUpdate(
-          { user_id: context.user._id, year: args.bookcase.year },
-          { $set: { shelves: args.bookcase.shelves } },
-          { new: true }
-        );
-        const updateUnshelved = await Bookcase.findOneAndUpdate(
-          { user_id: context.user._id, year: args.bookcase.year },
-          { $set: { unshelved: args.bookcase.unshelved } },
-          { new: true }
-        );
-        return { updateShelves, updateUnshelved };
+        try {
+          const updateShelves = await Bookcase.findOneAndUpdate(
+            { user_id: context.user._id, year: args.bookcase.year },
+            { $set: { shelves: args.bookcase.shelves } },
+            { new: true }
+          );
+          const updateUnshelved = await Bookcase.findOneAndUpdate(
+            { user_id: context.user._id, year: args.bookcase.year },
+            { $set: { unshelved: args.bookcase.unshelved } },
+            { new: true }
+          );
+          return { updateShelves, updateUnshelved };
+        } catch (err) {
+          console.log("There is an arrangement error");
+          console.log(err);
+        }
       }
       throw new AuthenticationError("You need to be logged in!");
     },
