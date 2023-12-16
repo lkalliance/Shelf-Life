@@ -67,19 +67,29 @@ function App() {
   });
 
   if (Auth.loggedIn() && !loadingMe && !books.fetched) {
-    setTheBooks({ ...dataMe.me });
+    try {
+      setTheBooks({ ...dataMe.me });
+    } catch {
+      console.log("No dataMe.");
+    }
   }
   if (
     Auth.loggedIn() &&
     !loadingCase &&
     !bookCase.fetched &&
+    dataCase &&
     dataCase.bookcase.year === year
   ) {
-    setTheCase({ ...dataCase.bookcase });
+    try {
+      setTheCase({ ...dataCase.bookcase });
+    } catch {
+      console.log("No dataCase");
+    }
   } else if (
     Auth.loggedIn() &&
     !loadingCase &&
     !bookCase.fetched &&
+    dataCase &&
     dataCase.bookcase.year !== year
   ) {
     setBookCase({
@@ -104,21 +114,23 @@ function App() {
     >
       <div className="App">
         {showloginModal ? (
-          <LoginForm
+          <LoginForm uSetBooks={setBooks} uSetCase={setBookCase} uYear={year} />
+        ) : (
+          <div></div>
+        )}
+        {showSignupModal ? (
+          <SignupForm
             uSetBooks={setBooks}
             uSetCase={setBookCase}
-            // uSetItems={setItems}
             uYear={year}
           />
         ) : (
           <div></div>
         )}
-        {showSignupModal ? <SignupForm /> : <div></div>}
         <NavBar
           showLogin={setShowloginModal}
           uBooks={books}
           uSetBooks={setBooks}
-          // uSetItems={setItems}
           uYear={year}
           uCase={bookCase}
           uSetYear={setYear}

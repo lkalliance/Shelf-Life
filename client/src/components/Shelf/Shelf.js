@@ -29,8 +29,6 @@ function Shelf({
     // When the shelf is double-clicked, move it all to unshelved
     e.preventDefault();
 
-    console.log("double-clicked");
-
     // Did the user click the shelf and not a book?
     const target = e.target.nodeName;
     if (target !== "UL" && target !== "LI") {

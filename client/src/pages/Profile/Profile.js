@@ -9,6 +9,8 @@ function Profile({ uBooks, uYear }) {
   // If the user isn't logged in, send them to the home page
   if (!Auth.loggedIn()) window.location.href = "/";
 
+  console.log(uBooks);
+
   const display = uBooks.bookList.filter((book) => {
     return book.year === uYear;
   });
