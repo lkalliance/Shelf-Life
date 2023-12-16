@@ -113,6 +113,7 @@ function Bookcase({ uCase, uBooks, uSetBooks, uSetCase }) {
 
     // Create a shell of the user, with empty shelves except unshelved
     const newUser = {
+      fetched: uCase.fetched,
       user_id: uCase.user_id,
       year: uCase.year,
       shelves: [],

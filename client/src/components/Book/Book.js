@@ -3,15 +3,11 @@
 import "./Book.css";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
+import { cloneDeep } from "lodash";
 import { ARRANGE_BOOKCASE, REMOVE_BOOK } from "../../utils/mutations";
 import { Draggable } from "@hello-pangea/dnd";
 import { ViewModal } from "../ViewModal";
-import {
-  isTight,
-  abbreviateTitle,
-  booksDeepCopy,
-  convert,
-} from "../../utils/dragUtils";
+import { isTight, abbreviateTitle, convert } from "../../utils/dragUtils";
 
 function Book({
   uCase,
@@ -60,7 +56,7 @@ function Book({
     // If the book is already unshelved, never mind
     if (thisShelf === "unshelved") return;
 
-    const allBooks = booksDeepCopy(uCase);
+    const allBooks = cloneDeep(uCase);
     const unshelved = allBooks.unshelved;
     // Remove the book from its current stack
     const thisBook = allBooks.shelves[thisShelf][thisStack].splice(
@@ -87,7 +83,7 @@ function Book({
     // This function removes a book from the user's list and bookcase
 
     const { 1: thisStack, 2: thisShelf } = stack.split("-");
-    const allBooks = booksDeepCopy(uCase);
+    const allBooks = cloneDeep(uCase);
     const booklist = { ...uBooks, bookList: [...uBooks.bookList] };
 
     // Which stack is it from?
