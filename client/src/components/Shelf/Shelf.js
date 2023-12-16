@@ -1,8 +1,12 @@
 // This component renders a single shelf in the bookcase
 
 import "./Shelf.css";
+import { cloneDeep } from "lodash";
+import { useMutation } from "@apollo/client";
+import { ARRANGE_BOOKCASE } from "../../utils/mutations";
+
 import { Stack } from "../../components";
-import { booksDeepCopy, convert } from "../../utils/dragUtils";
+import { convert } from "../../utils/dragUtils";
 
 function Shelf({
   shelfIndex,
@@ -13,36 +17,29 @@ function Shelf({
   uSetBooks,
   uSetItems,
 }) {
-  // console.log(`This came to shelf ${shelfIndex}`);
-  // console.log(uCase);
-  // Determine what books are on this shelf
   const books =
     shelfIndex === "unshelved" ? uCase.unshelved : uCase.shelves[shelfIndex];
 
   const leftItem = uItems[`shelf-left-${shelfIndex}`];
   const rightItem = uItems[`shelf-right-${shelfIndex}`];
   const unshelvedItem = uItems[`shelf-unshelved-unshelved`];
-  // if (shelfIndex === "unshelved") {
-  //   console.log(`unshelved:`);
-  //   console.log(unshelvedItem);
-  // } else {
-  //   console.log(`shelf ${shelfIndex} left:`);
+  const [arrangeBookcase, { error }] = useMutation(ARRANGE_BOOKCASE);
 
-  //   console.log(leftItem);
-  //   console.log(`shelf ${shelfIndex} right:`);
-  //   console.log(rightItem);
-  // }
-
-  const doubleClickHandler = (e) => {
+  const doubleClickHandler = async (e) => {
     // When the shelf is double-clicked, move it all to unshelved
     e.preventDefault();
 
+    console.log("double-clicked");
+
     // Did the user click the shelf and not a book?
     const target = e.target.nodeName;
-    if (target !== "UL" && target !== "LI") return;
+    if (target !== "UL" && target !== "LI") {
+      console.log("That was a book!");
+      return;
+    }
 
     // Grab a copy of all the books, of this shelf and unshelved
-    const allBooks = booksDeepCopy(uCase);
+    const allBooks = cloneDeep(uCase);
     const thisShelf = allBooks.shelves[shelfIndex];
     const unshelved = allBooks.unshelved;
     // For each shelf stack, migrate all books to unshelved
@@ -56,10 +53,19 @@ function Shelf({
     }
 
     // Set states
-    // setUserBooks(allBooks);
-    uSetBooks(allBooks);
+    uSetCase(allBooks);
     // setUserItems(convert(allBooks));
     uSetItems(convert(allBooks));
+
+    // Save configuration
+    try {
+      // Save the new bookcase arrangement
+      const { data } = await arrangeBookcase({
+        variables: { bookcase: allBooks },
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

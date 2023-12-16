@@ -7,7 +7,7 @@ import { ARRANGE_BOOKCASE } from "../../utils/mutations";
 import { DragDropContext } from "@hello-pangea/dnd";
 import { Shelf, Button } from "../../components";
 import Auth from "../../utils/auth";
-import { booksDeepCopy, convert, noSpace } from "../../utils/dragUtils";
+import { convert, noSpace } from "../../utils/dragUtils";
 import { cloneDeep } from "lodash";
 
 function Bookcase({ uCase, uBooks, uSetBooks, uSetCase }) {
