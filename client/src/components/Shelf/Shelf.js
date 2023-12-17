@@ -1,39 +1,56 @@
 // This component renders a single shelf in the bookcase
 
 import "./Shelf.css";
-import { useRecoilState } from "recoil";
-import {
-  userBookcaseAtom,
-  userItemsAtom,
-} from "../../recoil/atom/userBooksAtom";
+import { cloneDeep } from "lodash";
+import { useMutation } from "@apollo/client";
+import { ARRANGE_BOOKCASE } from "../../utils/mutations";
+import { QUERY_BOOKCASE, QUERY_ME } from "../../utils/queries";
+
 import { Stack } from "../../components";
-import { booksDeepCopy, convert } from "../../utils/dragUtils";
+import { convert } from "../../utils/dragUtils";
 
-function Shelf({ shelfIndex }) {
-  // Atoms for user's bookcase data
-  const [userBooks, setUserBooks] = useRecoilState(userBookcaseAtom);
-  const [userItems, setUserItems] = useRecoilState(userItemsAtom);
-
-  // Determine what books are on this shelf
+function Shelf({
+  shelfIndex,
+  uCase,
+  uBooks,
+  uSetCase,
+  uItems,
+  uSetBooks,
+  uSetItems,
+  uYear,
+}) {
   const books =
-    shelfIndex === "unshelved"
-      ? userBooks.unshelved
-      : userBooks.shelves[shelfIndex];
+    shelfIndex === "unshelved" ? uCase.unshelved : uCase.shelves[shelfIndex];
 
-  const leftItem = userItems[`shelf-left-${shelfIndex}`];
-  const rightItem = userItems[`shelf-right-${shelfIndex}`];
-  const unshelvedItem = userItems[`shelf-unshelved-unshelved`];
+  const leftItem = uItems[`shelf-left-${shelfIndex}`];
+  const rightItem = uItems[`shelf-right-${shelfIndex}`];
+  const unshelvedItem = uItems[`shelf-unshelved-unshelved`];
+  const [arrangeBookcase, { error }] = useMutation(ARRANGE_BOOKCASE, {
+    refetchQueries: () => [
+      {
+        query: QUERY_ME,
+        variables: { fetchMe: true },
+      },
+      {
+        query: QUERY_BOOKCASE,
+        variables: { fetchMe: true, year: uYear },
+      },
+    ],
+  });
 
-  const doubleClickHandler = (e) => {
+  const doubleClickHandler = async (e) => {
     // When the shelf is double-clicked, move it all to unshelved
     e.preventDefault();
 
     // Did the user click the shelf and not a book?
     const target = e.target.nodeName;
-    if (target !== "UL" && target !== "LI") return;
+    if (target !== "UL" && target !== "LI") {
+      console.log("That was a book!");
+      return;
+    }
 
     // Grab a copy of all the books, of this shelf and unshelved
-    const allBooks = booksDeepCopy(userBooks);
+    const allBooks = cloneDeep(uCase);
     const thisShelf = allBooks.shelves[shelfIndex];
     const unshelved = allBooks.unshelved;
     // For each shelf stack, migrate all books to unshelved
@@ -47,14 +64,25 @@ function Shelf({ shelfIndex }) {
     }
 
     // Set states
-    setUserBooks(allBooks);
-    setUserItems(convert(allBooks));
+    uSetCase(allBooks);
+    // setUserItems(convert(allBooks));
+    uSetItems(convert(allBooks));
+
+    // Save configuration
+    try {
+      // Save the new bookcase arrangement
+      const { data } = await arrangeBookcase({
+        variables: { bookcase: allBooks },
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
     <div
       className={`shelf${shelfIndex === "unshelved" ? " unshelved" : ""}${
-        userBooks.unshelved.length === 0 ? " empty" : ""
+        uCase.unshelved.length === 0 ? " empty" : ""
       }`}
       key={`shelf-${shelfIndex}`}
       id={`shelf-${shelfIndex}`}
@@ -68,6 +96,12 @@ function Shelf({ shelfIndex }) {
             shelf={shelfIndex}
             bookItems={leftItem}
             clearHandler={doubleClickHandler}
+            uCase={uCase}
+            uBooks={uBooks}
+            uSetCase={uSetCase}
+            uSetBooks={uSetBooks}
+            uSetItems={uSetItems}
+            uYear={uYear}
           />
           <Stack
             drop="true"
@@ -77,6 +111,12 @@ function Shelf({ shelfIndex }) {
             shelf={shelfIndex}
             bookItems={rightItem}
             clearHandler={doubleClickHandler}
+            uCase={uCase}
+            uBooks={uBooks}
+            uSetCase={uSetCase}
+            uSetBooks={uSetBooks}
+            uSetItems={uSetItems}
+            uYear={uYear}
           />
         </div>
       ) : (
@@ -84,9 +124,15 @@ function Shelf({ shelfIndex }) {
           position="unshelved"
           key={`shelf-unshelved-${shelfIndex}`}
           books={books}
-          items={userItems}
+          items={uItems}
           shelf={shelfIndex}
           bookItems={unshelvedItem}
+          uCase={uCase}
+          uBooks={uBooks}
+          uSetCase={uSetCase}
+          uSetBooks={uSetBooks}
+          uSetItems={uSetItems}
+          uYear={uYear}
         />
       )}
     </div>

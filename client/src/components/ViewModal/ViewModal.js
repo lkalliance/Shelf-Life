@@ -4,7 +4,7 @@ import "./ViewModal.css";
 import React from "react";
 import Star from "../../components/AddBook/Star";
 
-function ViewModal({ show, switcher, info, remover }) {
+function ViewModal({ show, switcher, info, remover, shelf }) {
   const handleClose = () => {
     // This handler closes the modal
     switcher(false);
@@ -49,16 +49,18 @@ function ViewModal({ show, switcher, info, remover }) {
                   </div>
                 ) : null}
                 <div className="dark:text-white">{info.comment}</div>
-                <a
-                  href="#"
-                  className="dark:text-white"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    remover();
-                  }}
-                >
-                  give away
-                </a>
+                {shelf === "unshelved" ? (
+                  <a
+                    href="#"
+                    className="dark:text-white"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      remover();
+                    }}
+                  >
+                    give away
+                  </a>
+                ) : null}
               </div>
               <button
                 onClick={() => {

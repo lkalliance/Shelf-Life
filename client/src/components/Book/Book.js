@@ -2,34 +2,56 @@
 
 import "./Book.css";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
-import {
-  userBookcaseAtom,
-  userItemsAtom,
-  userBooksAtom,
-} from "../../recoil/atom/userBooksAtom";
 import { useMutation } from "@apollo/client";
+import { cloneDeep } from "lodash";
 import { ARRANGE_BOOKCASE, REMOVE_BOOK } from "../../utils/mutations";
+import { QUERY_ME, QUERY_BOOKCASE } from "../../utils/queries";
 import { Draggable } from "@hello-pangea/dnd";
 import { ViewModal } from "../ViewModal";
-import {
-  isTight,
-  abbreviateTitle,
-  booksDeepCopy,
-  convert,
-} from "../../utils/dragUtils";
+import { isTight, abbreviateTitle, convert } from "../../utils/dragUtils";
 
-function Book({ bookId, book, bookIndex, stack }) {
-  // Data atoms for user's book list and bookcase
-  const [userBookcase, setUserBookcase] = useRecoilState(userBookcaseAtom);
-  const [userBooks, setUserBooks] = useRecoilState(userBooksAtom);
-  const [userItems, setUserItems] = useRecoilState(userItemsAtom);
-  // State to control showing the details modal
+function Book({
+  uCase,
+  uBooks,
+  uSetCase,
+  uSetBooks,
+  uSetItems,
+  bookId,
+  book,
+  bookIndex,
+  stack,
+  shelf,
+  uYear,
+}) {
   const [showModal, setShowModal] = useState(false);
   // Mutations
-  const [arrangeBookcase, { error: arrangeError }] =
-    useMutation(ARRANGE_BOOKCASE);
-  const [removeBook, { error: removeError }] = useMutation(REMOVE_BOOK);
+  const [arrangeBookcase, { error: arrangeError }] = useMutation(
+    ARRANGE_BOOKCASE,
+    {
+      refetchQueries: () => [
+        {
+          query: QUERY_ME,
+          variables: { fetchMe: true },
+        },
+        {
+          query: QUERY_BOOKCASE,
+          variables: { fetchMe: true, year: uYear },
+        },
+      ],
+    }
+  );
+  const [removeBook, { error: removeError }] = useMutation(REMOVE_BOOK, {
+    refetchQueries: () => [
+      {
+        query: QUERY_ME,
+        variables: { fetchMe: true },
+      },
+      {
+        query: QUERY_BOOKCASE,
+        variables: { fetchMe: true, year: uYear },
+      },
+    ],
+  });
 
   // Function to differentiate between a single and double-click
   let timer;
@@ -58,9 +80,9 @@ function Book({ bookId, book, bookIndex, stack }) {
 
     const { 1: thisStack, 2: thisShelf } = stack.split("-");
     // If the book is already unshelved, never mind
-    if (thisShelf === "unshelved") return;
+    if (shelf === "unshelved") return;
 
-    const allBooks = booksDeepCopy(userBookcase);
+    const allBooks = cloneDeep(uCase);
     const unshelved = allBooks.unshelved;
     // Remove the book from its current stack
     const thisBook = allBooks.shelves[thisShelf][thisStack].splice(
@@ -70,8 +92,8 @@ function Book({ bookId, book, bookIndex, stack }) {
     // Now place it at the end of the Unshelved stack
     unshelved.push(thisBook[0]);
     // Now update the states of the bookcase
-    setUserBookcase(allBooks);
-    setUserItems(convert(allBooks));
+    uSetCase(allBooks);
+    uSetItems(convert(allBooks));
 
     try {
       // Save the newly arranged bookcase
@@ -87,8 +109,8 @@ function Book({ bookId, book, bookIndex, stack }) {
     // This function removes a book from the user's list and bookcase
 
     const { 1: thisStack, 2: thisShelf } = stack.split("-");
-    const allBooks = booksDeepCopy(userBookcase);
-    const booklist = { ...userBooks, bookList: [...userBooks.bookList] };
+    const allBooks = cloneDeep(uCase);
+    const booklist = { ...uBooks, bookList: [...uBooks.bookList] };
 
     // Which stack is it from?
     const fromStack =
@@ -106,9 +128,9 @@ function Book({ bookId, book, bookIndex, stack }) {
     const thisListBook = booklist.bookList.splice(listIndex, 1);
 
     // Set all the states and atoms
-    setUserBookcase(allBooks);
-    setUserItems(convert(allBooks));
-    setUserBooks(booklist);
+    uSetCase(allBooks);
+    uSetItems(convert(allBooks));
+    uSetBooks(booklist);
 
     try {
       // Save the new bookshelf arrangement
@@ -122,7 +144,10 @@ function Book({ bookId, book, bookIndex, stack }) {
     try {
       // Save the book's removal
       const { data: removeData } = await removeBook({
-        variables: { bookId: thisListBook[0].bookId },
+        variables: {
+          bookId: thisListBook[0].bookId,
+          year: book.year,
+        },
       });
     } catch (err) {
       console.error(err);
@@ -137,6 +162,7 @@ function Book({ bookId, book, bookIndex, stack }) {
         show={showModal}
         switcher={setShowModal}
         info={book}
+        shelf={shelf}
         remover={deleteThisBook}
       />
       <Draggable key={bookId} draggableId={bookId} index={bookIndex}>

@@ -20,7 +20,7 @@ export const QUERY_ME = gql`
 `;
 
 export const QUERY_BOOKCASE = gql`
-  query Bookcase($year: Int!, $fetchMe: Boolean) {
+  query Bookcase($year: String!, $fetchMe: Boolean) {
     bookcase(year: $year, fetchMe: $fetchMe) {
       shelves {
         left {

@@ -7,7 +7,7 @@ import { ADD_USER } from "../../utils/mutations";
 import { SignupContext } from "../../App";
 import Auth from "../../utils/auth";
 
-function SignupForm() {
+function SignupForm({ uSetBooks, uSetCase, uYear }) {
   // Contexts to manage showing which modal
   const { showSignupModal, setShowSignupModal, setShowloginModal } =
     useContext(SignupContext);
@@ -60,8 +60,22 @@ function SignupForm() {
       const { data } = await addUser({
         variables: { ...userFormData },
       });
-      console.log(data);
       Auth.login(data.addUser.token);
+      uSetBooks({
+        fetched: true,
+        userName: data.addUser.user.userName,
+        bookList: [],
+      });
+      uSetCase({
+        fetched: true,
+        year: "2023",
+        user_id: data.addUser.user._id,
+        shelves: [
+          { left: [], right: [] },
+          { left: [], right: [] },
+        ],
+        unshelved: [],
+      });
     } catch (err) {
       console.error(err);
       console.log(err.message);

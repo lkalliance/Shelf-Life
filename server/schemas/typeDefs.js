@@ -12,6 +12,10 @@ const typeDefs = gql`
     bookcase: Bookcase
   }
 
+  type DeleteReturn {
+    message: String
+  }
+
   type User {
     _id: ID
     userName: String
@@ -29,6 +33,7 @@ const typeDefs = gql`
   }
 
   input BookcaseInput {
+    fetched: Boolean
     user_id: ID
     year: String
     shelves: [ShelfInput]
@@ -66,7 +71,6 @@ const typeDefs = gql`
   input BookInput {
     bookId: String!
     title: String!
-    shortTitle: String
     image: String
     description: String
     authors: [String]
@@ -81,7 +85,7 @@ const typeDefs = gql`
 
   type Query {
     me(fetchMe: Boolean): User
-    bookcase(year: Int!, fetchMe: Boolean): Bookcase
+    bookcase(year: String!, fetchMe: Boolean): Bookcase
   }
 
   type Mutation {
@@ -92,7 +96,7 @@ const typeDefs = gql`
       shelves: [ShelfInput]
       unshelved: [BookInput]
     ): Bookcase
-    login(email: String!, password: String!): AuthReturn
+    login(email: String!, password: String!, year: String!): AuthReturn
     addBook(
       title: String!
       shortTitle: String
@@ -104,12 +108,12 @@ const typeDefs = gql`
       thickness: String = "mid"
       style: String = "paperback"
       bookId: String!
-      rating: Int
-      comment: String
+      rating: Int = 0
+      comment: String = ""
       year: String
     ): User
-    removeBook(bookId: String!): User
-    arrangeBookcase(bookcase: BookcaseInput): Bookcase
+    removeBook(bookId: String!, year: String): User
+    arrangeBookcase(bookcase: BookcaseInput!): Bookcase
   }
 `;
 

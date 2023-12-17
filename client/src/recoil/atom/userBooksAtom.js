@@ -31,3 +31,9 @@ export const fetchedAtom = atom({
   key: "fetched",
   default: false,
 });
+
+export const yearAtom = atom({
+  // This atom keeps track of the year the user is browsing
+  key: "year",
+  default: 2023,
+});

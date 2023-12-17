@@ -2,29 +2,17 @@
 
 import "./login.css";
 import React, { useState, useEffect, useContext } from "react";
-import { useRecoilState } from "recoil";
-import {
-  userBookcaseAtom,
-  userBooksAtom,
-  userItemsAtom,
-} from "../../recoil/atom/userBooksAtom";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../../utils/mutations";
 import { SignupContext } from "../../App";
 import Auth from "../../utils/auth";
-import { convert } from "../../utils/dragUtils";
 
-function LoginForm() {
+function LoginForm({ uSetBooks, uSetCase, uYear }) {
   // Contexts and states to manage the modals
   const { setShowSignupModal, showloginModal, setShowloginModal } =
     useContext(SignupContext);
   const [userFormData, setUserFormData] = useState({ email: "", password: "" });
   const [showAlert, setShowAlert] = useState(false);
-  // Atoms to accept the user's books and bookcase
-  const [books, setBooks] = useRecoilState(userBooksAtom);
-  const [bcase, setbCase] = useRecoilState(userBookcaseAtom);
-  const [items, setItems] = useRecoilState(userItemsAtom);
-  // Mutation
   const [login, { error, data }] = useMutation(LOGIN);
 
   const handleSwitch = () => {
@@ -65,13 +53,12 @@ function LoginForm() {
 
     try {
       const { data } = await login({
-        variables: { ...userFormData },
+        variables: { ...userFormData, year: uYear },
       });
 
-      setBooks(data.login.user);
-      setbCase(data.login.bookcase);
-      setItems(convert(data.login.bookcase));
       await Auth.login(data.login.token);
+      uSetBooks({ ...data.login.user, fetched: true });
+      uSetCase({ ...data.login.bookcase, fetched: true });
       handleClose();
     } catch (err) {
       console.error(err);
