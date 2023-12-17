@@ -6,6 +6,11 @@ section#bookcase {
   width: 600px;
 }
 
+section#bookcase h1 {
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
 section#bookcase button.bookcaseButton {
   background-color: rgb(118, 76, 5);
   border: 1px solid rgb(220, 177, 75);

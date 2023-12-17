@@ -166,6 +166,7 @@ function Bookcase({ uCase, uBooks, uSetBooks, uSetCase, uYear }) {
   return (
     <main id="bookcaseContainer">
       <section id="bookcase">
+        <h1>{uYear} bookcase</h1>
         <DragDropContext onDragEnd={handleDrop}>
           <div id="shelves">
             {uCase.shelves.map((shelf, shelfIndex) => {

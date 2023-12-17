@@ -3,6 +3,12 @@ section#bookList {
   max-width: 900px;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
+}
+
+section#bookList h1 {
+  margin-bottom: 6px;
+  font-weight: bold;
 }
 
 section#bookList div button:last-of-type {

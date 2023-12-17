@@ -17,6 +17,7 @@ function Profile({ uBooks, uYear }) {
   return (
     <main id="booklistContainer">
       <section id="bookList">
+        <h1>{uYear} book list</h1>
         <Accordion collapseAll>
           {display.map((book, index) => {
             return (
