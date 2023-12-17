@@ -168,6 +168,7 @@ function App() {
                   uCase={bookCase}
                   uSetBooks={setBooks}
                   uSetCase={setBookCase}
+                  uYear={year}
                 />
               ) : (
                 <Home />
@@ -183,6 +184,7 @@ function App() {
                   uCase={bookCase}
                   uSetBooks={setBooks}
                   uSetCase={setBookCase}
+                  uYear={year}
                 />
               ) : (
                 <Home />

@@ -4,13 +4,14 @@ import "./Bookcase.css";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ARRANGE_BOOKCASE } from "../../utils/mutations";
+import { QUERY_ME, QUERY_BOOKCASE } from "../../utils/queries";
 import { DragDropContext } from "@hello-pangea/dnd";
 import { Shelf, Button } from "../../components";
 import Auth from "../../utils/auth";
 import { convert, noSpace } from "../../utils/dragUtils";
 import { cloneDeep } from "lodash";
 
-function Bookcase({ uCase, uBooks, uSetBooks, uSetCase }) {
+function Bookcase({ uCase, uBooks, uSetBooks, uSetCase, uYear }) {
   // If the user isn't logged in, send them to the home page
   if (!Auth.loggedIn()) window.location.href = "/";
 
@@ -18,7 +19,18 @@ function Bookcase({ uCase, uBooks, uSetBooks, uSetCase }) {
   const [items, setItems] = useState(convert(uCase));
 
   // Mutation
-  const [arrangeBookcase, { error }] = useMutation(ARRANGE_BOOKCASE);
+  const [arrangeBookcase, { error }] = useMutation(ARRANGE_BOOKCASE, {
+    refetchQueries: () => [
+      {
+        query: QUERY_ME,
+        variables: { fetchMe: true },
+      },
+      {
+        query: QUERY_BOOKCASE,
+        variables: { fetchMe: true, year: uYear },
+      },
+    ],
+  });
 
   async function handleDrop({ source, destination }) {
     // Handler for when a book is dropped onto a stack
@@ -167,6 +179,7 @@ function Bookcase({ uCase, uBooks, uSetBooks, uSetCase }) {
                   uSetBooks={uSetBooks}
                   uSetItems={setItems}
                   uSetCase={uSetCase}
+                  uYear={uYear}
                 />
               );
             })}
@@ -180,6 +193,7 @@ function Bookcase({ uCase, uBooks, uSetBooks, uSetCase }) {
             uSetBooks={uSetBooks}
             uSetItems={setItems}
             uSetCase={uSetCase}
+            uYear={uYear}
           />
         </DragDropContext>
         <Button className="bookcaseButton" handler={addShelf}>

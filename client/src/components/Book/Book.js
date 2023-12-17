@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { cloneDeep } from "lodash";
 import { ARRANGE_BOOKCASE, REMOVE_BOOK } from "../../utils/mutations";
+import { QUERY_ME, QUERY_BOOKCASE } from "../../utils/queries";
 import { Draggable } from "@hello-pangea/dnd";
 import { ViewModal } from "../ViewModal";
 import { isTight, abbreviateTitle, convert } from "../../utils/dragUtils";
@@ -20,12 +21,37 @@ function Book({
   bookIndex,
   stack,
   shelf,
+  uYear,
 }) {
   const [showModal, setShowModal] = useState(false);
   // Mutations
-  const [arrangeBookcase, { error: arrangeError }] =
-    useMutation(ARRANGE_BOOKCASE);
-  const [removeBook, { error: removeError }] = useMutation(REMOVE_BOOK);
+  const [arrangeBookcase, { error: arrangeError }] = useMutation(
+    ARRANGE_BOOKCASE,
+    {
+      refetchQueries: () => [
+        {
+          query: QUERY_ME,
+          variables: { fetchMe: true },
+        },
+        {
+          query: QUERY_BOOKCASE,
+          variables: { fetchMe: true, year: uYear },
+        },
+      ],
+    }
+  );
+  const [removeBook, { error: removeError }] = useMutation(REMOVE_BOOK, {
+    refetchQueries: () => [
+      {
+        query: QUERY_ME,
+        variables: { fetchMe: true },
+      },
+      {
+        query: QUERY_BOOKCASE,
+        variables: { fetchMe: true, year: uYear },
+      },
+    ],
+  });
 
   // Function to differentiate between a single and double-click
   let timer;
@@ -54,7 +80,7 @@ function Book({
 
     const { 1: thisStack, 2: thisShelf } = stack.split("-");
     // If the book is already unshelved, never mind
-    if (thisShelf === "unshelved") return;
+    if (shelf === "unshelved") return;
 
     const allBooks = cloneDeep(uCase);
     const unshelved = allBooks.unshelved;

@@ -4,6 +4,7 @@ import "./Shelf.css";
 import { cloneDeep } from "lodash";
 import { useMutation } from "@apollo/client";
 import { ARRANGE_BOOKCASE } from "../../utils/mutations";
+import { QUERY_BOOKCASE, QUERY_ME } from "../../utils/queries";
 
 import { Stack } from "../../components";
 import { convert } from "../../utils/dragUtils";
@@ -16,6 +17,7 @@ function Shelf({
   uItems,
   uSetBooks,
   uSetItems,
+  uYear,
 }) {
   const books =
     shelfIndex === "unshelved" ? uCase.unshelved : uCase.shelves[shelfIndex];
@@ -23,7 +25,18 @@ function Shelf({
   const leftItem = uItems[`shelf-left-${shelfIndex}`];
   const rightItem = uItems[`shelf-right-${shelfIndex}`];
   const unshelvedItem = uItems[`shelf-unshelved-unshelved`];
-  const [arrangeBookcase, { error }] = useMutation(ARRANGE_BOOKCASE);
+  const [arrangeBookcase, { error }] = useMutation(ARRANGE_BOOKCASE, {
+    refetchQueries: () => [
+      {
+        query: QUERY_ME,
+        variables: { fetchMe: true },
+      },
+      {
+        query: QUERY_BOOKCASE,
+        variables: { fetchMe: true, year: uYear },
+      },
+    ],
+  });
 
   const doubleClickHandler = async (e) => {
     // When the shelf is double-clicked, move it all to unshelved
@@ -88,6 +101,7 @@ function Shelf({
             uSetCase={uSetCase}
             uSetBooks={uSetBooks}
             uSetItems={uSetItems}
+            uYear={uYear}
           />
           <Stack
             drop="true"
@@ -102,6 +116,7 @@ function Shelf({
             uSetCase={uSetCase}
             uSetBooks={uSetBooks}
             uSetItems={uSetItems}
+            uYear={uYear}
           />
         </div>
       ) : (
@@ -117,6 +132,7 @@ function Shelf({
           uSetCase={uSetCase}
           uSetBooks={uSetBooks}
           uSetItems={uSetItems}
+          uYear={uYear}
         />
       )}
     </div>

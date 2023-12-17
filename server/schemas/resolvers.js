@@ -152,14 +152,13 @@ const resolvers = {
 
           return { updatebookList };
         } catch (err) {
-          console.log("There's a removal error!");
+          ``;
           console.log(err);
         }
       }
       throw new AuthenticationError("You need to be logged in!");
     },
     arrangeBookcase: async (parent, args, context) => {
-      console.log(args);
       if (context.user) {
         try {
           const updateShelves = await Bookcase.findOneAndUpdate(

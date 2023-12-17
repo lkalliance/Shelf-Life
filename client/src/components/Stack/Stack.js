@@ -13,8 +13,8 @@ function Stack({
   position,
   books,
   shelf,
-  bookItems,
   clearHandler,
+  uYear,
 }) {
   return (
     <Droppable
@@ -42,6 +42,7 @@ function Stack({
                 bookId={book.bookId}
                 shelf={shelf}
                 stack={`shelf-${position}-${shelf}`}
+                uYear={uYear}
               />
             );
           })}
