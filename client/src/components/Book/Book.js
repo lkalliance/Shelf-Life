@@ -154,6 +154,11 @@ function Book({
     }
   }
 
+  // Set up styles vs classes
+  const colorStyle = book.color.charAt(0) === "#";
+  const heightStyle = !isNaN(book.height);
+  const thicknessStyle = !isNaN(book.thickness);
+
   // Reference logic to set book title style
   const textStyle = isTight(book);
   return (
@@ -173,8 +178,15 @@ function Book({
             {...provided.dragHandleProps}
           >
             <div
-              className={`book ${book.color} ${book.thickness} ${book.height} ${book.style} ${textStyle}`}
+              className={`book ${colorStyle ? "" : book.color} ${
+                thicknessStyle ? "" : book.thickness
+              } ${heightStyle ? "" : book.height} ${book.style} ${textStyle}`}
               id={bookId}
+              style={{
+                backgroundColor: colorStyle ? book.color : "",
+                height: heightStyle ? `${book.height}px` : "",
+                width: thicknessStyle ? `${book.thickness}px` : "",
+              }}
               onClick={clickHandler}
             >
               <div className="accent top"></div>

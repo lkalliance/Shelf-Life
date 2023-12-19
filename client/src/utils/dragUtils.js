@@ -89,12 +89,33 @@ const thicknesses = {
 };
 
 export const noSpace = (shelf, newBook) => {
+  const newBookThickness = isNaN(newBook.thickness)
+    ? thicknesses[newBook.thickness]
+    : parseInt(newBook.thickness);
   // This utility determines if there is room on the shelf for a drop
-  let pixels = 0;
-  shelf.left.map((book) => (pixels += thicknesses[book.thickness]));
-  shelf.right.map((book) => (pixels += thicknesses[book.thickness]));
+  const leftThicknesses = shelf.left.map((book) => {
+    // does this book have a setting or a number?
+    return isNaN(book.thickness)
+      ? thicknesses[book.thickness]
+      : parseInt(book.thickness);
+  });
+  const rightThicknesses = shelf.right.map((book) => {
+    // does this book have a setting or a number?
+    return isNaN(book.thickness)
+      ? thicknesses[book.thickness]
+      : parseInt(book.thickness);
+  });
+  console.log(leftThicknesses, rightThicknesses);
+  const sumLeft = leftThicknesses.reduce(
+    (partialSum, pixels) => partialSum + pixels,
+    0
+  );
+  const sumRight = rightThicknesses.reduce(
+    (partialSum, pixels) => partialSum + pixels,
+    0
+  );
 
-  return pixels + thicknesses[newBook.thickness] > 280;
+  return sumLeft + sumRight + newBookThickness > 280;
 };
 
 export const isTight = (book) => {
