@@ -6,12 +6,12 @@ import { useMutation } from "@apollo/client";
 import { ARRANGE_BOOKCASE } from "../../utils/mutations";
 import { QUERY_ME, QUERY_BOOKCASE } from "../../utils/queries";
 import { DragDropContext } from "@hello-pangea/dnd";
-import { Shelf, Button } from "../../components";
+import { Shelf, Button, TitleBar } from "../../components";
 import Auth from "../../utils/auth";
 import { convert, noSpace } from "../../utils/dragUtils";
 import { cloneDeep } from "lodash";
 
-function Bookcase({ uCase, uBooks, uSetBooks, uSetCase, uYear }) {
+function Bookcase({ uCase, uBooks, uSetBooks, uSetCase, uYear, uSetYear }) {
   // If the user isn't logged in, send them to the home page
   if (!Auth.loggedIn()) window.location.href = "/";
 
@@ -166,7 +166,14 @@ function Bookcase({ uCase, uBooks, uSetBooks, uSetCase, uYear }) {
   return (
     <main id="bookcaseContainer">
       <section id="bookcase">
-        <h1>{uYear} bookcase</h1>
+        <TitleBar
+          type="bookcase"
+          uYear={uYear}
+          uSetYear={uSetYear}
+          uCase={uCase}
+          uSetCase={uSetCase}
+        />
+        {/* <h1>{uYear} bookcase</h1> */}
         <DragDropContext onDragEnd={handleDrop}>
           <div id="shelves">
             {uCase.shelves.map((shelf, shelfIndex) => {

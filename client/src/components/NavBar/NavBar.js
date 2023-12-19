@@ -9,7 +9,6 @@ import auth from "../../utils/auth";
 function NavBar({
   showLogin,
   uYear,
-  uSetYear,
   uSetFetched,
   bSetFetched,
   uBooks,
@@ -22,17 +21,6 @@ function NavBar({
     const navContainer = document.querySelector("#navbar-default");
     navContainer.classList.toggle("hidden");
   };
-  const changeYear = (e) => {
-    uSetCase({ ...uCase, fetched: false });
-    uSetYear(e.target.value);
-  };
-  // Get the current year for the selection menu
-  const today = new Date();
-  const thisYear = today.getFullYear();
-  const yearlist = [];
-  for (let i = 2000; i <= thisYear; i++) {
-    yearlist.push(i);
-  }
 
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -73,15 +61,6 @@ function NavBar({
               // Show one version of the nav if logged in, a different if logged out
               auth.loggedIn() ? (
                 <>
-                  <select value={uYear} onChange={changeYear}>
-                    {yearlist.map((y, index) => {
-                      return (
-                        <option key={index} value={y}>
-                          {y}
-                        </option>
-                      );
-                    })}
-                  </select>
                   <li key="to-book-list">
                     <Link
                       to="/profile"
