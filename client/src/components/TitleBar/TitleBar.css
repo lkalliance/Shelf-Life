@@ -1,0 +1,10 @@
+div#title-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+div#title-bar select {
+  margin-right: 8px;
+}

@@ -133,7 +133,6 @@ function App() {
           uSetBooks={setBooks}
           uYear={year}
           uCase={bookCase}
-          uSetYear={setYear}
           uSetCase={setBookCase}
           uSetFetched={setUFetched}
           bSetFetched={setBFetched}
@@ -143,7 +142,13 @@ function App() {
             path="/"
             element={
               Auth.loggedIn() ? (
-                <Profile uBooks={books} uYear={year} />
+                <Profile
+                  uBooks={books}
+                  uYear={year}
+                  uSetYear={setYear}
+                  uCase={bookCase}
+                  uSetCase={setBookCase}
+                />
               ) : (
                 <Home />
               )
@@ -153,7 +158,13 @@ function App() {
             path="/profile"
             element={
               Auth.loggedIn() ? (
-                <Profile uBooks={books} uYear={year} />
+                <Profile
+                  uBooks={books}
+                  uYear={year}
+                  uSetYear={setYear}
+                  uCase={bookCase}
+                  uSetCase={setBookCase}
+                />
               ) : (
                 <Home />
               )
@@ -169,6 +180,7 @@ function App() {
                   uSetBooks={setBooks}
                   uSetCase={setBookCase}
                   uYear={year}
+                  uSetYear={setYear}
                 />
               ) : (
                 <Home />
