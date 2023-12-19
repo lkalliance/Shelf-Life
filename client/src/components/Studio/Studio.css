@@ -1,0 +1,62 @@
+div#studio div#preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 180px;
+  border-radius: 8px;
+  background-color: #b6b9d0;
+  border: 1px solid #9498ac;
+  border-top-color: #5e606e;
+  border-left-color: #5e606e;
+  border-bottom-color: #a9adc8;
+  border-right-color: #a9adc8;
+}
+
+div#studio fieldset {
+  display: flex;
+  margin-top: 6px;
+}
+
+div#studio fieldset label {
+  font-weight: bold;
+}
+
+div#studio fieldset input {
+  background-color: transparent;
+}
+
+div#studio fieldset#colors {
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+div#studio fieldset#styles {
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+
+div#studio fieldset#styles select {
+  font-size: 0.8rem;
+}
+
+div#studio fieldset#colors label,
+div#studio fieldset#styles label {
+  margin-right: 4px;
+}
+
+div#studio fieldset#colors input {
+  margin-right: 12px;
+}
+
+div#studio fieldset#dimensions {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+div#studio fieldset#dimensions input {
+  width: 100%;
+}

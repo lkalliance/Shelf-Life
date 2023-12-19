@@ -21,6 +21,9 @@ const bookSchema = new Schema({
   color: {
     type: String,
   },
+  text: {
+    type: String,
+  },
   height: {
     type: String,
   },

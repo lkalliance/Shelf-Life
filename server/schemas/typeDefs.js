@@ -59,6 +59,7 @@ const typeDefs = gql`
     image: String
     description: String
     color: String
+    text: String
     height: String
     thickness: String
     style: String
@@ -77,6 +78,7 @@ const typeDefs = gql`
     style: String
     height: String
     thickness: String
+    text: String
     color: String
     year: String
     rating: Int

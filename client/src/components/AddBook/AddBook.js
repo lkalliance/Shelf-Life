@@ -2,27 +2,11 @@
 
 import "./AddBook.css";
 import React, { useState } from "react";
-// import { useRecoilState } from "recoil";
-// import {
-//   userBooksAtom,
-//   userItemsAtom,
-//   userBookcaseAtom,
-//   yearAtom,
-// } from "../../recoil/atom/userBooksAtom";
 import { useMutation } from "@apollo/client";
 import { ADD_BOOK } from "../../utils/mutations";
-import { convert } from "../../utils/dragUtils";
+import { Studio } from "../../components";
 
-function AddBook({
-  uYear,
-  uBooks,
-  uCase,
-  uSetBooks,
-  uSetCase,
-  uSetItems,
-  uSetFetched,
-  bSetFetched,
-}) {
+function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase }) {
   // States to determine whether the search or select modal is visible
   const [showModal, setShowModal] = useState(false);
   const [showSelectModal, setshowSelectModal] = useState(false);
@@ -31,11 +15,6 @@ function AddBook({
   const [selected, setSelected] = useState({ year: { uYear } });
   // States to track user form inputs
   const [searchInput, setSearchInput] = useState("");
-  // Data atoms of the user's books and bookcase
-  // const [books, setBooks] = useRecoilState(userBooksAtom);
-  // const [bcase, setbCase] = useRecoilState(userBookcaseAtom);
-  // const [items, setItems] = useRecoilState(userItemsAtom);
-  // const [year, setYear] = useRecoilState(yearAtom);
   // Mutation to add a book
   const [addBook, { error }] = useMutation(ADD_BOOK);
 
@@ -53,6 +32,7 @@ function AddBook({
     // Assigns default values if none provided by the user
     let bookCopy = { ...book };
     bookCopy.color = bookCopy.color || "white";
+    bookCopy.text = bookCopy.text || "black";
     bookCopy.height = bookCopy.height || "medium";
     bookCopy.thickness = bookCopy.thickness || "mid";
     bookCopy.style = bookCopy.style || "paperback";
@@ -352,7 +332,7 @@ function AddBook({
                       onSubmit={handleSelectionForm}
                     >
                       <h2 className="dark:text-white">{selected.title}</h2>
-                      <div className="select_bookOptions relative w-full max-w-xl max-h-full">
+                      {/* <div className="select_bookOptions relative w-full max-w-xl max-h-full">
                         <div>
                           <select
                             id="book_color"
@@ -436,62 +416,66 @@ function AddBook({
                             <option value="hardcover">HardCover</option>
                             <option value="leather">Leatherbound</option>
                           </select>
-                        </div>
-                        <div>
-                          <label
-                            htmlFor="Rating"
-                            className="label block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                          >
-                            {" "}
-                            Rating{" "}
-                            <input
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                              type="number"
-                              // value={selected.rating}
-                              onChange={(e) =>
-                                setSelected({
-                                  ...selected,
-                                  rating: parseInt(e.target.value),
-                                })
-                              }
-                              id="Rating"
-                              name="Rating"
-                              min="0"
-                              max="5"
-                            />
-                          </label>
-                        </div>
-
-                        <div className="mb-6">
-                          <label
-                            htmlFor="large-input"
-                            className="label block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                          >
-                            Comment
-                          </label>
-                          <textarea
-                            id="large-input"
-                            value={selected.comment}
+                        </div> */}
+                      <Studio
+                        selected={setDefaults(selected)}
+                        setSelected={setSelected}
+                      />
+                      <div>
+                        <label
+                          htmlFor="Rating"
+                          className="label block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          {" "}
+                          Rating{" "}
+                          <input
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            type="number"
+                            // value={selected.rating}
                             onChange={(e) =>
                               setSelected({
                                 ...selected,
-                                comment: e.target.value,
+                                rating: parseInt(e.target.value),
                               })
                             }
-                            className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          ></textarea>
-                        </div>
-                        <div>Adding to {uYear} reading list.</div>
-
-                        <button
-                          type="submit"
-                          id="styleBtn"
-                          className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                          onSubmit={handleSelectionForm}
-                        >
-                          Save selection
-                        </button>
+                            id="Rating"
+                            name="Rating"
+                            min="0"
+                            max="5"
+                          />
+                        </label>
                       </div>
+
+                      <div className="mb-6">
+                        <label
+                          htmlFor="large-input"
+                          className="label block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          Comment
+                        </label>
+                        <textarea
+                          id="large-input"
+                          value={selected.comment}
+                          onChange={(e) =>
+                            setSelected({
+                              ...selected,
+                              comment: e.target.value,
+                            })
+                          }
+                          className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        ></textarea>
+                      </div>
+                      <div>Adding to {uYear} reading list.</div>
+
+                      <button
+                        type="submit"
+                        id="styleBtn"
+                        className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        onSubmit={handleSelectionForm}
+                      >
+                        Save selection
+                      </button>
+                      {/* </div> */}
                     </form>
                   </div>
                 </div>

@@ -59,21 +59,31 @@ export const booksDeepCopy = (data) => {
   });
 
   // Repeat, with the unshelved
-  data.unshelved.map((book) => {
+  for (const book of data.unshelved) {
     const thisBook = {};
     for (const [key, value] of Object.entries(book)) {
       if (key !== "__typename") thisBook[key] = value;
     }
     newBookcase.unshelved.push(thisBook);
-  });
+  }
 
   return newBookcase;
 };
 
-export const abbreviateTitle = (title) => {
+export const abbreviateTitle = (title, tightness) => {
   // This function returns an initialized form of the title
   let abbrev = "";
   const words = title.split(" ");
+  const punctuation = [".", ".", "?", "!"];
+  // const abbrev2 = words.map((word, index) => {
+  //   return word.length <= (tightness || 3)
+  //     ? `${word}${
+  //         punctuation.indexOf(word.charAt(word.length - 1)) >= 0
+  //           ? `${word.charAt(word.length - 1)} `
+  //           : " "
+  //       }`
+  //     : `${word.charAt(0)}.${index === word.length - 1 ? " " : ""}`;
+  // });
   words.map((word, index) => {
     abbrev += `${word.charAt(0)}.`;
     if (index === word.length - 1) abbrev += " ";

@@ -27,6 +27,7 @@ export const QUERY_BOOKCASE = gql`
           authors
           bookId
           color
+          text
           comment
           image
           description
@@ -41,6 +42,7 @@ export const QUERY_BOOKCASE = gql`
           authors
           bookId
           color
+          text
           comment
           image
           description
@@ -56,6 +58,7 @@ export const QUERY_BOOKCASE = gql`
         authors
         bookId
         color
+        text
         comment
         image
         description

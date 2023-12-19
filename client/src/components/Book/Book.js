@@ -191,7 +191,14 @@ function Book({
             >
               <div className="accent top"></div>
               <div className="spineText">
-                <span key="title" className="title">
+                <span
+                  key="title"
+                  className="title"
+                  style={{
+                    color:
+                      book.text && book.text.charAt(0) === "#" ? book.text : "",
+                  }}
+                >
                   {textStyle === "tightest"
                     ? abbreviateTitle(book.title)
                     : book.title}
