@@ -29,6 +29,7 @@ function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase }) {
   };
 
   const setDefaults = (book) => {
+    console.log(book);
     // Assigns default values if none provided by the user
     let bookCopy = { ...book };
     bookCopy.color = bookCopy.color || "white";
@@ -95,7 +96,6 @@ function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase }) {
   };
 
   const handleModalSelection = (book) => {
-    console.log(setDefaults(book));
     // Handles the selection of a search result
     setshowSelectModal(true);
     setSelected({

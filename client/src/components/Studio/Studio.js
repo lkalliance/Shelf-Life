@@ -3,7 +3,7 @@ import "./Studio.css";
 export function Studio({ selected, setSelected }) {
   // Set up styles vs classes
   const colorStyle = selected.color.charAt(0) === "#";
-  const textColorStyle = selected.color.charAt(0) === "#";
+  const textColorStyle = selected.text.charAt(0) === "#";
   const heightStyle = !isNaN(selected.height);
   const thicknessStyle = !isNaN(selected.thickness);
   const handleChange = (e) => {

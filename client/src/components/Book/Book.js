@@ -158,7 +158,7 @@ function Book({
   const colorStyle = book.color.charAt(0) === "#";
   const heightStyle = !isNaN(book.height);
   const thicknessStyle = !isNaN(book.thickness);
-  const textColorStyle = book.color.charAt(0) === "#";
+  const textColorStyle = book.text && book.text.charAt(0) === "#";
 
   // Reference logic to set book title style
   const textStyle = isTight(book);
