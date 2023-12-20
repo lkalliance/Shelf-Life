@@ -89,7 +89,6 @@ function Bookcase({ uCase, uBooks, uSetBooks, uSetCase, uYear, uSetYear }) {
     setItems(convert(newUser));
 
     try {
-      console.log(newUser);
       // Execute mutation and pass in defined parameter data as variables
       const { data } = await arrangeBookcase({
         variables: { bookcase: newUser },

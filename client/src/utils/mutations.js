@@ -32,6 +32,7 @@ export const LOGIN = gql`
             height
             thickness
             color
+            text
           }
           right {
             bookId
@@ -43,6 +44,7 @@ export const LOGIN = gql`
             height
             thickness
             color
+            text
           }
         }
         unshelved {
@@ -55,6 +57,7 @@ export const LOGIN = gql`
           height
           thickness
           color
+          text
         }
       }
     }
@@ -79,6 +82,7 @@ export const ADD_BOOK = gql`
     $bookId: String!
     $authors: [String]
     $image: String
+    $text: String
     $description: String
     $color: String
     $height: String
@@ -101,11 +105,13 @@ export const ADD_BOOK = gql`
       rating: $rating
       comment: $comment
       year: $year
+      text: $text
     ) {
       bookList {
         authors
         bookId
         color
+        text
         comment
         description
         height
@@ -143,6 +149,7 @@ export const ARRANGE_BOOKCASE = gql`
           height
           thickness
           color
+          text
         }
         right {
           bookId
@@ -154,6 +161,7 @@ export const ARRANGE_BOOKCASE = gql`
           height
           thickness
           color
+          text
         }
       }
       unshelved {
@@ -166,6 +174,7 @@ export const ARRANGE_BOOKCASE = gql`
         height
         thickness
         color
+        text
       }
     }
   }

@@ -95,10 +95,11 @@ function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase }) {
   };
 
   const handleModalSelection = (book) => {
+    console.log(setDefaults(book));
     // Handles the selection of a search result
     setshowSelectModal(true);
     setSelected({
-      ...selected,
+      ...setDefaults(book),
       bookId: book.bookId,
       title: book.title,
       authors: book.authors,

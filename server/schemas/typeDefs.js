@@ -53,20 +53,19 @@ const typeDefs = gql`
 
   type Book {
     _id: ID
-    title: String
-    shortTitle: String
-    authors: [String]
+    bookId: String!
+    title: String!
     image: String
     description: String
-    color: String
-    text: String
+    authors: [String]
+    style: String
     height: String
     thickness: String
-    style: String
-    comment: String
-    rating: Int
+    text: String
+    color: String
     year: String
-    bookId: String
+    rating: Int
+    comment: String
   }
 
   input BookInput {
@@ -106,6 +105,7 @@ const typeDefs = gql`
       image: String
       description: String
       color: String = "white"
+      text: String = "#000000"
       height: String = "medium"
       thickness: String = "mid"
       style: String = "paperback"

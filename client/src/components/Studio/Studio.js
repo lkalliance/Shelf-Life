@@ -6,10 +6,10 @@ export function Studio({ selected, setSelected }) {
   const textColorStyle = selected.color.charAt(0) === "#";
   const heightStyle = !isNaN(selected.height);
   const thicknessStyle = !isNaN(selected.thickness);
-
   const handleChange = (e) => {
     const { id, value } = e.target;
     setSelected({ ...selected, [id]: value });
+    console.log(id, value);
   };
 
   return (
@@ -18,7 +18,8 @@ export function Studio({ selected, setSelected }) {
         <div
           className={`book ${colorStyle ? "" : selected.color} ${
             thicknessStyle ? "" : selected.thickness
-          } ${heightStyle ? "" : selected.height} ${selected.style}`}
+          } ${heightStyle ? "" : selected.height} ${selected.style}
+          }`}
           id={selected}
           style={{
             backgroundColor: colorStyle ? selected.color : "",
@@ -31,7 +32,9 @@ export function Studio({ selected, setSelected }) {
             <span
               key="title"
               className="title"
-              style={{ color: textColorStyle ? selected.text : "black" }}
+              style={{
+                color: textColorStyle ? selected.text : "black",
+              }}
             >
               {selected.title}
             </span>
@@ -57,10 +60,8 @@ export function Studio({ selected, setSelected }) {
       </fieldset>
       <fieldset id="styles">
         <label htmlFor="style">Style:</label>
-        <select id="style" onChange={handleChange}>
-          <option selected value="paperback">
-            paperback
-          </option>
+        <select id="style" onChange={handleChange} value={selected.style}>
+          <option value="paperback">paperback</option>
           <option value="hardcover">hardcover</option>
           <option value="leather">leatherbound</option>
         </select>

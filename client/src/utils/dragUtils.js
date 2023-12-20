@@ -115,7 +115,6 @@ export const noSpace = (shelf, newBook) => {
       ? thicknesses[book.thickness]
       : parseInt(book.thickness);
   });
-  console.log(leftThicknesses, rightThicknesses);
   const sumLeft = leftThicknesses.reduce(
     (partialSum, pixels) => partialSum + pixels,
     0
