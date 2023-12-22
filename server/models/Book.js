@@ -7,6 +7,11 @@ const bookSchema = new Schema({
     type: String,
     required: true,
   },
+  audio: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
   shortTitle: {
     type: String,
   },
@@ -19,6 +24,9 @@ const bookSchema = new Schema({
     type: String,
   },
   color: {
+    type: String,
+  },
+  text: {
     type: String,
   },
   height: {

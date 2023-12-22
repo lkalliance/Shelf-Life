@@ -25,6 +25,7 @@ export const LOGIN = gql`
           left {
             bookId
             title
+            shortTitle
             authors
             description
             image
@@ -32,10 +33,12 @@ export const LOGIN = gql`
             height
             thickness
             color
+            text
           }
           right {
             bookId
             title
+            shortTitle
             authors
             description
             image
@@ -43,11 +46,13 @@ export const LOGIN = gql`
             height
             thickness
             color
+            text
           }
         }
         unshelved {
           bookId
           title
+          shortTitle
           authors
           description
           image
@@ -55,6 +60,7 @@ export const LOGIN = gql`
           height
           thickness
           color
+          text
         }
       }
     }
@@ -76,9 +82,12 @@ export const ADD_USER = gql`
 export const ADD_BOOK = gql`
   mutation Mutation(
     $title: String!
+    $shortTitle: String
+    $audio: Boolean
     $bookId: String!
     $authors: [String]
     $image: String
+    $text: String
     $description: String
     $color: String
     $height: String
@@ -90,6 +99,8 @@ export const ADD_BOOK = gql`
   ) {
     addBook(
       title: $title
+      shortTitle: $shortTitle
+      audio: $audio
       bookId: $bookId
       authors: $authors
       image: $image
@@ -101,11 +112,13 @@ export const ADD_BOOK = gql`
       rating: $rating
       comment: $comment
       year: $year
+      text: $text
     ) {
       bookList {
         authors
         bookId
         color
+        text
         comment
         description
         height
@@ -114,6 +127,8 @@ export const ADD_BOOK = gql`
         style
         thickness
         title
+        shortTitle
+        audio
         year
       }
     }
@@ -136,6 +151,7 @@ export const ARRANGE_BOOKCASE = gql`
         left {
           bookId
           title
+          shortTitle
           authors
           image
           description
@@ -143,10 +159,12 @@ export const ARRANGE_BOOKCASE = gql`
           height
           thickness
           color
+          text
         }
         right {
           bookId
           title
+          shortTitle
           authors
           image
           description
@@ -154,11 +172,13 @@ export const ARRANGE_BOOKCASE = gql`
           height
           thickness
           color
+          text
         }
       }
       unshelved {
         bookId
         title
+        shortTitle
         authors
         image
         description
@@ -166,6 +186,7 @@ export const ARRANGE_BOOKCASE = gql`
         height
         thickness
         color
+        text
       }
     }
   }

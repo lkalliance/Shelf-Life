@@ -1,0 +1,179 @@
+div#studio div#preview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 110px;
+  border-radius: 8px;
+  background-color: #b6b9d0;
+  border: 1px solid #9498ac;
+  border-top-color: #5e606e;
+  border-left-color: #5e606e;
+  border-bottom-color: #a9adc8;
+  border-right-color: #a9adc8;
+}
+
+/* book formatting */
+
+#studio .book {
+  writing-mode: horizontal-tb;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.2),
+    transparent 2%,
+    transparent 98%,
+    rgba(0, 0, 0, 0.1)
+  );
+}
+
+#studio .book .spineText {
+  padding: 0 6px;
+  font-size: 12px;
+  line-height: 13px;
+}
+
+#studio .book .accent {
+  display: none;
+  height: 100%;
+  width: 4px;
+  position: absolute;
+  top: 0;
+}
+
+#studio .book .accent.top {
+  left: 10px;
+}
+
+#studio .book .accent.bottom {
+  right: 10px;
+}
+
+#studio .book.leather .accent {
+  display: block;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.3),
+    rgba(0, 0, 0, 0.4)
+  );
+}
+
+#studio .book.leather .spineText {
+  padding: 0 20px;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.2),
+    transparent 15%,
+    transparent 85%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
+#studio .book.hardcover .spineText {
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.2),
+    transparent 30%,
+    rgba(0, 0, 0, 0.2) 70%
+  );
+}
+
+#studio .book.paperback .spineText {
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.2),
+    transparent 5%,
+    transparent 92%,
+    rgba(0, 0, 0, 0.1) 95%
+  );
+}
+
+#studio .book.leather {
+  background-image: url("./leather.png");
+}
+
+#studio .book.tall {
+  width: 160px;
+}
+
+#studio .book.medium {
+  width: 145px;
+}
+
+#studio .book.short {
+  width: 125px;
+}
+
+#studio .book.thin {
+  height: 20px;
+}
+
+#studio .book.mid {
+  height: 30px;
+}
+
+#studio .book.thick {
+  height: 45px;
+}
+
+/* sample size books */
+
+#studio div.samples {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+}
+
+#studio #shortSample {
+  width: 125px;
+  height: 45px;
+}
+
+#studio #longSample {
+  width: 160px;
+  height: 20px;
+}
+
+/* form formatting */
+
+div#studio fieldset,
+div#studio fieldset div {
+  display: flex;
+  flex-direction: column;
+  margin-top: 14px;
+}
+
+div#studio fieldset#dimensions {
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+div#studio fieldset#dimensions div {
+  margin-top: 0;
+}
+
+div#studio fieldset label {
+  font-weight: bold;
+  font-size: 10px;
+  margin-bottom: 2px;
+}
+
+div#studio fieldset input {
+  background-color: transparent;
+}
+
+div#studio fieldset select {
+  font-size: 0.75rem;
+  margin-top: 0;
+}
+
+div#studio fieldset.control-row {
+  flex-direction: row;
+  align-items: center;
+}
+
+div#studio fieldset.control-row input {
+  margin-right: 15px;
+}
+div#studio fieldset.control-row label {
+  margin-right: 4px;
+  margin-bottom: 0;
+}
+
+div#studio fieldset#copy select {
+  width: 100%;
+}

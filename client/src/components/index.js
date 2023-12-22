@@ -9,3 +9,4 @@ export { About } from "./About/About";
 export { Card } from "./Card";
 export { Button } from "./Button";
 export { TitleBar } from "./TitleBar";
+export { Studio } from "./Studio";

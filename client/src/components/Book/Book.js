@@ -8,7 +8,12 @@ import { ARRANGE_BOOKCASE, REMOVE_BOOK } from "../../utils/mutations";
 import { QUERY_ME, QUERY_BOOKCASE } from "../../utils/queries";
 import { Draggable } from "@hello-pangea/dnd";
 import { ViewModal } from "../ViewModal";
-import { isTight, abbreviateTitle, convert } from "../../utils/dragUtils";
+import {
+  isTight,
+  abbreviateTitle,
+  titleSmooshing,
+  convert,
+} from "../../utils/dragUtils";
 
 function Book({
   uCase,
@@ -154,6 +159,12 @@ function Book({
     }
   }
 
+  // Set up styles vs classes
+  const colorStyle = book.color.charAt(0) === "#";
+  const heightStyle = !isNaN(book.height);
+  const thicknessStyle = !isNaN(book.thickness);
+  const textColorStyle = book.text && book.text.charAt(0) === "#";
+
   // Reference logic to set book title style
   const textStyle = isTight(book);
   return (
@@ -173,15 +184,46 @@ function Book({
             {...provided.dragHandleProps}
           >
             <div
-              className={`book ${book.color} ${book.thickness} ${book.height} ${book.style} ${textStyle}`}
+              className={`book ${colorStyle ? "" : book.color} ${
+                thicknessStyle ? "" : book.thickness
+              } ${heightStyle ? "" : book.height} ${book.style}`}
               id={bookId}
+              style={{
+                backgroundColor: colorStyle ? book.color : "",
+                height: heightStyle ? `${book.height}px` : "",
+                width: thicknessStyle ? `${book.thickness}px` : "",
+              }}
               onClick={clickHandler}
             >
               <div className="accent top"></div>
               <div className="spineText">
-                <span key="title" className="title">
-                  {textStyle === "tightest"
-                    ? abbreviateTitle(book.title)
+                <span
+                  key="title"
+                  className="title"
+                  style={{
+                    color: textColorStyle
+                      ? book.text
+                      : book.color !== "white" && book.color !== "yellow"
+                      ? "white"
+                      : "black",
+                    fontSize:
+                      book.thickness === "thin" || book.thickness < 28
+                        ? "8px"
+                        : book.thickness === "mid" || book.thickness < 40
+                        ? "10px"
+                        : "",
+                    lineHeight:
+                      book.thickness === "thin" || book.thickness < 28
+                        ? "8px"
+                        : book.thickness === "mid" || book.thickness < 40
+                        ? "10.5px"
+                        : "",
+                  }}
+                >
+                  {book.shortTitle && book.shortTitle.length > 0
+                    ? book.shortTitle
+                    : textStyle === "tightest"
+                    ? titleSmooshing(book.title, "abbrev")
                     : book.title}
                 </span>
               </div>

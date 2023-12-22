@@ -53,30 +53,35 @@ const typeDefs = gql`
 
   type Book {
     _id: ID
-    title: String
+    bookId: String!
+    title: String!
     shortTitle: String
-    authors: [String]
+    audio: Boolean
     image: String
     description: String
-    color: String
+    authors: [String]
+    style: String
     height: String
     thickness: String
-    style: String
-    comment: String
-    rating: Int
+    text: String
+    color: String
     year: String
-    bookId: String
+    rating: Int
+    comment: String
   }
 
   input BookInput {
     bookId: String!
     title: String!
+    shortTitle: String
+    audio: Boolean
     image: String
     description: String
     authors: [String]
     style: String
     height: String
     thickness: String
+    text: String
     color: String
     year: String
     rating: Int
@@ -99,11 +104,13 @@ const typeDefs = gql`
     login(email: String!, password: String!, year: String!): AuthReturn
     addBook(
       title: String!
-      shortTitle: String
+      shortTitle: String = ""
+      audio: Boolean = false
       authors: [String]
       image: String
       description: String
       color: String = "white"
+      text: String = "#000000"
       height: String = "medium"
       thickness: String = "mid"
       style: String = "paperback"

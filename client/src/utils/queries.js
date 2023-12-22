@@ -8,12 +8,18 @@ export const QUERY_ME = gql`
       bookList {
         bookId
         title
+        audio
         authors
         image
         description
         rating
         comment
         year
+        color
+        text
+        height
+        thickness
+        style
       }
     }
   }
@@ -27,6 +33,7 @@ export const QUERY_BOOKCASE = gql`
           authors
           bookId
           color
+          text
           comment
           image
           description
@@ -35,12 +42,14 @@ export const QUERY_BOOKCASE = gql`
           style
           thickness
           title
+          shortTitle
           year
         }
         right {
           authors
           bookId
           color
+          text
           comment
           image
           description
@@ -49,6 +58,7 @@ export const QUERY_BOOKCASE = gql`
           style
           thickness
           title
+          shortTitle
           year
         }
       }
@@ -56,6 +66,7 @@ export const QUERY_BOOKCASE = gql`
         authors
         bookId
         color
+        text
         comment
         image
         description
@@ -64,6 +75,7 @@ export const QUERY_BOOKCASE = gql`
         style
         thickness
         title
+        shortTitle
         year
       }
       user_id

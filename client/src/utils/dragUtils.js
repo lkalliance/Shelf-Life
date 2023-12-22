@@ -59,21 +59,31 @@ export const booksDeepCopy = (data) => {
   });
 
   // Repeat, with the unshelved
-  data.unshelved.map((book) => {
+  for (const book of data.unshelved) {
     const thisBook = {};
     for (const [key, value] of Object.entries(book)) {
       if (key !== "__typename") thisBook[key] = value;
     }
     newBookcase.unshelved.push(thisBook);
-  });
+  }
 
   return newBookcase;
 };
 
-export const abbreviateTitle = (title) => {
+export const abbreviateTitle = (title, tightness) => {
   // This function returns an initialized form of the title
   let abbrev = "";
   const words = title.split(" ");
+  const punctuation = [".", ".", "?", "!"];
+  // const abbrev2 = words.map((word, index) => {
+  //   return word.length <= (tightness || 3)
+  //     ? `${word}${
+  //         punctuation.indexOf(word.charAt(word.length - 1)) >= 0
+  //           ? `${word.charAt(word.length - 1)} `
+  //           : " "
+  //       }`
+  //     : `${word.charAt(0)}.${index === word.length - 1 ? " " : ""}`;
+  // });
   words.map((word, index) => {
     abbrev += `${word.charAt(0)}.`;
     if (index === word.length - 1) abbrev += " ";
@@ -89,12 +99,32 @@ const thicknesses = {
 };
 
 export const noSpace = (shelf, newBook) => {
+  const newBookThickness = isNaN(newBook.thickness)
+    ? thicknesses[newBook.thickness]
+    : parseInt(newBook.thickness);
   // This utility determines if there is room on the shelf for a drop
-  let pixels = 0;
-  shelf.left.map((book) => (pixels += thicknesses[book.thickness]));
-  shelf.right.map((book) => (pixels += thicknesses[book.thickness]));
+  const leftThicknesses = shelf.left.map((book) => {
+    // does this book have a setting or a number?
+    return isNaN(book.thickness)
+      ? thicknesses[book.thickness]
+      : parseInt(book.thickness);
+  });
+  const rightThicknesses = shelf.right.map((book) => {
+    // does this book have a setting or a number?
+    return isNaN(book.thickness)
+      ? thicknesses[book.thickness]
+      : parseInt(book.thickness);
+  });
+  const sumLeft = leftThicknesses.reduce(
+    (partialSum, pixels) => partialSum + pixels,
+    0
+  );
+  const sumRight = rightThicknesses.reduce(
+    (partialSum, pixels) => partialSum + pixels,
+    0
+  );
 
-  return pixels + thicknesses[newBook.thickness] > 280;
+  return sumLeft + sumRight + newBookThickness > 280;
 };
 
 export const isTight = (book) => {
@@ -121,3 +151,42 @@ export const isTight = (book) => {
   }
   return "";
 };
+
+export const titleSmooshing = (title, type) => {
+  const dotDotDot = (title, words) => {
+    const titlePieces = title.split(" ");
+    let newTitle = "";
+    for (let i = 0; i < words; i++) {
+      if (titlePieces[i]) newTitle += `${titlePieces[i]} `;
+    }
+    if (titlePieces.length > words) newTitle += "...";
+    return newTitle;
+  };
+
+  const justThe = (title) => {
+    const expanded = ["the", "a", "of", "for", "to", "on", "in"];
+    const titlePieces = title.split(" ");
+    const updatedPieces = titlePieces.map((word) => {
+      if (expanded.indexOf(word.toLowerCase()) === -1) {
+        return `${word.charAt(0)}.`;
+      } else return word;
+    });
+    return updatedPieces.join(" ");
+  };
+
+  return type === "full"
+    ? title
+    : type === "abbrev"
+    ? justThe(title)
+    : type === "short"
+    ? dotDotDot(title, 6)
+    : type === "shorter"
+    ? dotDotDot(title, 4)
+    : dotDotDot(title, 3);
+};
+
+export function convertUnicode(input) {
+  return input.replace(/\\+u([0-9a-fA-F]{4})/g, (a, b) =>
+    String.fromCharCode(parseInt(b, 16))
+  );
+}
