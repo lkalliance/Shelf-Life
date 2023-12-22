@@ -83,6 +83,7 @@ export const ADD_BOOK = gql`
   mutation Mutation(
     $title: String!
     $shortTitle: String
+    $audio: Boolean
     $bookId: String!
     $authors: [String]
     $image: String
@@ -99,6 +100,7 @@ export const ADD_BOOK = gql`
     addBook(
       title: $title
       shortTitle: $shortTitle
+      audio: $audio
       bookId: $bookId
       authors: $authors
       image: $image
@@ -126,6 +128,7 @@ export const ADD_BOOK = gql`
         thickness
         title
         shortTitle
+        audio
         year
       }
     }

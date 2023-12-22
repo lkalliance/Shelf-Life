@@ -86,7 +86,6 @@ const resolvers = {
     },
 
     addBook: async (parent, args, context) => {
-      console.log(args);
       if (context.user) {
         // current year for default
         const today = new Date();

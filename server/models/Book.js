@@ -7,6 +7,11 @@ const bookSchema = new Schema({
     type: String,
     required: true,
   },
+  audio: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
   shortTitle: {
     type: String,
   },

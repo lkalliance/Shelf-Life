@@ -208,15 +208,15 @@ function Book({
                       : "black",
                     fontSize:
                       book.thickness === "thin" || book.thickness < 28
-                        ? "9px"
+                        ? "8px"
                         : book.thickness === "mid" || book.thickness < 40
                         ? "10px"
                         : "",
                     lineHeight:
                       book.thickness === "thin" || book.thickness < 28
-                        ? "9px"
+                        ? "8px"
                         : book.thickness === "mid" || book.thickness < 40
-                        ? "11px"
+                        ? "10.5px"
                         : "",
                   }}
                 >

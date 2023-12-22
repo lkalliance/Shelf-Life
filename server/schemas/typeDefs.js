@@ -56,6 +56,7 @@ const typeDefs = gql`
     bookId: String!
     title: String!
     shortTitle: String
+    audio: Boolean
     image: String
     description: String
     authors: [String]
@@ -73,6 +74,7 @@ const typeDefs = gql`
     bookId: String!
     title: String!
     shortTitle: String
+    audio: Boolean
     image: String
     description: String
     authors: [String]
@@ -103,6 +105,7 @@ const typeDefs = gql`
     addBook(
       title: String!
       shortTitle: String = ""
+      audio: Boolean = false
       authors: [String]
       image: String
       description: String

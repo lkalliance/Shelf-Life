@@ -5,7 +5,7 @@ export function TitleBar({ type, uYear, uSetCase, uSetYear, uCase }) {
   const today = new Date();
   const thisYear = today.getFullYear();
   const yearlist = [];
-  for (let i = 2000; i <= thisYear; i++) {
+  for (let i = thisYear; i >= 2000; i--) {
     yearlist.push(i);
   }
 

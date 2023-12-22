@@ -2,7 +2,6 @@ import "./Studio.css";
 import { titleSmooshing } from "../../utils/dragUtils";
 
 export function Studio({ selected, setSelected, bookList }) {
-  console.log(bookList);
   // Set up styles vs classes
   const colorStyle = selected.color.charAt(0) === "#";
   const textColorStyle = selected.text.charAt(0) === "#";
@@ -11,7 +10,11 @@ export function Studio({ selected, setSelected, bookList }) {
   const handleChange = (e) => {
     const { id, value } = e.target;
     setSelected({ ...selected, [id]: value });
-    console.log(id, value);
+  };
+  const handleCheckChange = (e) => {
+    const { id, checked } = e.target;
+    setSelected({ ...selected, [id]: checked });
+    console.log(id, checked);
   };
   const handleTextChange = (e) => {
     const { value } = e.target;
@@ -155,6 +158,15 @@ export function Studio({ selected, setSelected, bookList }) {
             onChange={handleChange}
           />
         </div>
+      </fieldset>
+      <fieldset id="audioBook" className="control-row">
+        <label htmlFor="audio">Audiobook:</label>
+        <input
+          id="audio"
+          type="checkbox"
+          onChange={handleCheckChange}
+          checked={selected.audio}
+        />
       </fieldset>
     </div>
   );

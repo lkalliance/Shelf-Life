@@ -8,6 +8,7 @@ export const QUERY_ME = gql`
       bookList {
         bookId
         title
+        audio
         authors
         image
         description
