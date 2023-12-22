@@ -151,3 +151,36 @@ export const isTight = (book) => {
   }
   return "";
 };
+
+export const titleSmooshing = (title, type) => {
+  const dotDotDot = (title, words) => {
+    const titlePieces = title.split(" ");
+    let newTitle = "";
+    for (let i = 0; i < words; i++) {
+      if (titlePieces[i]) newTitle += `${titlePieces[i]} `;
+    }
+    if (titlePieces.length > words) newTitle += "...";
+    return newTitle;
+  };
+
+  const justThe = (title) => {
+    const expanded = ["the", "a", "of", "for", "to", "on", "in"];
+    const titlePieces = title.split(" ");
+    const updatedPieces = titlePieces.map((word) => {
+      if (expanded.indexOf(word.toLowerCase()) === -1) {
+        return `${word.charAt(0)}.`;
+      } else return word;
+    });
+    return updatedPieces.join(" ");
+  };
+
+  return type === "full"
+    ? title
+    : type === "abbrev"
+    ? justThe(title)
+    : type === "short"
+    ? dotDotDot(title, 6)
+    : type === "shorter"
+    ? dotDotDot(title, 4)
+    : dotDotDot(title, 3);
+};

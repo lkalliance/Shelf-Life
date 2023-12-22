@@ -3,12 +3,13 @@
   margin: 0;
   position: relative;
   writing-mode: vertical-rl;
+  font-size: 12px;
   line-height: 13px;
   vertical-align: middle;
   border-radius: 1px;
   box-sizing: border-box;
-  font-family: "Open Sans", sans-serif;
-  font-weight: 400;
+  font-family: sans-serif;
+  font-weight: 300;
   background-image: linear-gradient(
     rgba(255, 255, 255, 0.2),
     transparent 2%,
@@ -63,13 +64,13 @@
   background-size: 175px 175px;
 }
 
-.book.leather .title,
+/* .book.leather .title,
 .book.leather.tight .title,
 .book.leather.tighter .title,
 .book.leather.tightest .title {
   font-size: 13px;
-  /* white-space: nowrap; */
-}
+  /* white-space: nowrap;
+} */
 
 .book.leather.thick {
   backgroud-size: 200px 200px;
@@ -102,6 +103,7 @@
 .book.leather .spineText {
   padding: 20px 0;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .book.leather .spineText {
@@ -160,7 +162,7 @@
 .book.tight .title,
 .book.tighter .title,
 .book.tightest .title {
-  font-size: 11px;
+  font-size: 10px;
   line-height: 11px;
   font-stretch: 80%;
 }

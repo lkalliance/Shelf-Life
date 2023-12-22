@@ -8,7 +8,12 @@ import { ARRANGE_BOOKCASE, REMOVE_BOOK } from "../../utils/mutations";
 import { QUERY_ME, QUERY_BOOKCASE } from "../../utils/queries";
 import { Draggable } from "@hello-pangea/dnd";
 import { ViewModal } from "../ViewModal";
-import { isTight, abbreviateTitle, convert } from "../../utils/dragUtils";
+import {
+  isTight,
+  abbreviateTitle,
+  titleSmooshing,
+  convert,
+} from "../../utils/dragUtils";
 
 function Book({
   uCase,
@@ -181,7 +186,7 @@ function Book({
             <div
               className={`book ${colorStyle ? "" : book.color} ${
                 thicknessStyle ? "" : book.thickness
-              } ${heightStyle ? "" : book.height} ${book.style} ${textStyle}`}
+              } ${heightStyle ? "" : book.height} ${book.style}`}
               id={bookId}
               style={{
                 backgroundColor: colorStyle ? book.color : "",
@@ -196,11 +201,29 @@ function Book({
                   key="title"
                   className="title"
                   style={{
-                    color: textColorStyle ? book.text : "",
+                    color: textColorStyle
+                      ? book.text
+                      : book.color !== "white" && book.color !== "yellow"
+                      ? "white"
+                      : "black",
+                    fontSize:
+                      book.thickness === "thin" || book.thickness < 28
+                        ? "9px"
+                        : book.thickness === "mid" || book.thickness < 40
+                        ? "10px"
+                        : "",
+                    lineHeight:
+                      book.thickness === "thin" || book.thickness < 28
+                        ? "9px"
+                        : book.thickness === "mid" || book.thickness < 40
+                        ? "11px"
+                        : "",
                   }}
                 >
-                  {textStyle === "tightest"
-                    ? abbreviateTitle(book.title)
+                  {book.shortTitle && book.shortTitle.length > 0
+                    ? book.shortTitle
+                    : textStyle === "tightest"
+                    ? titleSmooshing(book.title, "abbrev")
                     : book.title}
                 </span>
               </div>

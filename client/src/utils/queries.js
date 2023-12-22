@@ -14,6 +14,11 @@ export const QUERY_ME = gql`
         rating
         comment
         year
+        color
+        text
+        height
+        thickness
+        style
       }
     }
   }
@@ -36,6 +41,7 @@ export const QUERY_BOOKCASE = gql`
           style
           thickness
           title
+          shortTitle
           year
         }
         right {
@@ -51,6 +57,7 @@ export const QUERY_BOOKCASE = gql`
           style
           thickness
           title
+          shortTitle
           year
         }
       }
@@ -67,6 +74,7 @@ export const QUERY_BOOKCASE = gql`
         style
         thickness
         title
+        shortTitle
         year
       }
       user_id

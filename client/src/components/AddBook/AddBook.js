@@ -29,9 +29,9 @@ function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase }) {
   };
 
   const setDefaults = (book) => {
-    console.log(book);
     // Assigns default values if none provided by the user
     let bookCopy = { ...book };
+    bookCopy.shortTitle = bookCopy.shortTitle || bookCopy.title;
     bookCopy.color = bookCopy.color || "white";
     bookCopy.text = bookCopy.text || "black";
     bookCopy.height = bookCopy.height || "medium";
@@ -102,6 +102,7 @@ function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase }) {
       ...setDefaults(book),
       bookId: book.bookId,
       title: book.title,
+      shortTitle: book.title,
       authors: book.authors,
       description: book.description,
       image: book.image,
@@ -421,6 +422,7 @@ function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase }) {
                       <Studio
                         selected={setDefaults(selected)}
                         setSelected={setSelected}
+                        bookList={uBooks.bookList}
                       />
                       <div>
                         <label

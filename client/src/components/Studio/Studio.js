@@ -1,6 +1,8 @@
 import "./Studio.css";
+import { titleSmooshing } from "../../utils/dragUtils";
 
-export function Studio({ selected, setSelected }) {
+export function Studio({ selected, setSelected, bookList }) {
+  console.log(bookList);
   // Set up styles vs classes
   const colorStyle = selected.color.charAt(0) === "#";
   const textColorStyle = selected.text.charAt(0) === "#";
@@ -11,20 +13,41 @@ export function Studio({ selected, setSelected }) {
     setSelected({ ...selected, [id]: value });
     console.log(id, value);
   };
+  const handleTextChange = (e) => {
+    const { value } = e.target;
+    setSelected({
+      ...selected,
+      shortTitle: titleSmooshing(selected.title, value),
+    });
+  };
+  const handleCopy = (e) => {
+    const { value } = e.target;
+    if (value === bookList.length) return;
+    const thisBook = bookList[value];
+    setSelected({
+      ...selected,
+      color: thisBook.color,
+      text: thisBook.text,
+      height: thisBook.height,
+      thickness: thisBook.thickness,
+      style: thisBook.style,
+    });
+  };
 
   return (
     <div id="studio">
       <div id="preview">
+        <div id="shortSample" className="samples"></div>
         <div
           className={`book ${colorStyle ? "" : selected.color} ${
             thicknessStyle ? "" : selected.thickness
           } ${heightStyle ? "" : selected.height} ${selected.style}
-          }`}
-          id={selected}
+          `}
+          id={selected.bookId}
           style={{
             backgroundColor: colorStyle ? selected.color : "",
-            height: heightStyle ? `${selected.height}px` : "",
-            width: thicknessStyle ? `${selected.thickness}px` : "",
+            height: thicknessStyle ? `${selected.thickness}px` : "",
+            width: heightStyle ? `${selected.height}px` : "",
           }}
         >
           <div className="accent top"></div>
@@ -34,14 +57,43 @@ export function Studio({ selected, setSelected }) {
               className="title"
               style={{
                 color: textColorStyle ? selected.text : "black",
+                fontSize:
+                  selected.thickness === "thin" || selected.thickness < 28
+                    ? "9px"
+                    : selected.thickness === "mid" || selected.thickness < 40
+                    ? "10px"
+                    : "",
+                lineHeight:
+                  selected.thickness === "thin" || selected.thickness < 28
+                    ? "10px"
+                    : selected.thickness === "mid" || selected.thickness < 40
+                    ? "11px"
+                    : "",
               }}
             >
-              {selected.title}
+              {selected.shortTitle}
             </span>
           </div>
           <div className="accent bottom"></div>
         </div>
+        <div id="longSample" className="samples"></div>
       </div>
+      <fieldset id="copy">
+        <label htmlFor="copyStyles">Copy styles from:</label>
+        <select id="copyStyles" onChange={handleCopy} defaultValue={-1}>
+          <option value={bookList.length} key={bookList.length}>
+            Select a book to copy
+          </option>
+          {bookList.toReversed().map((book, index) => {
+            return (
+              <option
+                value={index}
+                key={index}
+              >{`${book.title} (${book.year})`}</option>
+            );
+          })}
+        </select>
+      </fieldset>
       <fieldset id="colors">
         <label htmlFor="color">Spine:</label>
         <input
@@ -85,6 +137,20 @@ export function Studio({ selected, setSelected }) {
           id="thickness"
           onChange={handleChange}
         />
+      </fieldset>
+      <fieldset id="title">
+        <label htmlFor="titleText">Text editing:</label>
+        <select
+          id="titleText"
+          onChange={handleTextChange}
+          defaultValue={"full"}
+        >
+          <option value="full">full title</option>
+          <option value="abbrev">abbreviated title</option>
+          <option value="short">short</option>
+          <option value="shorter">shorter</option>
+          <option value="shortest">shortest</option>
+        </select>
       </fieldset>
     </div>
   );

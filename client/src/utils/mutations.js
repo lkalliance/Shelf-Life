@@ -25,6 +25,7 @@ export const LOGIN = gql`
           left {
             bookId
             title
+            shortTitle
             authors
             description
             image
@@ -37,6 +38,7 @@ export const LOGIN = gql`
           right {
             bookId
             title
+            shortTitle
             authors
             description
             image
@@ -50,6 +52,7 @@ export const LOGIN = gql`
         unshelved {
           bookId
           title
+          shortTitle
           authors
           description
           image
@@ -79,6 +82,7 @@ export const ADD_USER = gql`
 export const ADD_BOOK = gql`
   mutation Mutation(
     $title: String!
+    $shortTitle: String
     $bookId: String!
     $authors: [String]
     $image: String
@@ -94,6 +98,7 @@ export const ADD_BOOK = gql`
   ) {
     addBook(
       title: $title
+      shortTitle: $shortTitle
       bookId: $bookId
       authors: $authors
       image: $image
@@ -120,6 +125,7 @@ export const ADD_BOOK = gql`
         style
         thickness
         title
+        shortTitle
         year
       }
     }
@@ -142,6 +148,7 @@ export const ARRANGE_BOOKCASE = gql`
         left {
           bookId
           title
+          shortTitle
           authors
           image
           description
@@ -154,6 +161,7 @@ export const ARRANGE_BOOKCASE = gql`
         right {
           bookId
           title
+          shortTitle
           authors
           image
           description
@@ -167,6 +175,7 @@ export const ARRANGE_BOOKCASE = gql`
       unshelved {
         bookId
         title
+        shortTitle
         authors
         image
         description
