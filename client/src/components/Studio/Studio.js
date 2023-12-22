@@ -1,10 +1,12 @@
 import "./Studio.css";
+import { cloneDeep } from "lodash";
 import { titleSmooshing } from "../../utils/dragUtils";
 
 export function Studio({ selected, setSelected, bookList }) {
   // Set up styles vs classes
+  const reverseList = cloneDeep(bookList).toReversed();
   const colorStyle = selected.color.charAt(0) === "#";
-  const textColorStyle = selected.text.charAt(0) === "#";
+  const textColorStyle = selected.text && selected.text.charAt(0) === "#";
   const heightStyle = !isNaN(selected.height);
   const thicknessStyle = !isNaN(selected.thickness);
   const handleChange = (e) => {
@@ -25,16 +27,18 @@ export function Studio({ selected, setSelected, bookList }) {
   };
   const handleCopy = (e) => {
     const { value } = e.target;
-    if (value === bookList.length) return;
-    const thisBook = bookList[value];
+    if (value === reverseList.length) return;
+    const thisBook = reverseList[value];
+    console.log(thisBook);
     setSelected({
       ...selected,
       color: thisBook.color,
-      text: thisBook.text,
+      text: thisBook.text || "",
       height: thisBook.height,
       thickness: thisBook.thickness,
       style: thisBook.style,
     });
+    console.log(selected);
   };
 
   return (
@@ -59,7 +63,11 @@ export function Studio({ selected, setSelected, bookList }) {
               key="title"
               className="title"
               style={{
-                color: textColorStyle ? selected.text : "black",
+                color: textColorStyle
+                  ? selected.text
+                  : selected.color === "yellow" || selected.color === "white"
+                  ? "black"
+                  : "whte",
                 fontSize:
                   selected.thickness === "thin" || selected.thickness < 28
                     ? "9px"
