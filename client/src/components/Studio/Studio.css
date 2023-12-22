@@ -130,60 +130,50 @@ div#studio div#preview {
 
 /* form formatting */
 
-div#studio fieldset {
+div#studio fieldset,
+div#studio fieldset div {
   display: flex;
   flex-direction: column;
-  margin-top: 6px;
+  margin-top: 14px;
+}
+
+div#studio fieldset#dimensions {
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+div#studio fieldset#dimensions div {
+  margin-top: 0;
 }
 
 div#studio fieldset label {
   font-weight: bold;
-  margin-bottom: 0;
+  font-size: 10px;
+  margin-bottom: 2px;
 }
 
 div#studio fieldset input {
   background-color: transparent;
 }
 
-div#studio fieldset#colors {
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-div#studio fieldset#styles,
-div#studio fieldset#title {
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-end;
-  margin-bottom: 12px;
-}
-
 div#studio fieldset select {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   margin-top: 0;
 }
 
+div#studio fieldset.control-row {
+  flex-direction: row;
+  align-items: center;
+}
+
+div#studio fieldset.control-row input {
+  margin-right: 15px;
+}
+div#studio fieldset.control-row label {
+  margin-right: 2px;
+  margin-bottom: 0;
+}
+
 div#studio fieldset#copy select {
-  width: 100%;
-}
-
-div#studio fieldset#colors label,
-div#studio fieldset#styles label,
-div#studio fieldset#title label {
-  margin-right: 4px;
-}
-
-div#studio fieldset#colors input {
-  margin-right: 12px;
-}
-
-div#studio fieldset#dimensions {
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-div#studio fieldset#dimensions input {
   width: 100%;
 }

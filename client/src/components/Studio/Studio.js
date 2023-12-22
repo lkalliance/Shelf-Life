@@ -78,7 +78,7 @@ export function Studio({ selected, setSelected, bookList }) {
         </div>
         <div id="longSample" className="samples"></div>
       </div>
-      <fieldset id="copy">
+      <fieldset id="copy" className="control-col">
         <label htmlFor="copyStyles">Copy styles from:</label>
         <select id="copyStyles" onChange={handleCopy} defaultValue={-1}>
           <option value={bookList.length} key={bookList.length}>
@@ -94,7 +94,29 @@ export function Studio({ selected, setSelected, bookList }) {
           })}
         </select>
       </fieldset>
-      <fieldset id="colors">
+      <fieldset id="styles" className="control-row">
+        <label htmlFor="style">Style:</label>
+        <select id="style" onChange={handleChange} value={selected.style}>
+          <option value="paperback">paperback</option>
+          <option value="hardcover">hardcover</option>
+          <option value="leather">leatherbound</option>
+        </select>
+      </fieldset>
+      <fieldset id="title" className="control-row">
+        <label htmlFor="titleText">Title:</label>
+        <select
+          id="titleText"
+          onChange={handleTextChange}
+          defaultValue={"full"}
+        >
+          <option value="full">full title</option>
+          <option value="abbrev">abbreviated</option>
+          <option value="short">short</option>
+          <option value="shorter">shorter</option>
+          <option value="shortest">shortest</option>
+        </select>
+      </fieldset>
+      <fieldset id="colors" className="control-row">
         <label htmlFor="color">Spine:</label>
         <input
           type="color"
@@ -110,47 +132,29 @@ export function Studio({ selected, setSelected, bookList }) {
           onChange={handleChange}
         />
       </fieldset>
-      <fieldset id="styles">
-        <label htmlFor="style">Style:</label>
-        <select id="style" onChange={handleChange} value={selected.style}>
-          <option value="paperback">paperback</option>
-          <option value="hardcover">hardcover</option>
-          <option value="leather">leatherbound</option>
-        </select>
-      </fieldset>
-      <fieldset id="dimensions">
-        <label htmlFor="height">Height:</label>
-        <input
-          type="range"
-          min={125}
-          max={160}
-          value={heightStyle ? selected.height : "145"}
-          id="height"
-          onChange={handleChange}
-        />
-        <label htmlFor="thickness">Width:</label>
-        <input
-          type="range"
-          min={20}
-          max={45}
-          value={thicknessStyle ? selected.thickness : "30"}
-          id="thickness"
-          onChange={handleChange}
-        />
-      </fieldset>
-      <fieldset id="title">
-        <label htmlFor="titleText">Text editing:</label>
-        <select
-          id="titleText"
-          onChange={handleTextChange}
-          defaultValue={"full"}
-        >
-          <option value="full">full title</option>
-          <option value="abbrev">abbreviated title</option>
-          <option value="short">short</option>
-          <option value="shorter">shorter</option>
-          <option value="shortest">shortest</option>
-        </select>
+      <fieldset id="dimensions" className="control-col">
+        <div>
+          <label htmlFor="height">Height:</label>
+          <input
+            type="range"
+            min={125}
+            max={160}
+            value={heightStyle ? selected.height : "145"}
+            id="height"
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="thickness">Width:</label>
+          <input
+            type="range"
+            min={20}
+            max={45}
+            value={thicknessStyle ? selected.thickness : "30"}
+            id="thickness"
+            onChange={handleChange}
+          />
+        </div>
       </fieldset>
     </div>
   );

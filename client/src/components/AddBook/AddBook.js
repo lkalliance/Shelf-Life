@@ -334,91 +334,7 @@ function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase }) {
                       onSubmit={handleSelectionForm}
                     >
                       <h2 className="dark:text-white">{selected.title}</h2>
-                      {/* <div className="select_bookOptions relative w-full max-w-xl max-h-full">
-                        <div>
-                          <select
-                            id="book_color"
-                            name="bookColor"
-                            onChange={(e) =>
-                              setSelected({
-                                ...selected,
-                                color: e.target.value,
-                              })
-                            }
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            required
-                          >
-                            <option>Select color</option>
-                            <option value="red">Red</option>
-                            <option value="green">Green</option>
-                            <option value="blue">Blue</option>
-                            <option value="navy">Navy</option>
-                            <option value="yellow">Yellow</option>
-                            <option value="orange">Orange</option>
-                            <option value="black">Black</option>
-                            <option value="white">White</option>
-                            <option value="purple">Purple</option>
-                          </select>
-                        </div>
-                        <div>
-                          <select
-                            id="book_height"
-                            name="bookHeight"
-                            onChange={(e) =>
-                              setSelected({
-                                ...selected,
-                                height: e.target.value,
-                              })
-                            }
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            required
-                          >
-                            <option>Select Height</option>
-                            <option value="tall">Tall</option>
-                            <option value="medium">Medium</option>
-                            <option value="short">Short</option>
-                          </select>
-                        </div>
 
-                        <div>
-                          <select
-                            id="book_thickness"
-                            name="bookThickness"
-                            onChange={(e) =>
-                              setSelected({
-                                ...selected,
-                                thickness: e.target.value,
-                              })
-                            }
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            required
-                          >
-                            <option>Select Size</option>
-                            <option value="thick">Thick</option>
-                            <option value="mid">Mid</option>
-                            <option value="thin">Thin</option>
-                          </select>
-                        </div>
-
-                        <div>
-                          <select
-                            id="book_style"
-                            name="bookStyle"
-                            onChange={(e) =>
-                              setSelected({
-                                ...selected,
-                                style: e.target.value,
-                              })
-                            }
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            required
-                          >
-                            <option>Select Style</option>
-                            <option value="paperback">Paperback</option>
-                            <option value="hardcover">HardCover</option>
-                            <option value="leather">Leatherbound</option>
-                          </select>
-                        </div> */}
                       <Studio
                         selected={setDefaults(selected)}
                         setSelected={setSelected}
@@ -449,7 +365,7 @@ function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase }) {
                         </label>
                       </div>
 
-                      <div className="mb-6">
+                      <div>
                         <label
                           htmlFor="large-input"
                           className="label block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -468,7 +384,7 @@ function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase }) {
                           className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         ></textarea>
                       </div>
-                      <div>Adding to {uYear} reading list.</div>
+                      <h3>Adding to {uYear} reading list.</h3>
 
                       <button
                         type="submit"
