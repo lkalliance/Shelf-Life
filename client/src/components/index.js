@@ -10,3 +10,6 @@ export { Card } from "./Card";
 export { Button } from "./Button";
 export { TitleBar } from "./TitleBar";
 export { Studio } from "./Studio";
+export { BookSearch } from "./BookSearch";
+export { BookStyle } from "./BookStyle";
+export { BookSearchResults } from "./BookSearchResults";

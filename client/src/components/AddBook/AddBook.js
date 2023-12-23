@@ -4,9 +4,21 @@ import "./AddBook.css";
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_BOOK } from "../../utils/mutations";
-import { Studio } from "../../components";
+import { BookSearch, BookStyle, BookSearchResults } from "../../components";
 
-function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase }) {
+function AddBook({
+  uYear,
+  uBooks,
+  uCase,
+  uSetBooks,
+  uSetCase,
+  showSearch,
+  setShowSearch,
+  showStudio,
+  setShowStudio,
+  showResults,
+  setShowResults,
+}) {
   // States to determine whether the search or select modal is visible
   const [showModal, setShowModal] = useState(false);
   const [showSelectModal, setshowSelectModal] = useState(false);
@@ -24,8 +36,12 @@ function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase }) {
   };
 
   const handleClose = () => {
+    console.log("close everything");
     // Shows or hides the entire Add Book set of modals
     setShowModal(false);
+    setShowSearch(false);
+    setShowStudio(false);
+    setShowResults(false);
   };
 
   const setDefaults = (book) => {
@@ -83,6 +99,8 @@ function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase }) {
       setSearchedBooks(bookData);
       setSearchInput("");
       setSelected("");
+      setShowStudio(false);
+      setShowResults(true);
     } catch (err) {
       console.error(err);
     }
@@ -92,12 +110,18 @@ function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase }) {
     // Closes the style selection modal
     setshowSelectModal(false);
     setShowModal(false);
+    setShowStudio(false);
+    setShowSearch(false);
+    setShowResults(false);
     setSelected({});
   };
 
   const handleModalSelection = (book) => {
     // Handles the selection of a search result
     setshowSelectModal(true);
+    setShowSearch(false);
+    setShowResults(false);
+    setShowStudio(true);
     setSelected({
       ...setDefaults(book),
       bookId: book.bookId,
@@ -164,6 +188,8 @@ function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase }) {
         onClick={(e) => {
           e.preventDefault();
           handleModalSubmit();
+          setShowSearch(!showSearch);
+          setShowStudio(false);
         }}
       >
         Add a Book
@@ -184,7 +210,37 @@ function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase }) {
               : "modalClass"
           }
         >
-          <div className=" relative w-full max-w-xl max-h-full">
+          {showSearch ? (
+            <BookSearch
+              handleClose={handleClose}
+              handleFormSubmit={handleFormSubmit}
+              searchInput={searchInput}
+              setSearchInput={setSearchInput}
+              setShowSearch={setShowSearch}
+              setShowStudio={setShowStudio}
+              showResults={showResults}
+              setShowResults={setShowResults}
+              searchedBooks={searchedBooks}
+              selected={selected}
+              handleModalSelection={handleModalSelection}
+            />
+          ) : (
+            ""
+          )}
+          {showStudio ? (
+            <BookStyle
+              handleSelectionClose={handleSelectionClose}
+              handleSelectionForm={handleSelectionForm}
+              selected={selected}
+              setSelected={setSelected}
+              setDefaults={setDefaults}
+              uBooks={uBooks}
+              uYear={uYear}
+            />
+          ) : (
+            ""
+          )}
+          {/* <div className=" relative w-full max-w-xl max-h-full">
             <div
               id="searchField"
               className="relative bg-white rounded-lg shadow dark:bg-gray-700"
@@ -264,10 +320,20 @@ function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase }) {
                 </div>
               </form>
             </div>
-          </div>
+          </div> */}
 
-          <div className="container mx-auto ">
-            <h2>
+          {/* {showResults ? (
+            <BookSearchResults
+              searchedBooks={searchedBooks}
+              selected={selected}
+              handleModalSelection={handleModalSelection}
+            />
+          ) : (
+            ""
+          )} */}
+
+          {/* <div className="container mx-auto "> */}
+          {/* <h2>
               {searchedBooks.length > 0
                 ? `Viewing ${searchedBooks.length} results:`
                 : selected.title
@@ -290,9 +356,9 @@ function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase }) {
                     );
                   return null;
                 })}
-            </div>
+            </div> */}
 
-            {showSelectModal && (
+          {/* {showSelectModal && (
               <div
                 id="selection-modal"
                 className="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
@@ -394,13 +460,13 @@ function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase }) {
                       >
                         Save selection
                       </button>
-                      {/* </div> */}
+                      {/* </div>
                     </form>
                   </div>
                 </div>
               </div>
-            )}
-          </div>
+            )} */}
+          {/* </div> */}
         </div>
       </div>
     </>

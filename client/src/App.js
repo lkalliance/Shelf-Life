@@ -33,10 +33,11 @@ function App() {
     unshelved: [],
   });
   const [year, setYear] = useState(thisYear.toString());
-  const [uFetched, setUFetched] = useState(false);
-  const [bFetched, setBFetched] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [showloginModal, setShowloginModal] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const [showStudio, setShowStudio] = useState(false);
+  const [showResults, setShowResults] = useState(false);
 
   const setTheBooks = (data) => {
     setBooks({ ...data, fetched: true });
@@ -134,8 +135,12 @@ function App() {
           uYear={year}
           uCase={bookCase}
           uSetCase={setBookCase}
-          uSetFetched={setUFetched}
-          bSetFetched={setBFetched}
+          showSearch={showSearch}
+          setShowSearch={setShowSearch}
+          showStudio={showStudio}
+          setShowStudio={setShowStudio}
+          showResults={showResults}
+          setShowResults={setShowResults}
         />
         <Routes>
           <Route

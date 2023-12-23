@@ -9,12 +9,16 @@ import auth from "../../utils/auth";
 function NavBar({
   showLogin,
   uYear,
-  uSetFetched,
-  bSetFetched,
   uBooks,
   uCase,
   uSetCase,
   uSetBooks,
+  showSearch,
+  setShowSearch,
+  showStudio,
+  setShowStudio,
+  showResults,
+  setShowResults,
 }) {
   // This function shows or hides the nav elements when window is narrow
   const showHide = (e) => {
@@ -87,9 +91,12 @@ function NavBar({
                       uCase={uCase}
                       uSetBooks={uSetBooks}
                       uSetCase={uSetCase}
-                      // uSetItems={uSetItems}
-                      uSetFetched={uSetFetched}
-                      bSetFetched={bSetFetched}
+                      showSearch={showSearch}
+                      setShowSearch={setShowSearch}
+                      showStudio={showStudio}
+                      setShowStudio={setShowStudio}
+                      showResults={showResults}
+                      setShowResults={setShowResults}
                     />
                   </li>
                   <li key="about">

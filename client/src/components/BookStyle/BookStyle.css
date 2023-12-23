@@ -1,0 +1,8 @@
+/* Book Style styles */
+
+div#book-studio {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #cccccc;
+}

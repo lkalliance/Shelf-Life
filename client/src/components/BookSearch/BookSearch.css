@@ -1,0 +1,8 @@
+/* Book search classes */
+
+div#book-search {
+  background-color: #cccccc;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
