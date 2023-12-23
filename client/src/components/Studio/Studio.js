@@ -29,7 +29,6 @@ export function Studio({ selected, setSelected, bookList }) {
     const { value } = e.target;
     if (value === reverseList.length) return;
     const thisBook = reverseList[value];
-    console.log(thisBook);
     setSelected({
       ...selected,
       color: thisBook.color,
@@ -38,7 +37,6 @@ export function Studio({ selected, setSelected, bookList }) {
       thickness: thisBook.thickness,
       style: thisBook.style,
     });
-    console.log(selected);
   };
 
   return (
@@ -71,13 +69,13 @@ export function Studio({ selected, setSelected, bookList }) {
                 fontSize:
                   selected.thickness === "thin" || selected.thickness < 28
                     ? "9px"
-                    : selected.thickness === "mid" || selected.thickness < 40
+                    : selected.thickness === "mid" || selected.thickness < 35
                     ? "10px"
                     : "",
                 lineHeight:
                   selected.thickness === "thin" || selected.thickness < 28
                     ? "10px"
-                    : selected.thickness === "mid" || selected.thickness < 40
+                    : selected.thickness === "mid" || selected.thickness < 35
                     ? "11px"
                     : "",
               }}

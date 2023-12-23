@@ -32,10 +32,10 @@ function AddBook({ uYear, uBooks, uCase, uSetBooks, uSetCase }) {
     // Assigns default values if none provided by the user
     let bookCopy = { ...book };
     bookCopy.shortTitle = bookCopy.shortTitle || bookCopy.title;
-    bookCopy.color = bookCopy.color || "white";
-    bookCopy.text = bookCopy.text || "black";
-    bookCopy.height = bookCopy.height || "medium";
-    bookCopy.thickness = bookCopy.thickness || "mid";
+    bookCopy.color = bookCopy.color || "#ffffff";
+    bookCopy.text = bookCopy.text || "#000000";
+    bookCopy.height = bookCopy.height || "145";
+    bookCopy.thickness = bookCopy.thickness || "30";
     bookCopy.style = bookCopy.style || "paperback";
     bookCopy.rating = bookCopy.rating || 0;
     bookCopy.comment = bookCopy.comment || "";

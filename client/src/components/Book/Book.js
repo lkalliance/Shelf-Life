@@ -201,22 +201,27 @@ function Book({
                   key="title"
                   className="title"
                   style={{
-                    color: textColorStyle
-                      ? book.text
-                      : book.color !== "white" && book.color !== "yellow"
-                      ? "white"
-                      : "black",
+                    color:
+                      textColorStyle && colorStyle
+                        ? book.text
+                        : !colorStyle &&
+                          book.color !== "white" &&
+                          book.color !== "yellow"
+                        ? "white"
+                        : textColorStyle
+                        ? book.text
+                        : "black",
                     fontSize:
                       book.thickness === "thin" || book.thickness < 28
-                        ? "8px"
-                        : book.thickness === "mid" || book.thickness < 40
+                        ? "9px"
+                        : book.thickness === "mid" || book.thickness < 35
                         ? "10px"
                         : "",
                     lineHeight:
                       book.thickness === "thin" || book.thickness < 28
-                        ? "8px"
-                        : book.thickness === "mid" || book.thickness < 40
-                        ? "10.5px"
+                        ? "10px"
+                        : book.thickness === "mid" || book.thickness < 35
+                        ? "11px"
                         : "",
                   }}
                 >
