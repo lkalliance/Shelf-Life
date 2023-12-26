@@ -6,3 +6,12 @@ div#book-studio {
   left: 0;
   background-color: #cccccc;
 }
+
+form#stylesForm h2 {
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+div#bookStyles {
+  /* position: relative; */
+}

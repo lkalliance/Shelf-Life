@@ -1,8 +1,6 @@
 import "./App.css";
 import { Bookcase, Profile, Home } from "./pages";
-import { NavBar } from "./components";
-import { LoginForm } from "./components";
-import { SignupForm } from "./components";
+import { NavBar, LoginForm, SignupForm, AddBook } from "./components";
 import { createContext, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { QUERY_ME, QUERY_BOOKCASE } from "./utils/queries";
@@ -38,6 +36,7 @@ function App() {
   const [showSearch, setShowSearch] = useState(false);
   const [showStudio, setShowStudio] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [addBookPanel, setAddBookPanel] = useState(false);
 
   const setTheBooks = (data) => {
     setBooks({ ...data, fetched: true });
@@ -130,10 +129,18 @@ function App() {
         )}
         <NavBar
           showLogin={setShowloginModal}
-          uBooks={books}
-          uSetBooks={setBooks}
+          showAddBook={addBookPanel}
+          setShowAddBook={setAddBookPanel}
+        />
+        <AddBook
+          // onClick={(e) => {
+          //   // showHide(e);
+          //   setAddBookPanel(true);
+          // }}
           uYear={year}
+          uBooks={books}
           uCase={bookCase}
+          uSetBooks={setBooks}
           uSetCase={setBookCase}
           showSearch={showSearch}
           setShowSearch={setShowSearch}
@@ -141,6 +148,8 @@ function App() {
           setShowStudio={setShowStudio}
           showResults={showResults}
           setShowResults={setShowResults}
+          showAddBook={addBookPanel}
+          setShowAddBook={setAddBookPanel}
         />
         <Routes>
           <Route

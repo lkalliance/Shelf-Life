@@ -65,21 +65,34 @@ h3.searchResult:last-of-type {
   z-index: 100;
 }
 
+#add-book-container {
+  width: 100%;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 #AddBook {
-  margin: 90px auto 0;
+  width: 80%;
+  position: relative;
+  margin: 40px auto 0;
   border-radius: 5px;
   padding: 20px;
-  max-width: 550px;
+  max-width: 400px;
+  min-width: 280px;
   background-color: #a0a3b9;
   box-shadow: 5px 5px 10px;
 }
-
-#stylesForm {
-  background-color: #a0a3b9;
-  border-radius: 5px;
-  box-shadow: 5px 5px 10px;
+#AddBook button.close-icon.close-icon-book {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
-
 #AddBook h2 {
   font-size: 12px;
   text-transform: uppercase;
@@ -122,14 +135,6 @@ h3.searchResult:last-of-type {
 
 #AddBook.selected #searchField {
   visibility: hidden;
-}
-
-#bookStyles {
-  width: 300px;
-}
-
-#bookStyles form {
-  padding: 6px 8px;
 }
 
 #bookStyles h2 {

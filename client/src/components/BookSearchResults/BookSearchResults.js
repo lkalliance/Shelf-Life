@@ -14,7 +14,7 @@ export function BookSearchResults({
           ? ""
           : "Search for a book to begin"}
       </h2>
-      <div className="text-center">
+      <div id="search-results" className="text-center">
         {searchedBooks.length > 0 &&
           searchedBooks.map((book) => {
             if (book)

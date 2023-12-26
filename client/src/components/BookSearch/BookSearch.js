@@ -13,10 +13,11 @@ export function BookSearch({
   handleModalSelection,
 }) {
   return (
-    <div className=" relative w-full max-w-xl max-h-full">
+    <div className="w-full max-w-xl max-h-full">
       <div
         id="searchField"
-        className="relative bg-white rounded-lg shadow dark:bg-gray-700"
+        className="bg-white rounded-lg shadow dark:bg-gray-700"
+        style={{ backgroundColor: "transparent" }}
       >
         <button
           onClick={() => {
@@ -90,18 +91,17 @@ export function BookSearch({
             >
               Search
             </button>
-
-            {showResults ? (
-              <BookSearchResults
-                searchedBooks={searchedBooks}
-                selected={selected}
-                handleModalSelection={handleModalSelection}
-              />
-            ) : (
-              ""
-            )}
           </div>
         </form>
+        {showResults ? (
+          <BookSearchResults
+            searchedBooks={searchedBooks}
+            selected={selected}
+            handleModalSelection={handleModalSelection}
+          />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
