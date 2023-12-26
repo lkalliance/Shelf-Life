@@ -143,6 +143,7 @@ div#studio fieldset#dimensions {
 }
 
 div#studio fieldset#dimensions div {
+  width: 49%;
   margin-top: 0;
 }
 
@@ -176,4 +177,32 @@ div#studio fieldset.control-row label {
 
 div#studio fieldset#copy select {
   width: 100%;
+}
+
+div#studio div#style-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+div#studio div#style-title select {
+  margin-right: 12px;
+}
+
+div#styles-colors {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+div#styles-colors fieldset {
+  margin-top: 6px;
+  height: 23px;
+}
+
+div#studio div#colors {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }

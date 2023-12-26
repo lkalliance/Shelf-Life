@@ -103,44 +103,52 @@ export function Studio({ selected, setSelected, bookList }) {
           })}
         </select>
       </fieldset>
-      <fieldset id="styles" className="control-row">
-        <label htmlFor="style">Style:</label>
-        <select id="style" onChange={handleChange} value={selected.style}>
-          <option value="paperback">paperback</option>
-          <option value="hardcover">hardcover</option>
-          <option value="leather">leatherbound</option>
-        </select>
-      </fieldset>
-      <fieldset id="title" className="control-row">
-        <label htmlFor="titleText">Title:</label>
-        <select
-          id="titleText"
-          onChange={handleTextChange}
-          defaultValue={"full"}
-        >
-          <option value="full">full title</option>
-          <option value="abbrev">abbreviated</option>
-          <option value="short">short</option>
-          <option value="shorter">shorter</option>
-          <option value="shortest">shortest</option>
-        </select>
-      </fieldset>
-      <fieldset id="colors" className="control-row">
-        <label htmlFor="color">Spine:</label>
-        <input
-          type="color"
-          value={colorStyle ? selected.color : "#ffffff"}
-          id="color"
-          onChange={handleChange}
-        />
-        <label htmlFor="text">Text:</label>
-        <input
-          type="color"
-          value={textColorStyle ? selected.text : "000000"}
-          id="text"
-          onChange={handleChange}
-        />
-      </fieldset>
+      <div id="styles-colors">
+        <div id="style-title">
+          <fieldset id="styles" className="control-row">
+            <label htmlFor="style">Style:</label>
+            <select id="style" onChange={handleChange} value={selected.style}>
+              <option value="paperback">paperback</option>
+              <option value="hardcover">hardcover</option>
+              <option value="leather">leatherbound</option>
+            </select>
+          </fieldset>
+          <fieldset id="title" className="control-row">
+            <label htmlFor="titleText">Title:</label>
+            <select
+              id="titleText"
+              onChange={handleTextChange}
+              defaultValue={"full"}
+            >
+              <option value="full">full title</option>
+              <option value="abbrev">abbreviated</option>
+              <option value="short">short</option>
+              <option value="shorter">shorter</option>
+              <option value="shortest">shortest</option>
+            </select>
+          </fieldset>
+        </div>
+        <div id="colors">
+          <fieldset id="spine" className="control-row">
+            <label htmlFor="color">Spine color:</label>
+            <input
+              type="color"
+              value={colorStyle ? selected.color : "#ffffff"}
+              id="color"
+              onChange={handleChange}
+            />
+          </fieldset>
+          <fieldset id="text" className="control-row">
+            <label htmlFor="text">Text color:</label>
+            <input
+              type="color"
+              value={textColorStyle ? selected.text : "000000"}
+              id="text"
+              onChange={handleChange}
+            />
+          </fieldset>
+        </div>
+      </div>
       <fieldset id="dimensions" className="control-col">
         <div>
           <label htmlFor="height">Height:</label>
@@ -164,15 +172,6 @@ export function Studio({ selected, setSelected, bookList }) {
             onChange={handleChange}
           />
         </div>
-      </fieldset>
-      <fieldset id="audioBook" className="control-row">
-        <label htmlFor="audio">Audiobook:</label>
-        <input
-          id="audio"
-          type="checkbox"
-          onChange={handleCheckChange}
-          checked={selected.audio}
-        />
       </fieldset>
     </div>
   );

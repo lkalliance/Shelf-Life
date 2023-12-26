@@ -15,7 +15,6 @@ function AddBook({
   showAddBook,
   setShowAddBook,
 }) {
-  console.log(showAddBook);
   // States to determine whether the search or select modal is visible
   const [showModal, setShowModal] = useState(false);
   const [showSelectModal, setshowSelectModal] = useState(false);
@@ -107,16 +106,6 @@ function AddBook({
     }
   };
 
-  const handleSelectionClose = () => {
-    // Closes the style selection modal
-    setshowSelectModal(false);
-    setShowModal(false);
-    setShowStudio(false);
-    setShowSearch(false);
-    setShowResults(false);
-    setSelected({});
-  };
-
   const handleModalSelection = (book) => {
     // Handles the selection of a search result
     setshowSelectModal(true);
@@ -135,10 +124,9 @@ function AddBook({
     setSearchedBooks([]);
   };
 
-  const handleSelectionForm = async (event) => {
-    // Handles the submission of the style form
-    event.preventDefault();
-
+  const handleSubmitText = async (e) => {
+    e.preventDefault();
+    handleClose();
     // If the selected book is already on the user's list for this year, don't add again
     for (const book of uBooks.bookList) {
       if (book.bookId === selected.bookId && book.year === uYear) {
@@ -147,8 +135,25 @@ function AddBook({
       }
     }
 
+    handleSelectionForm(false);
+  };
+
+  const handleSubmitAudio = async (e) => {
+    e.preventDefault();
+    handleClose();
+    // If the selected book is already on the user's list for this year, don't add again
+    for (const book of uBooks.bookList) {
+      if (book.bookId === selected.bookId && book.year === uYear) {
+        handleClose();
+        return;
+      }
+    }
+    handleSelectionForm(true);
+  };
+
+  const handleSelectionForm = async (audio) => {
     // Prep the added book, then add it to the database
-    const submission = { ...selected };
+    const submission = { ...selected, audio };
     const vettedSubmission = setDefaults(submission);
     try {
       const { data } = await addBook({
@@ -204,7 +209,8 @@ function AddBook({
             {showStudio ? (
               <BookStyle
                 handleClose={handleClose}
-                handleSelectionForm={handleSelectionForm}
+                handleSelectionFormText={handleSubmitText}
+                handleSelectionFormAudio={handleSubmitAudio}
                 selected={selected}
                 setSelected={setSelected}
                 setDefaults={setDefaults}

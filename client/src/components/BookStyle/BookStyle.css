@@ -12,6 +12,41 @@ form#stylesForm h2 {
   margin-bottom: 6px;
 }
 
-div#bookStyles {
-  /* position: relative; */
+div#user-inputs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 6px 0;
+}
+
+div#user-ratings label,
+div#user-comment label {
+  padding: 0;
+}
+
+div#user-ratings label {
+  margin-right: 8px;
+}
+
+div#user-comment {
+  flex-grow: 1;
+}
+
+div#audio-submit {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+div#audio-submit button {
+  width: 49%;
+}
+
+div#audio-submit button span {
+  display: block;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  line-height: 0.7rem;
+  color: rgb(185, 185, 185);
 }

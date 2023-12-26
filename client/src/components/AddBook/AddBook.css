@@ -14,7 +14,8 @@
   top: 10px;
 }
 #searchBtn,
-#styleBtn {
+#styleBtn-text,
+#styleBtn-audio {
   background-color: rgb(57, 57, 195);
 }
 
