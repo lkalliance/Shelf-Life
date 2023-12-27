@@ -26,7 +26,7 @@ Using Shelf Life is simple. First of all, the user must have an account. Visit t
 
 <img src="./Assets/shelf-life-screenshot-2.png" style="float: right; margin-left: 12px;" width=250 />
 
-Upon logging in, the user has two pages with which to interact with their library: a Bookcase page, and a Book List page. For a new account, both their bookcase and book list will be empty. Add a book to your library by clicking the "Add Book" link in the navbar. It will spawn a modal that includes a search field. Search for a title, author, or other keyword to generate a list of results. Click on any result to expose a form to assign various properties to the book: height, thickness, color, style, your personal rating, and any note or review to attach. Click to save the book, and it will appear both on the Book List page, and also in an "unshelved" area below the shelves on the Bookcase page.
+Upon logging in, the user has two pages with which to interact with their library: a Bookcase page, and a Book List page. For a new account, both their bookcase and book list will be empty. Add a book to your library by clicking the "Add Book" link in the navbar. It will spawn a modal that includes a search field. Search for a title, author, or other keyword to generate a list of results. Click on any result to expose a form to assign various properties to the book: height, thickness, color, style, your personal rating, any note or review to attach, and an audiobook flag. As they adjust the appearance of the book for the bookshelf, the user will get a live preview of what the volume will look like. Click to save the book, and it will appear both on the Book List page, and also in an "unshelved" area below the shelves on the Bookcase page.
 
 Each shelf of the bookcase has two "stacks": one on the left, and one on the right. The user can rearrange their books to their heart's content by dragging and dropping on their bookcase. Shelve books from unshelved, rearrange books along a shelf, move them from one side of a shelf to the other, or move them from shelf to shelf.
 
@@ -34,12 +34,12 @@ Each shelf of the bookcase has two "stacks": one on the left, and one on the rig
 
 If a user attempts to move a book onto a shelf that doesn't have enough room to accommodate it, the book will snap back to its original position. The user can drag a book off of the bookcase entirely by dragging the book into the unshelved area. Or they can double-click a book in the bookcase and it will jump immediately into unshelved. For a quick way to empty a shelf entirely, the user may double-click any empty region of the shelf
 
-To create a new shelf, the user can click teh "Add a shelf" button below the unshelved area. The user can place a book already in the bookcase back into the unshelved area by dragging it there, or by double-clicking it. They can also clear an entire shelf, placing all of its books into the unshelved area, by double-clicking any open area of the shelf (including the small area between the top of a book and the shelf above).
+The user can place a book already in the bookcase back into the unshelved area by dragging it there, or by double-clicking it. They can also clear an entire shelf, placing all of its books into the unshelved area, by double-clicking any open area of the shelf (including the small area between the top of a book and the shelf above).
 
 To create more room in the bookcase, the user can click the "Add a shelf" button located below the unshelved area. Or, to remove empty shelves, they can click "Delete empty shelves" For layout reasons, there will always be an even number of shelves: "Add a shelf" adds two of them, which on a wide screen go side-by-side and a narrower screen one above the other.
 
 <img src="./Assets/shelf-life-screenshot-4.png" style="float: right; margin-left: 12px;" width=250 />
-The user can single-click any book in either the bookcase or the unshelved area to launch a modal with some information on the book, the user's comment, and a link to "Give book away", that is, remove it entirely from the library.
+The user can single-click any book in either the bookcase or the unshelved area to launch a modal with some information on the book. From the book list, that modal shows the book summary; from the bookcase it shows the user's rating and comment. If the book is unshelved, the modal also displays a link to "Give book away", that is, remove it entirely from the library.
 
 Using these tools, a user can populate their library with whatever books they please, in the styles they want, and arranged on their bookcase (or not) as they see fit.
 
