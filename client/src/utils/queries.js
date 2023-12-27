@@ -43,6 +43,7 @@ export const QUERY_BOOKCASE = gql`
           thickness
           title
           shortTitle
+          audio
           year
         }
         right {
@@ -59,6 +60,7 @@ export const QUERY_BOOKCASE = gql`
           thickness
           title
           shortTitle
+          audio
           year
         }
       }
@@ -76,6 +78,7 @@ export const QUERY_BOOKCASE = gql`
         thickness
         title
         shortTitle
+        audio
         year
       }
       user_id

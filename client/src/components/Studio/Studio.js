@@ -13,11 +13,6 @@ export function Studio({ selected, setSelected, bookList }) {
     const { id, value } = e.target;
     setSelected({ ...selected, [id]: value });
   };
-  const handleCheckChange = (e) => {
-    const { id, checked } = e.target;
-    setSelected({ ...selected, [id]: checked });
-    console.log(id, checked);
-  };
   const handleTextChange = (e) => {
     const { value } = e.target;
     setSelected({
@@ -29,26 +24,44 @@ export function Studio({ selected, setSelected, bookList }) {
     const { value } = e.target;
     if (value === reverseList.length) return;
     const thisBook = reverseList[value];
-    console.log(thisBook);
-    setSelected({
-      ...selected,
-      color: thisBook.color,
-      text: thisBook.text || "",
-      height: thisBook.height,
-      thickness: thisBook.thickness,
-      style: thisBook.style,
-    });
-    console.log(selected);
+    if (thisBook) {
+      setSelected({
+        ...selected,
+        color: thisBook.color,
+        text: thisBook.text || "",
+        height: thisBook.height,
+        thickness: thisBook.thickness,
+        style: thisBook.style,
+      });
+    }
   };
 
   return (
     <div id="studio">
+      <fieldset id="copy" className="control-col">
+        <label htmlFor="copyStyles">Copy styles from:</label>
+        <select id="copyStyles" onChange={handleCopy} defaultValue={-1}>
+          <option value={bookList.length} key={bookList.length}>
+            Select a book to copy
+          </option>
+          {bookList.toReversed().map((book, index) => {
+            return (
+              <option
+                value={index}
+                key={index}
+              >{`${book.title} (${book.year})`}</option>
+            );
+          })}
+        </select>
+      </fieldset>
       <div id="preview">
         <div id="shortSample" className="samples"></div>
         <div
           className={`book ${colorStyle ? "" : selected.color} ${
             thicknessStyle ? "" : selected.thickness
-          } ${heightStyle ? "" : selected.height} ${selected.style}
+          } ${heightStyle ? "" : selected.height} ${selected.style} ${
+            selected.audio ? "audio" : ""
+          }
           `}
           id={selected.bookId}
           style={{
@@ -70,79 +83,73 @@ export function Studio({ selected, setSelected, bookList }) {
                   : "whte",
                 fontSize:
                   selected.thickness === "thin" || selected.thickness < 28
-                    ? "9px"
-                    : selected.thickness === "mid" || selected.thickness < 40
+                    ? "8px"
+                    : selected.thickness === "mid" || selected.thickness < 35
                     ? "10px"
                     : "",
                 lineHeight:
                   selected.thickness === "thin" || selected.thickness < 28
-                    ? "10px"
-                    : selected.thickness === "mid" || selected.thickness < 40
+                    ? "9px"
+                    : selected.thickness === "mid" || selected.thickness < 35
                     ? "11px"
                     : "",
               }}
             >
               {selected.shortTitle}
+              {selected.audio ? <div className="aud">🎧</div> : ""}
             </span>
           </div>
           <div className="accent bottom"></div>
         </div>
         <div id="longSample" className="samples"></div>
       </div>
-      <fieldset id="copy" className="control-col">
-        <label htmlFor="copyStyles">Copy styles from:</label>
-        <select id="copyStyles" onChange={handleCopy} defaultValue={-1}>
-          <option value={bookList.length} key={bookList.length}>
-            Select a book to copy
-          </option>
-          {bookList.toReversed().map((book, index) => {
-            return (
-              <option
-                value={index}
-                key={index}
-              >{`${book.title} (${book.year})`}</option>
-            );
-          })}
-        </select>
-      </fieldset>
-      <fieldset id="styles" className="control-row">
-        <label htmlFor="style">Style:</label>
-        <select id="style" onChange={handleChange} value={selected.style}>
-          <option value="paperback">paperback</option>
-          <option value="hardcover">hardcover</option>
-          <option value="leather">leatherbound</option>
-        </select>
-      </fieldset>
-      <fieldset id="title" className="control-row">
-        <label htmlFor="titleText">Title:</label>
-        <select
-          id="titleText"
-          onChange={handleTextChange}
-          defaultValue={"full"}
-        >
-          <option value="full">full title</option>
-          <option value="abbrev">abbreviated</option>
-          <option value="short">short</option>
-          <option value="shorter">shorter</option>
-          <option value="shortest">shortest</option>
-        </select>
-      </fieldset>
-      <fieldset id="colors" className="control-row">
-        <label htmlFor="color">Spine:</label>
-        <input
-          type="color"
-          value={colorStyle ? selected.color : "#ffffff"}
-          id="color"
-          onChange={handleChange}
-        />
-        <label htmlFor="text">Text:</label>
-        <input
-          type="color"
-          value={textColorStyle ? selected.text : "000000"}
-          id="text"
-          onChange={handleChange}
-        />
-      </fieldset>
+
+      <div id="styles-colors">
+        <div id="style-title">
+          <fieldset id="styles" className="control-row">
+            <label htmlFor="style">Style:</label>
+            <select id="style" onChange={handleChange} value={selected.style}>
+              <option value="paperback">paperback</option>
+              <option value="hardcover">hardcover</option>
+              <option value="leather">leatherbound</option>
+            </select>
+          </fieldset>
+          <fieldset id="title" className="control-row">
+            <label htmlFor="titleText">Title:</label>
+            <select
+              id="titleText"
+              onChange={handleTextChange}
+              defaultValue={"full"}
+            >
+              <option value="full">full title</option>
+              <option value="abbrev">abbreviated</option>
+              <option value="short">short</option>
+              <option value="shorter">shorter</option>
+              <option value="shortest">shortest</option>
+            </select>
+          </fieldset>
+        </div>
+        <div id="colors">
+          <fieldset id="spine" className="control-row">
+            <label htmlFor="color">Spine color:</label>
+            <input
+              type="color"
+              value={colorStyle ? selected.color : "#ffffff"}
+              id="color"
+              onChange={handleChange}
+            />
+          </fieldset>
+          <fieldset id="text" className="control-row">
+            <label htmlFor="text">Text color:</label>
+            <input
+              type="color"
+              value={textColorStyle ? selected.text : "000000"}
+              id="text"
+              onChange={handleChange}
+            />
+          </fieldset>
+        </div>
+      </div>
       <fieldset id="dimensions" className="control-col">
         <div>
           <label htmlFor="height">Height:</label>
@@ -166,15 +173,6 @@ export function Studio({ selected, setSelected, bookList }) {
             onChange={handleChange}
           />
         </div>
-      </fieldset>
-      <fieldset id="audioBook" className="control-row">
-        <label htmlFor="audio">Audiobook:</label>
-        <input
-          id="audio"
-          type="checkbox"
-          onChange={handleCheckChange}
-          checked={selected.audio}
-        />
       </fieldset>
     </div>
   );

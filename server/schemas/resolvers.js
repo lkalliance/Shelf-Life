@@ -132,12 +132,13 @@ const resolvers = {
     },
 
     // updatedbookList works, updateBook still needs to be fix to pull book from nested
-    removeBook: async (parent, { bookId, year }, context) => {
+    removeBook: async (parent, { bookId, year, audio }, context) => {
+      console.log(audio);
       if (context.user) {
         try {
           const updatebookList = await User.findOneAndUpdate(
             { _id: context.user._id },
-            { $pull: { bookList: { bookId: bookId, year } } },
+            { $pull: { bookList: { bookId: bookId, year, audio } } },
             { new: true }
           );
 
@@ -146,7 +147,7 @@ const resolvers = {
               user_id: context.user._id,
               year,
             },
-            { $pull: { unshelved: { bookId: bookId } } },
+            { $pull: { unshelved: { bookId: bookId, audio } } },
             { new: true }
           );
 

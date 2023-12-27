@@ -139,12 +139,33 @@
 
 .book .spineText {
   padding: 6px 0;
+  position: relative;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
   height: 100%;
+}
+
+.book .spineText div.aud {
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  font-size: 8px;
+  width: 100%;
+  padding-right: 6px;
+  vertical-align: center;
+  margin: 0 auto;
+}
+
+.book.leather .spineText div.aud {
+  bottom: 19px;
+  left: 0;
+}
+
+.book .spineText div span {
+  display: inline;
 }
 
 .book .author,
@@ -157,6 +178,10 @@
   font-weight: bold;
   font-size: 12px;
   line-height: 12px;
+}
+
+.book.audio .title {
+  padding-bottom: 16px;
 }
 
 .book.tight .title,

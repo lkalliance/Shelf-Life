@@ -3,20 +3,13 @@
 import "./NavBar.css";
 import { Link } from "react-router-dom";
 import { About, AddBook } from "..";
+import { useState } from "react";
 
 import auth from "../../utils/auth";
 
-function NavBar({
-  showLogin,
-  uYear,
-  uSetFetched,
-  bSetFetched,
-  uBooks,
-  uCase,
-  uSetCase,
-  uSetBooks,
-}) {
+function NavBar({ showLogin, showAddBook, setShowAddBook }) {
   // This function shows or hides the nav elements when window is narrow
+  const [addBookPanel, setAddBookPanel] = useState(false);
   const showHide = (e) => {
     const navContainer = document.querySelector("#navbar-default");
     navContainer.classList.toggle("hidden");
@@ -80,17 +73,36 @@ function NavBar({
                     </Link>
                   </li>
                   <li key="add-book" id="addLi">
-                    <AddBook
-                      onClick={showHide}
+                    <a
+                      href="@"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        showHide(e);
+                        setShowAddBook(true);
+                      }}
+                      className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    >
+                      Add a Book
+                    </a>
+                    {/* <AddBook
+                      onClick={(e) => {
+                        // showHide(e);
+                        setAddBookPanel(true);
+                      }}
                       uYear={uYear}
                       uBooks={uBooks}
                       uCase={uCase}
                       uSetBooks={uSetBooks}
                       uSetCase={uSetCase}
-                      // uSetItems={uSetItems}
-                      uSetFetched={uSetFetched}
-                      bSetFetched={bSetFetched}
-                    />
+                      showSearch={showSearch}
+                      setShowSearch={setShowSearch}
+                      showStudio={showStudio}
+                      setShowStudio={setShowStudio}
+                      showResults={showResults}
+                      setShowResults={setShowResults}
+                      showAddBook={addBookPanel}
+                      setShowAddBook={setAddBookPanel}
+                    /> */}
                   </li>
                   <li key="about">
                     <About onClick={showHide} />

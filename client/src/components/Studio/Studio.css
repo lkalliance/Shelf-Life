@@ -1,9 +1,11 @@
 div#studio div#preview {
   display: flex;
+  width: 75%;
+  margin: 0 auto;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 110px;
+  height: 125px;
   border-radius: 8px;
   background-color: #b6b9d0;
   border: 1px solid #9498ac;
@@ -29,6 +31,7 @@ div#studio div#preview {
   padding: 0 6px;
   font-size: 12px;
   line-height: 13px;
+  position: relative;
 }
 
 #studio .book .accent {
@@ -81,6 +84,28 @@ div#studio div#preview {
     transparent 92%,
     rgba(0, 0, 0, 0.1) 95%
   );
+}
+
+#studio .book.audio .title {
+  padding-right: 16px;
+  padding-bottom: 0;
+}
+
+#studio .book .spineText div.aud {
+  left: auto;
+  right: 0;
+  top: 6px;
+  bottom: auto;
+  width: auto;
+  font-size: 8px;
+}
+
+#studio .book.leather .spineText div.aud {
+  left: auto;
+  right: 10px;
+  top: 6px;
+  bottom: auto;
+  width: auto;
 }
 
 #studio .book.leather {
@@ -143,6 +168,7 @@ div#studio fieldset#dimensions {
 }
 
 div#studio fieldset#dimensions div {
+  width: 49%;
   margin-top: 0;
 }
 
@@ -174,6 +200,43 @@ div#studio fieldset.control-row label {
   margin-bottom: 0;
 }
 
+div#studio fieldset#copy {
+  width: 75%;
+  margin: 0 auto 12px;
+}
+
 div#studio fieldset#copy select {
   width: 100%;
+}
+
+div#studio div#style-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+div#studio div#style-title select {
+  margin-right: 12px;
+}
+
+div#styles-colors {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+div#styles-colors fieldset {
+  margin-top: 6px;
+  height: 23px;
+}
+
+div#studio div#colors {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+div#studio div#colors input {
+  margin-right: 0;
 }

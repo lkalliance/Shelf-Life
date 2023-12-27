@@ -32,7 +32,7 @@ function Profile({ uBooks, uYear, uSetYear, uCase, uSetCase }) {
                   <span className="authors">{book.authors.join(", ")}</span>
                   {book.audio ? " 🎧" : ""}
                 </Accordion.Title>
-                <Accordion.Content key={book.bookId}>
+                <Accordion.Content key={`${book.audio ? "-aud" : ""}`}>
                   <Card book={book} />
                 </Accordion.Content>
               </Accordion.Panel>
