@@ -31,7 +31,7 @@ function Stack({
           {books.map((book, index) => {
             return (
               <Book
-                key={book.bookId}
+                key={`${book.bookId}${book.audio ? "-aud" : ""}`}
                 uCase={uCase}
                 uBooks={uBooks}
                 uSetCase={uSetCase}

@@ -21,7 +21,7 @@ export function BookSearchResults({
               return (
                 <h3
                   className=" searchResult"
-                  key={book.bookId}
+                  key={`${book.bookId}${book.audio ? "-aud" : ""}`}
                   onClick={() => handleModalSelection(book)}
                 >
                   {book.title}

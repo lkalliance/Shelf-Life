@@ -14,9 +14,14 @@
   top: 10px;
 }
 #searchBtn,
-#styleBtn-text,
-#styleBtn-audio {
+#styleBtn {
   background-color: rgb(57, 57, 195);
+}
+
+#styleBtn {
+  width: 75%;
+  margin: 12px auto 0;
+  display: block;
 }
 
 #selection-modal {
@@ -85,7 +90,7 @@ h3.searchResult:last-of-type {
   border-radius: 5px;
   padding: 20px;
   max-width: 400px;
-  min-width: 280px;
+  min-width: 270px;
   background-color: #a0a3b9;
   box-shadow: 5px 5px 10px;
 }

@@ -23,7 +23,7 @@ function AddBook({
   const [showStudio, setShowStudio] = useState(false);
   // State to track what search results and selected result
   const [searchedBooks, setSearchedBooks] = useState([]);
-  const [selected, setSelected] = useState({ year: { uYear } });
+  const [selected, setSelected] = useState({ year: { uYear }, audio: false });
   // States to track user form inputs
   const [searchInput, setSearchInput] = useState("");
   // Mutation to add a book
@@ -55,6 +55,7 @@ function AddBook({
     bookCopy.style = bookCopy.style || "paperback";
     bookCopy.rating = bookCopy.rating || 0;
     bookCopy.comment = bookCopy.comment || "";
+    bookCopy.audio = bookCopy.audio || false;
     bookCopy.year = uYear;
     return bookCopy;
   };
@@ -124,36 +125,25 @@ function AddBook({
     setSearchedBooks([]);
   };
 
-  const handleSubmitText = async (e) => {
+  const handleSelectionForm = async (e) => {
     e.preventDefault();
     handleClose();
     // If the selected book is already on the user's list for this year, don't add again
     for (const book of uBooks.bookList) {
-      if (book.bookId === selected.bookId && book.year === uYear) {
+      console.log(book.bookId, book.year, book.audio);
+      console.log(selected.bookId, selected.year, selected.audio);
+      if (
+        book.bookId === selected.bookId &&
+        book.year === uYear &&
+        ((book.audio === undefined && !selected.audio) ||
+          book.audio === selected.audio)
+      ) {
         handleClose();
         return;
       }
     }
-
-    handleSelectionForm(false);
-  };
-
-  const handleSubmitAudio = async (e) => {
-    e.preventDefault();
-    handleClose();
-    // If the selected book is already on the user's list for this year, don't add again
-    for (const book of uBooks.bookList) {
-      if (book.bookId === selected.bookId && book.year === uYear) {
-        handleClose();
-        return;
-      }
-    }
-    handleSelectionForm(true);
-  };
-
-  const handleSelectionForm = async (audio) => {
     // Prep the added book, then add it to the database
-    const submission = { ...selected, audio };
+    const submission = { ...selected };
     const vettedSubmission = setDefaults(submission);
     try {
       const { data } = await addBook({
@@ -209,8 +199,7 @@ function AddBook({
             {showStudio ? (
               <BookStyle
                 handleClose={handleClose}
-                handleSelectionFormText={handleSubmitText}
-                handleSelectionFormAudio={handleSubmitAudio}
+                handleSelectionForm={handleSelectionForm}
                 selected={selected}
                 setSelected={setSelected}
                 setDefaults={setDefaults}

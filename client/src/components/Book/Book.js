@@ -111,6 +111,7 @@ function Book({
   }
 
   async function deleteThisBook() {
+    console.log("deleting the book");
     // This function removes a book from the user's list and bookcase
 
     const { 1: thisStack, 2: thisShelf } = stack.split("-");
@@ -128,7 +129,11 @@ function Book({
     // Now search for the book in the flat list, and remove it there
     let listIndex = 0;
     for (let i = 0; i < booklist.bookList.length; i++) {
-      if (book.bookId === booklist.bookList[i].bookId) listIndex = i;
+      if (
+        book.bookId === booklist.bookList[i].bookId &&
+        book.audio === booklist.bookList[i].audio
+      )
+        listIndex = i;
     }
     const thisListBook = booklist.bookList.splice(listIndex, 1);
 
@@ -148,9 +153,11 @@ function Book({
 
     try {
       // Save the book's removal
+      console.log(thisListBook);
       const { data: removeData } = await removeBook({
         variables: {
           bookId: thisListBook[0].bookId,
+          audio: thisListBook[0].audio,
           year: book.year,
         },
       });
@@ -186,7 +193,9 @@ function Book({
             <div
               className={`book ${colorStyle ? "" : book.color} ${
                 thicknessStyle ? "" : book.thickness
-              } ${heightStyle ? "" : book.height} ${book.style}`}
+              } ${heightStyle ? "" : book.height} ${book.style} ${
+                book.audio ? "audio" : ""
+              }`}
               id={bookId}
               style={{
                 backgroundColor: colorStyle ? book.color : "",
@@ -213,13 +222,13 @@ function Book({
                         : "black",
                     fontSize:
                       book.thickness === "thin" || book.thickness < 28
-                        ? "9px"
+                        ? "8px"
                         : book.thickness === "mid" || book.thickness < 35
                         ? "10px"
                         : "",
                     lineHeight:
                       book.thickness === "thin" || book.thickness < 28
-                        ? "10px"
+                        ? "9px"
                         : book.thickness === "mid" || book.thickness < 35
                         ? "11px"
                         : "",
@@ -230,6 +239,7 @@ function Book({
                     : textStyle === "tightest"
                     ? titleSmooshing(book.title, "abbrev")
                     : book.title}
+                  {book.audio ? <div className="aud">🎧</div> : ""}
                 </span>
               </div>
               <div className="accent bottom"></div>

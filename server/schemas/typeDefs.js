@@ -119,7 +119,7 @@ const typeDefs = gql`
       comment: String = ""
       year: String
     ): User
-    removeBook(bookId: String!, year: String): User
+    removeBook(bookId: String!, year: String, audio: Boolean): User
     arrangeBookcase(bookcase: BookcaseInput!): Bookcase
   }
 `;

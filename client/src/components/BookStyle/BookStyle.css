@@ -39,14 +39,10 @@ div#audio-submit {
   justify-content: space-between;
 }
 
-div#audio-submit button {
-  width: 49%;
+div#audiobook {
+  text-align: center;
 }
 
-div#audio-submit button span {
-  display: block;
-  text-transform: uppercase;
-  font-size: 0.7rem;
-  line-height: 0.7rem;
-  color: rgb(185, 185, 185);
+div#audiobook label {
+  margin-left: 6px;
 }
