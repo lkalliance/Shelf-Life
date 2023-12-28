@@ -133,10 +133,7 @@ function App() {
           setShowAddBook={setAddBookPanel}
         />
         <AddBook
-          // onClick={(e) => {
-          //   // showHide(e);
-          //   setAddBookPanel(true);
-          // }}
+          // AddBook overlay will only appear if state is set to true
           uYear={year}
           uBooks={books}
           uCase={bookCase}

@@ -1,29 +1,39 @@
+// This component renders the styling controls for an added book
+
 import "./Studio.css";
 import { cloneDeep } from "lodash";
 import { titleSmooshing } from "../../utils/dragUtils";
 
 export function Studio({ selected, setSelected, bookList }) {
-  // Set up styles vs classes
-  console.log(bookList);
+  // Create a list for the copy function, most recent book first
   const reverseList = cloneDeep(bookList).toReversed();
+  // Set up flags to indicate if styling is rendered as a style or a class
   const colorStyle = selected.color.charAt(0) === "#";
   const textColorStyle = selected.text && selected.text.charAt(0) === "#";
   const heightStyle = !isNaN(selected.height);
   const thicknessStyle = !isNaN(selected.thickness);
+
   const handleChange = (e) => {
+    // Handles the change of any input or slider and saves to selected
     const { id, value } = e.target;
     setSelected({ ...selected, [id]: value });
   };
+
   const handleTextChange = (e) => {
+    // Handles the selection of a text abbreviation type
     const { value } = e.target;
     setSelected({
       ...selected,
       shortTitle: titleSmooshing(selected.title, value),
     });
   };
+
   const handleCopy = (e) => {
+    // Handles the selection of a previously-added book to copy its styling
     const { value } = e.target;
+    // If the selection is the placeholder text for the menu, forget it
     if (value === reverseList.length) return;
+
     const thisBook = reverseList[value];
     if (thisBook) {
       setSelected({
@@ -47,10 +57,9 @@ export function Studio({ selected, setSelected, bookList }) {
           </option>
           {bookList.toReversed().map((book, index) => {
             return (
-              <option
-                value={index}
-                key={index}
-              >{`${book.title} (${book.year})`}</option>
+              <option value={index} key={index}>{`${book.title} (${book.year})${
+                book.audio ? " 🎧" : ""
+              }`}</option>
             );
           })}
         </select>
@@ -58,14 +67,18 @@ export function Studio({ selected, setSelected, bookList }) {
       <div id="preview">
         <div id="shortSample" className="samples"></div>
         <div
-          className={`book ${colorStyle ? "" : selected.color} ${
-            thicknessStyle ? "" : selected.thickness
-          } ${heightStyle ? "" : selected.height} ${selected.style} ${
-            selected.audio ? "audio" : ""
+          className={
+            // Use classes for old-style books
+            `book ${colorStyle ? "" : selected.color} ${
+              thicknessStyle ? "" : selected.thickness
+            } ${heightStyle ? "" : selected.height} ${selected.style} ${
+              selected.audio ? "audio" : ""
+            }
+          `
           }
-          `}
           id={selected.bookId}
           style={{
+            // Use styles for new-style books
             backgroundColor: colorStyle ? selected.color : "",
             height: thicknessStyle ? `${selected.thickness}px` : "",
             width: heightStyle ? `${selected.height}px` : "",
@@ -82,6 +95,7 @@ export function Studio({ selected, setSelected, bookList }) {
                   : selected.color === "yellow" || selected.color === "white"
                   ? "black"
                   : "whte",
+                // Set font size and line height based on available space
                 fontSize:
                   selected.thickness === "thin" || selected.thickness < 28
                     ? "8px"

@@ -11,8 +11,10 @@ function Profile({ uBooks, uYear, uSetYear, uCase, uSetCase }) {
   if (!Auth.loggedIn()) window.location.href = "/";
 
   const display = uBooks.bookList.filter((book) => {
+    // Filter the book list to only use those added for the selected year
     return book.year === uYear;
   });
+
   return (
     <main id="booklistContainer">
       <section id="bookList">

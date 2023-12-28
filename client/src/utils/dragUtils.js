@@ -74,16 +74,6 @@ export const abbreviateTitle = (title, tightness) => {
   // This function returns an initialized form of the title
   let abbrev = "";
   const words = title.split(" ");
-  const punctuation = [".", ".", "?", "!"];
-  // const abbrev2 = words.map((word, index) => {
-  //   return word.length <= (tightness || 3)
-  //     ? `${word}${
-  //         punctuation.indexOf(word.charAt(word.length - 1)) >= 0
-  //           ? `${word.charAt(word.length - 1)} `
-  //           : " "
-  //       }`
-  //     : `${word.charAt(0)}.${index === word.length - 1 ? " " : ""}`;
-  // });
   words.map((word, index) => {
     abbrev += `${word.charAt(0)}.`;
     if (index === word.length - 1) abbrev += " ";
@@ -99,31 +89,36 @@ const thicknesses = {
 };
 
 export const noSpace = (shelf, newBook) => {
+  // This utility determines if there is room on the shelf for a drop
+
+  // Calculate the thickness of the new book
   const newBookThickness = isNaN(newBook.thickness)
     ? thicknesses[newBook.thickness]
     : parseInt(newBook.thickness);
-  // This utility determines if there is room on the shelf for a drop
   const leftThicknesses = shelf.left.map((book) => {
-    // does this book have a setting or a number?
+    // Create an array of left-stack thicknesses
     return isNaN(book.thickness)
       ? thicknesses[book.thickness]
       : parseInt(book.thickness);
   });
   const rightThicknesses = shelf.right.map((book) => {
-    // does this book have a setting or a number?
+    // Create an array of right-stack thicknesses
     return isNaN(book.thickness)
       ? thicknesses[book.thickness]
       : parseInt(book.thickness);
   });
   const sumLeft = leftThicknesses.reduce(
+    // Total up pixels in the left stack
     (partialSum, pixels) => partialSum + pixels,
     0
   );
   const sumRight = rightThicknesses.reduce(
+    // Total up pixels in the right stack
     (partialSum, pixels) => partialSum + pixels,
     0
   );
 
+  // Return boolean: would the addition of new book create too many pixels?
   return sumLeft + sumRight + newBookThickness > 280;
 };
 
@@ -153,7 +148,10 @@ export const isTight = (book) => {
 };
 
 export const titleSmooshing = (title, type) => {
+  // This utility renders a long title into a shorter one based on selected type
+
   const dotDotDot = (title, words) => {
+    // This private utility reduces to the string to "..." following x words
     const titlePieces = title.split(" ");
     let newTitle = "";
     for (let i = 0; i < words; i++) {
@@ -164,6 +162,7 @@ export const titleSmooshing = (title, type) => {
   };
 
   const justThe = (title) => {
+    // This private utility abbreviates almost all words to abbreviations
     const expanded = ["the", "a", "of", "for", "to", "on", "in"];
     const titlePieces = title.split(" ");
     const updatedPieces = titlePieces.map((word) => {

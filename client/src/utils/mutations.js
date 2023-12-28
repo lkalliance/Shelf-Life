@@ -21,6 +21,7 @@ export const LOGIN = gql`
           height
           thickness
           year
+          audio
         }
       }
       bookcase {
@@ -39,6 +40,7 @@ export const LOGIN = gql`
             thickness
             color
             text
+            audio
           }
           right {
             bookId
@@ -52,6 +54,7 @@ export const LOGIN = gql`
             thickness
             color
             text
+            audio
           }
         }
         unshelved {
@@ -66,6 +69,7 @@ export const LOGIN = gql`
           thickness
           color
           text
+          audio
         }
       }
     }

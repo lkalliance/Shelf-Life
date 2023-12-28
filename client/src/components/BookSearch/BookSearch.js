@@ -1,3 +1,5 @@
+// This component renders the title search for adding a book
+
 import "./BookSearch.css";
 import { BookSearchResults } from "../../components/BookSearchResults";
 
@@ -7,7 +9,6 @@ export function BookSearch({
   searchInput,
   setSearchInput,
   showResults,
-  setShowResults,
   searchedBooks,
   selected,
   handleModalSelection,
@@ -20,6 +21,7 @@ export function BookSearch({
         style={{ backgroundColor: "transparent" }}
       >
         <button
+          // This is the close button for the entire modal
           onClick={() => {
             handleClose();
           }}
@@ -85,6 +87,7 @@ export function BookSearch({
               required
             />
             <button
+              // This is the submit button for the search term
               type="submit"
               id="searchBtn"
               className=" searchbtn text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -93,14 +96,13 @@ export function BookSearch({
             </button>
           </div>
         </form>
-        {showResults ? (
+        {showResults && (
+          // If results are to be shown, include this component
           <BookSearchResults
             searchedBooks={searchedBooks}
             selected={selected}
             handleModalSelection={handleModalSelection}
           />
-        ) : (
-          ""
         )}
       </div>
     </div>
