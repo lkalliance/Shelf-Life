@@ -15,6 +15,11 @@ export const LOGIN = gql`
           bookId
           rating
           comment
+          color
+          text
+          style
+          height
+          thickness
           year
         }
       }

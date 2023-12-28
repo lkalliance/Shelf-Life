@@ -4,6 +4,7 @@ import { titleSmooshing } from "../../utils/dragUtils";
 
 export function Studio({ selected, setSelected, bookList }) {
   // Set up styles vs classes
+  console.log(bookList);
   const reverseList = cloneDeep(bookList).toReversed();
   const colorStyle = selected.color.charAt(0) === "#";
   const textColorStyle = selected.text && selected.text.charAt(0) === "#";

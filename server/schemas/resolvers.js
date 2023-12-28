@@ -133,7 +133,6 @@ const resolvers = {
 
     // updatedbookList works, updateBook still needs to be fix to pull book from nested
     removeBook: async (parent, { bookId, year, audio }, context) => {
-      console.log(audio);
       if (context.user) {
         try {
           const updatebookList = await User.findOneAndUpdate(

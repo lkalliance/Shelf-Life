@@ -130,8 +130,6 @@ function AddBook({
     handleClose();
     // If the selected book is already on the user's list for this year, don't add again
     for (const book of uBooks.bookList) {
-      console.log(book.bookId, book.year, book.audio);
-      console.log(selected.bookId, selected.year, selected.audio);
       if (
         book.bookId === selected.bookId &&
         book.year === uYear &&
