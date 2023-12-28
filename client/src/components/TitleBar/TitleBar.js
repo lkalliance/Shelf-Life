@@ -1,3 +1,5 @@
+// This component renders the title of the page and the menu for changing year
+
 import "./TitleBar.css";
 
 export function TitleBar({ type, uYear, uSetCase, uSetYear, uCase }) {

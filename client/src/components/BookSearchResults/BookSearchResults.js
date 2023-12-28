@@ -1,3 +1,5 @@
+// This component renders the results of a title search for adding a book
+
 import "./BookSearchResults.css";
 
 export function BookSearchResults({

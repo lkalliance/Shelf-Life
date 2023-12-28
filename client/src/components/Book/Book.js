@@ -8,12 +8,7 @@ import { ARRANGE_BOOKCASE, REMOVE_BOOK } from "../../utils/mutations";
 import { QUERY_ME, QUERY_BOOKCASE } from "../../utils/queries";
 import { Draggable } from "@hello-pangea/dnd";
 import { ViewModal } from "../ViewModal";
-import {
-  isTight,
-  abbreviateTitle,
-  titleSmooshing,
-  convert,
-} from "../../utils/dragUtils";
+import { isTight, titleSmooshing, convert } from "../../utils/dragUtils";
 
 function Book({
   uCase,
@@ -111,7 +106,6 @@ function Book({
   }
 
   async function deleteThisBook() {
-    console.log("deleting the book");
     // This function removes a book from the user's list and bookcase
 
     const { 1: thisStack, 2: thisShelf } = stack.split("-");
@@ -137,7 +131,7 @@ function Book({
     }
     const thisListBook = booklist.bookList.splice(listIndex, 1);
 
-    // Set all the states and atoms
+    // Set all the states
     uSetCase(allBooks);
     uSetItems(convert(allBooks));
     uSetBooks(booklist);
@@ -166,7 +160,7 @@ function Book({
     }
   }
 
-  // Set up styles vs classes
+  // Set up flags that properties should be styles and not classes
   const colorStyle = book.color.charAt(0) === "#";
   const heightStyle = !isNaN(book.height);
   const thicknessStyle = !isNaN(book.thickness);
@@ -191,6 +185,7 @@ function Book({
             {...provided.dragHandleProps}
           >
             <div
+              // Class names added for original-style saved books
               className={`book ${colorStyle ? "" : book.color} ${
                 thicknessStyle ? "" : book.thickness
               } ${heightStyle ? "" : book.height} ${book.style} ${
@@ -198,6 +193,7 @@ function Book({
               }`}
               id={bookId}
               style={{
+                // Styles added for new-style saved books
                 backgroundColor: colorStyle ? book.color : "",
                 height: heightStyle ? `${book.height}px` : "",
                 width: thicknessStyle ? `${book.thickness}px` : "",
@@ -220,6 +216,7 @@ function Book({
                         : textColorStyle
                         ? book.text
                         : "black",
+                    // Font size and line height adjusted based on available space
                     fontSize:
                       book.thickness === "thin" || book.thickness < 28
                         ? "8px"

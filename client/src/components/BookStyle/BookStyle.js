@@ -1,3 +1,4 @@
+// This component renders the book styling portion of adding a book
 import "./BookStyle.css";
 import { Studio } from "../../components/Studio";
 
@@ -11,6 +12,7 @@ export function BookStyle({
   uYear,
 }) {
   const handleCheckChange = (e) => {
+    // This is specifically for the audiobook checkbox
     const { id, checked } = e.target;
     setSelected({
       ...selected,
@@ -21,6 +23,7 @@ export function BookStyle({
   return (
     <div id="bookStyles">
       <button
+        // This is the modal close button
         onClick={() => {
           handleClose();
         }}
@@ -48,6 +51,7 @@ export function BookStyle({
         <h2 className="dark:text-white">{selected.title}</h2>
 
         <Studio
+          // The studio includes the preview, colors, dimensions, and styles
           selected={setDefaults(selected)}
           setSelected={setSelected}
           bookList={uBooks.bookList}
@@ -104,6 +108,7 @@ export function BookStyle({
         </div>
 
         <button
+          // This is the submission button to add the book
           id="styleBtn"
           className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           onClick={handleSelectionForm}

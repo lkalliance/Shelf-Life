@@ -2,14 +2,12 @@
 
 import "./NavBar.css";
 import { Link } from "react-router-dom";
-import { About, AddBook } from "..";
-import { useState } from "react";
+import { About } from "..";
 
 import auth from "../../utils/auth";
 
 function NavBar({ showLogin, showAddBook, setShowAddBook }) {
   // This function shows or hides the nav elements when window is narrow
-  const [addBookPanel, setAddBookPanel] = useState(false);
   const showHide = (e) => {
     const navContainer = document.querySelector("#navbar-default");
     navContainer.classList.toggle("hidden");
@@ -84,25 +82,6 @@ function NavBar({ showLogin, showAddBook, setShowAddBook }) {
                     >
                       Add a Book
                     </a>
-                    {/* <AddBook
-                      onClick={(e) => {
-                        // showHide(e);
-                        setAddBookPanel(true);
-                      }}
-                      uYear={uYear}
-                      uBooks={uBooks}
-                      uCase={uCase}
-                      uSetBooks={uSetBooks}
-                      uSetCase={uSetCase}
-                      showSearch={showSearch}
-                      setShowSearch={setShowSearch}
-                      showStudio={showStudio}
-                      setShowStudio={setShowStudio}
-                      showResults={showResults}
-                      setShowResults={setShowResults}
-                      showAddBook={addBookPanel}
-                      setShowAddBook={setAddBookPanel}
-                    /> */}
                   </li>
                   <li key="about">
                     <About onClick={showHide} />

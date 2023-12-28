@@ -1,18 +1,31 @@
-.close-icon.close-icon-book {
-  right: -30px;
-}
+/* building blocks */
+
 .container {
-  /* text-align: center; */
   display: flex;
   align-items: center;
   justify-content: center;
   align-content: center;
   flex-direction: column;
 }
+
+.close-icon.close-icon-book.close-icon-book {
+  right: -30px;
+}
+
+.form {
+  width: 100%;
+}
+
+.label {
+  text-align: center;
+  padding: 7px;
+}
+
 .searchbtn {
   right: 10px;
   top: 10px;
 }
+
 #searchBtn,
 #styleBtn {
   background-color: rgb(57, 57, 195);
@@ -24,17 +37,14 @@
   display: block;
 }
 
+#closeSelectBtn {
+  right: 0;
+}
+
 #selection-modal {
   display: flex;
   justify-content: center;
   margin-top: 104px;
-}
-.form {
-  width: 100%;
-}
-.label {
-  text-align: center;
-  padding: 7px;
 }
 .star-container {
   display: flex;
@@ -61,15 +71,7 @@ h3.searchResult:last-of-type {
   font-size: 12px;
 }
 
-#addBookContainer {
-  /* background-color: rgba(255, 255, 255, 0.3); */
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 100;
-}
+/* Modal handling */
 
 #add-book-container {
   width: 100%;
@@ -94,12 +96,15 @@ h3.searchResult:last-of-type {
   background-color: #a0a3b9;
   box-shadow: 5px 5px 10px;
 }
+
 #AddBook button.close-icon.close-icon-book {
   position: absolute;
   top: 0;
   right: 0;
 }
+
 #AddBook h2 {
+  text-align: center;
   font-size: 12px;
   text-transform: uppercase;
   font-weight: bold;
@@ -143,15 +148,7 @@ h3.searchResult:last-of-type {
   visibility: hidden;
 }
 
-#bookStyles h2 {
-  text-align: center;
-}
-
 #bookStyles label {
   font-size: 12px;
   padding-bottom: 0;
-}
-
-#closeSelectBtn {
-  right: 0;
 }

@@ -16,8 +16,6 @@ function AddBook({
   setShowAddBook,
 }) {
   // States to determine whether the search or select modal is visible
-  const [showModal, setShowModal] = useState(false);
-  const [showSelectModal, setshowSelectModal] = useState(false);
   const [showSearch, setShowSearch] = useState(true);
   const [showResults, setShowResults] = useState(false);
   const [showStudio, setShowStudio] = useState(false);
@@ -29,15 +27,9 @@ function AddBook({
   // Mutation to add a book
   const [addBook, { error }] = useMutation(ADD_BOOK);
 
-  const handleModalSubmit = () => {
-    // Shows or hides the entire Add Book set of modals
-    setShowModal(!showModal);
-  };
-
   const handleClose = () => {
-    console.log("close everything");
     // Shows or hides the entire Add Book set of modals
-    setShowModal(false);
+    // Leave search as true for next launch of modal
     setShowSearch(true);
     setShowStudio(false);
     setShowResults(false);
@@ -85,6 +77,7 @@ function AddBook({
       for (let i = 0; i < items.length; i++) {
         const book = items[i];
         if (foundBooks.indexOf(book.volumeInfo.title.toLowerCase()) < 0) {
+          // Only add a book title once and not multiple times
           foundBooks.push(book.volumeInfo.title.toLowerCase());
           bookData.push({
             bookId: book.id,
@@ -96,10 +89,13 @@ function AddBook({
         }
       }
 
-      // Set the searched books state and clear the input
+      // Set the searched books state
       setSearchedBooks(bookData);
+      // Clear the search field
       setSearchInput("");
-      setSelected("");
+      // Clear the selected styles
+      setSelected({ year: uYear, audio: false });
+      // Make sure the studio is closed, but show results
       setShowStudio(false);
       setShowResults(true);
     } catch (err) {
@@ -109,10 +105,12 @@ function AddBook({
 
   const handleModalSelection = (book) => {
     // Handles the selection of a search result
-    setshowSelectModal(true);
+    // Hide the search field and the results
     setShowSearch(false);
     setShowResults(false);
+    // Show the studio
     setShowStudio(true);
+    // Assign book information to selected state
     setSelected({
       ...setDefaults(book),
       bookId: book.bookId,
@@ -122,16 +120,17 @@ function AddBook({
       description: book.description,
       image: book.image,
     });
+    // Clear the searched books
     setSearchedBooks([]);
   };
 
   const handleSelectionForm = async (e) => {
+    // Handles the submission of the book to be saved
     e.preventDefault();
+    // Close everything
     handleClose();
     // If the selected book is already on the user's list for this year, don't add again
     for (const book of uBooks.bookList) {
-      console.log(book.bookId, book.year, book.audio);
-      console.log(selected.bookId, selected.year, selected.audio);
       if (
         book.bookId === selected.bookId &&
         book.year === uYear &&
@@ -165,9 +164,7 @@ function AddBook({
       fetched: true,
     };
 
-    // setBooks(newBooks);
     uSetBooks(newBooks);
-    // setbCase(newCase);
     uSetCase(newCase);
 
     // Close all the modals
@@ -177,6 +174,7 @@ function AddBook({
   return (
     <>
       {showAddBook && (
+        // Only render all this if the state is true
         <div id="add-book-container">
           <div id="AddBook">
             {showSearch ? (

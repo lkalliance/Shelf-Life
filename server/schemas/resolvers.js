@@ -16,6 +16,7 @@ const resolvers = {
         "Either you are not logged in or you already have the data!"
       );
     },
+
     bookcase: async (parent, args, context) => {
       if (context.user) {
         const thisCase = await Bookcase.findOne({
@@ -23,10 +24,6 @@ const resolvers = {
           year: args.year,
         });
         return thisCase || false;
-        // return Bookcase.findOne({
-        //   user_id: context.user._id,
-        //   year: args.year,
-        // });
       }
       throw new AuthenticationError(
         "Either you are not logged in or you already have the data!"
@@ -39,15 +36,20 @@ const resolvers = {
       const today = new Date();
       const thisYear = today.getFullYear().toString();
       const { userName, email, password } = args;
+
+      // Create the new User
       const newUser = {
         userName,
         email,
         password,
         bookList: [],
       };
-
       const user = await User.create(newUser);
+
+      // Sign the token with this new user
       const token = signToken(user);
+
+      // Create the new bookcase tied to this uear and year
       const newBookcase = {
         user_id: user._id,
         year: thisYear,
@@ -57,7 +59,6 @@ const resolvers = {
         ],
         unshelved: [],
       };
-
       const bookcase = await Bookcase.create(newBookcase);
 
       return { token, user, bookcase };
@@ -131,9 +132,7 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
 
-    // updatedbookList works, updateBook still needs to be fix to pull book from nested
     removeBook: async (parent, { bookId, year, audio }, context) => {
-      console.log(audio);
       if (context.user) {
         try {
           const updatebookList = await User.findOneAndUpdate(
@@ -159,6 +158,7 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+
     arrangeBookcase: async (parent, args, context) => {
       if (context.user) {
         try {

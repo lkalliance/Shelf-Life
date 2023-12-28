@@ -39,7 +39,7 @@ function Stack({
                 uSetItems={uSetItems}
                 book={book}
                 bookIndex={index}
-                bookId={book.bookId}
+                bookId={`${book.bookId}${book.audio && "-aud"}`}
                 shelf={shelf}
                 stack={`shelf-${position}-${shelf}`}
                 uYear={uYear}
