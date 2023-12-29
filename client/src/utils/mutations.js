@@ -17,6 +17,7 @@ export const LOGIN = gql`
           comment
           color
           text
+          textSize
           style
           height
           thickness
@@ -40,6 +41,7 @@ export const LOGIN = gql`
             thickness
             color
             text
+            textSize
             audio
           }
           right {
@@ -54,6 +56,7 @@ export const LOGIN = gql`
             thickness
             color
             text
+            textSize
             audio
           }
         }
@@ -69,6 +72,7 @@ export const LOGIN = gql`
           thickness
           color
           text
+          textSize
           audio
         }
       }
@@ -97,6 +101,7 @@ export const ADD_BOOK = gql`
     $authors: [String]
     $image: String
     $text: String
+    $textSize: String
     $description: String
     $color: String
     $height: String
@@ -122,12 +127,14 @@ export const ADD_BOOK = gql`
       comment: $comment
       year: $year
       text: $text
+      textSize: $textSize
     ) {
       bookList {
         authors
         bookId
         color
         text
+        textSize
         comment
         description
         height
@@ -169,6 +176,7 @@ export const ARRANGE_BOOKCASE = gql`
           thickness
           color
           text
+          textSize
         }
         right {
           bookId
@@ -182,6 +190,7 @@ export const ARRANGE_BOOKCASE = gql`
           thickness
           color
           text
+          textSize
         }
       }
       unshelved {
@@ -196,6 +205,7 @@ export const ARRANGE_BOOKCASE = gql`
         thickness
         color
         text
+        textSize
       }
     }
   }

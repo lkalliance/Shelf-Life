@@ -23,6 +23,7 @@ function Book({
   shelf,
   uYear,
 }) {
+  console.log(book);
   const [showModal, setShowModal] = useState(false);
   // Mutations
   const [arrangeBookcase, { error: arrangeError }] = useMutation(
@@ -165,6 +166,7 @@ function Book({
   const heightStyle = !isNaN(book.height);
   const thicknessStyle = !isNaN(book.thickness);
   const textColorStyle = book.text && book.text.charAt(0) === "#";
+  const textSizeStyle = book.textSize && parseInt(book.textSize) > 0;
 
   // Reference logic to set book title style
   const textStyle = isTight(book);
@@ -217,18 +219,20 @@ function Book({
                         ? book.text
                         : "black",
                     // Font size and line height adjusted based on available space
-                    fontSize:
-                      book.thickness === "thin" || book.thickness < 28
-                        ? "8px"
-                        : book.thickness === "mid" || book.thickness < 35
-                        ? "10px"
-                        : "",
-                    lineHeight:
-                      book.thickness === "thin" || book.thickness < 28
-                        ? "9px"
-                        : book.thickness === "mid" || book.thickness < 35
-                        ? "11px"
-                        : "",
+                    fontSize: textSizeStyle
+                      ? `${book.textSize}px`
+                      : book.thickness === "thin" || book.thickness < 28
+                      ? "8px"
+                      : book.thickness === "mid" || book.thickness < 35
+                      ? "10px"
+                      : "",
+                    lineHeight: textSizeStyle
+                      ? `${parseInt(book.textSize) + 1}px`
+                      : book.thickness === "thin" || book.thickness < 28
+                      ? "9px"
+                      : book.thickness === "mid" || book.thickness < 35
+                      ? "11px"
+                      : "",
                   }}
                 >
                   {book.shortTitle && book.shortTitle.length > 0

@@ -10,6 +10,7 @@ export function Studio({ selected, setSelected, bookList }) {
   // Set up flags to indicate if styling is rendered as a style or a class
   const colorStyle = selected.color.charAt(0) === "#";
   const textColorStyle = selected.text && selected.text.charAt(0) === "#";
+  const textSizeStyle = selected.textSize && parseInt(selected.textSize) > 0;
   const heightStyle = !isNaN(selected.height);
   const thicknessStyle = !isNaN(selected.thickness);
 
@@ -96,18 +97,20 @@ export function Studio({ selected, setSelected, bookList }) {
                   ? "black"
                   : "whte",
                 // Set font size and line height based on available space
-                fontSize:
-                  selected.thickness === "thin" || selected.thickness < 28
-                    ? "8px"
-                    : selected.thickness === "mid" || selected.thickness < 35
-                    ? "10px"
-                    : "",
-                lineHeight:
-                  selected.thickness === "thin" || selected.thickness < 28
-                    ? "9px"
-                    : selected.thickness === "mid" || selected.thickness < 35
-                    ? "11px"
-                    : "",
+                fontSize: textSizeStyle
+                  ? `${selected.textSize}px`
+                  : selected.thickness === "thin" || selected.thickness < 28
+                  ? "8px"
+                  : selected.thickness === "mid" || selected.thickness < 35
+                  ? "10px"
+                  : "",
+                lineHeight: textSizeStyle
+                  ? `${parseInt(selected.textSize) + 1}px`
+                  : selected.thickness === "thin" || selected.thickness < 28
+                  ? "9px"
+                  : selected.thickness === "mid" || selected.thickness < 35
+                  ? "11px"
+                  : "",
               }}
             >
               {selected.shortTitle}
@@ -185,6 +188,25 @@ export function Studio({ selected, setSelected, bookList }) {
             max={45}
             value={thicknessStyle ? selected.thickness : "30"}
             id="thickness"
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="textSize">Text size:</label>
+          <input
+            type="range"
+            min={8}
+            max={15}
+            value={
+              textSizeStyle
+                ? selected.textSize
+                : selected.thickness === "thin" || selected.thickness < 28
+                ? 8
+                : selected.thickness === "mid" || selected.thickness < 35
+                ? 10
+                : 12
+            }
+            id="textSize"
             onChange={handleChange}
           />
         </div>
