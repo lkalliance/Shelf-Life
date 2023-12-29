@@ -17,6 +17,7 @@ export const QUERY_ME = gql`
         year
         color
         text
+        textSize
         height
         thickness
         style
@@ -34,6 +35,7 @@ export const QUERY_BOOKCASE = gql`
           bookId
           color
           text
+          textSize
           comment
           image
           description
@@ -51,6 +53,7 @@ export const QUERY_BOOKCASE = gql`
           bookId
           color
           text
+          textSize
           comment
           image
           description
@@ -69,6 +72,7 @@ export const QUERY_BOOKCASE = gql`
         bookId
         color
         text
+        textSize
         comment
         image
         description

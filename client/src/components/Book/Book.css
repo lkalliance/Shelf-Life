@@ -95,7 +95,6 @@
 .book.leather .spineText {
   padding: 20px 0;
   box-sizing: border-box;
-  overflow: hidden;
 }
 
 .book.leather .spineText {
@@ -138,6 +137,7 @@
   justify-content: center;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 .book .spineText div.aud {

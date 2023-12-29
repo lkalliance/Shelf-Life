@@ -32,6 +32,7 @@ div#studio div#preview {
   font-size: 12px;
   line-height: 13px;
   position: relative;
+  overflow: hidden;
 }
 
 #studio .book .accent {
@@ -168,8 +169,12 @@ div#studio fieldset#dimensions {
 }
 
 div#studio fieldset#dimensions div {
-  width: 49%;
+  width: 32%;
   margin-top: 0;
+}
+
+div#studio fieldset#dimensions input {
+  width: 100%;
 }
 
 div#studio fieldset label {

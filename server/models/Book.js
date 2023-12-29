@@ -29,6 +29,9 @@ const bookSchema = new Schema({
   text: {
     type: String,
   },
+  textSize: {
+    type: String,
+  },
   height: {
     type: String,
   },

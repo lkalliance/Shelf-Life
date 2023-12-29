@@ -64,6 +64,7 @@ const typeDefs = gql`
     height: String
     thickness: String
     text: String
+    textSize: String
     color: String
     year: String
     rating: Int
@@ -82,6 +83,7 @@ const typeDefs = gql`
     height: String
     thickness: String
     text: String
+    textSize: String
     color: String
     year: String
     rating: Int
@@ -111,6 +113,7 @@ const typeDefs = gql`
       description: String
       color: String = "white"
       text: String = "#000000"
+      textSize: String
       height: String = "medium"
       thickness: String = "mid"
       style: String = "paperback"
