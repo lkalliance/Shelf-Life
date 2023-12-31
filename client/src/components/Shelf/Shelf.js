@@ -18,6 +18,7 @@ function Shelf({
   uSetBooks,
   uSetItems,
   uYear,
+  removing,
 }) {
   const books =
     shelfIndex === "unshelved" ? uCase.unshelved : uCase.shelves[shelfIndex];
@@ -102,6 +103,7 @@ function Shelf({
             uSetBooks={uSetBooks}
             uSetItems={uSetItems}
             uYear={uYear}
+            removing={removing}
           />
           <Stack
             drop="true"
@@ -117,6 +119,7 @@ function Shelf({
             uSetBooks={uSetBooks}
             uSetItems={uSetItems}
             uYear={uYear}
+            removing={removing}
           />
         </div>
       ) : (
@@ -133,6 +136,7 @@ function Shelf({
           uSetBooks={uSetBooks}
           uSetItems={uSetItems}
           uYear={uYear}
+          removing={removing}
         />
       )}
     </div>

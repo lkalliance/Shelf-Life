@@ -15,6 +15,7 @@ function Stack({
   shelf,
   clearHandler,
   uYear,
+  removing,
 }) {
   return (
     <Droppable
@@ -43,6 +44,7 @@ function Stack({
                 shelf={shelf}
                 stack={`shelf-${position}-${shelf}`}
                 uYear={uYear}
+                removing={removing}
               />
             );
           })}
