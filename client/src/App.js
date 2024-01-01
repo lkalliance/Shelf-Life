@@ -1,5 +1,5 @@
 import "./App.css";
-import { Bookcase, Profile, Home } from "./pages";
+import { Bookcase, Profile, Home, FAQ } from "./pages";
 import { NavBar, LoginForm, SignupForm, AddBook } from "./components";
 import { createContext, useState } from "react";
 import { Routes, Route } from "react-router-dom";
@@ -196,6 +196,33 @@ function App() {
               ) : (
                 <Home />
               )
+            }
+          />
+          <Route
+            path="/faq"
+            element={
+              <FAQ
+                showLogin={setShowloginModal}
+                showSignup={setShowSignupModal}
+              />
+            }
+          />
+          <Route
+            path="/FAQ"
+            element={
+              <FAQ
+                showLogin={setShowloginModal}
+                showSignup={setShowSignupModal}
+              />
+            }
+          />
+          <Route
+            path="/Faq"
+            element={
+              <FAQ
+                showLogin={setShowloginModal}
+                showSignup={setShowSignupModal}
+              />
             }
           />
           <Route

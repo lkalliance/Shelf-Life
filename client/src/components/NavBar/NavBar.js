@@ -107,7 +107,6 @@ function NavBar({ showLogin, showAddBook, setShowAddBook }) {
                     className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                     onClick={(e) => {
                       e.preventDefault();
-                      console.log("Clicked!");
                       showLogin(true);
                       showHide();
                     }}
@@ -117,6 +116,15 @@ function NavBar({ showLogin, showAddBook, setShowAddBook }) {
                 </li>
               )
             }
+            <li key="to-faq">
+              <Link
+                to="/faq"
+                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                onClick={showHide}
+              >
+                <div>?</div>
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
