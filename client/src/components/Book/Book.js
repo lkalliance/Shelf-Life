@@ -22,8 +22,8 @@ function Book({
   stack,
   shelf,
   uYear,
+  removing,
 }) {
-  console.log(book);
   const [showModal, setShowModal] = useState(false);
   // Mutations
   const [arrangeBookcase, { error: arrangeError }] = useMutation(
@@ -136,12 +136,14 @@ function Book({
     uSetCase(allBooks);
     uSetItems(convert(allBooks));
     uSetBooks(booklist);
+    removing(true);
 
     try {
       // Save the new bookshelf arrangement
       const { data: arrangeData } = await arrangeBookcase({
         variables: { bookcase: allBooks },
       });
+      removing(false);
     } catch (err) {
       console.error(err);
     }

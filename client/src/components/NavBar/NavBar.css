@@ -6,6 +6,16 @@ nav ul {
   padding: 0;
 }
 
+nav li div {
+  color: navy;
+  background-color: #61668e;
+  height: 22px;
+  width: 22px;
+  border-radius: 22px;
+  line-height: 22px;
+  text-align: center;
+}
+
 @media screen and (min-width: 768px) {
   nav ul {
     padding: 8px;

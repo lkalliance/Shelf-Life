@@ -4,7 +4,6 @@ import "./Profile.css";
 import { Accordion } from "flowbite-react";
 import { Card, TitleBar } from "../../components";
 import Auth from "../../utils/auth";
-import { convertUnicode } from "../../utils/dragUtils";
 
 function Profile({ uBooks, uYear, uSetYear, uCase, uSetCase }) {
   // If the user isn't logged in, send them to the home page
@@ -24,6 +23,11 @@ function Profile({ uBooks, uYear, uSetYear, uCase, uSetCase }) {
           uSetYear={uSetYear}
           uCase={uCase}
           uSetCase={uSetCase}
+          bookCount={
+            uBooks.bookList.filter((book) => {
+              return book.year === uYear;
+            }).length
+          }
         />{" "}
         <Accordion collapseAll>
           {display.map((book, index) => {

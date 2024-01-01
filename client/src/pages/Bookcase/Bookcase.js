@@ -17,6 +17,7 @@ function Bookcase({ uCase, uBooks, uSetBooks, uSetCase, uYear, uSetYear }) {
 
   // State to arrange books on shelves
   const [items, setItems] = useState(convert(uCase));
+  const [removing, setRemoving] = useState(false);
 
   // Mutation
   const [arrangeBookcase, { error }] = useMutation(ARRANGE_BOOKCASE, {
@@ -163,53 +164,66 @@ function Bookcase({ uCase, uBooks, uSetBooks, uSetCase, uYear, uSetYear }) {
   };
 
   return (
-    <main id="bookcaseContainer">
-      <section id="bookcase">
-        <TitleBar
-          type="bookcase"
-          uYear={uYear}
-          uSetYear={uSetYear}
-          uCase={uCase}
-          uSetCase={uSetCase}
-        />
-        <DragDropContext onDragEnd={handleDrop}>
-          <div id="shelves">
-            {uCase.shelves.map((shelf, shelfIndex) => {
-              return (
-                <Shelf
-                  key={shelfIndex}
-                  shelfIndex={shelfIndex}
-                  uBooks={uBooks}
-                  uCase={uCase}
-                  uItems={items}
-                  uSetBooks={uSetBooks}
-                  uSetItems={setItems}
-                  uSetCase={uSetCase}
-                  uYear={uYear}
-                />
-              );
-            })}
-          </div>
-          <Shelf
-            key="unshelved"
-            shelfIndex="unshelved"
-            uCase={uCase}
-            uBooks={uBooks}
-            uItems={items}
-            uSetBooks={uSetBooks}
-            uSetItems={setItems}
-            uSetCase={uSetCase}
+    <>
+      {removing && (
+        <div id="bookRemoval">
+          <h2>Removing book...</h2>
+        </div>
+      )}
+      <main id="bookcaseContainer">
+        <section id="bookcase">
+          <TitleBar
+            type="bookcase"
             uYear={uYear}
+            uSetYear={uSetYear}
+            uCase={uCase}
+            uSetCase={uSetCase}
+            bookCount={
+              uBooks.bookList.filter((book) => {
+                return book.year === uYear;
+              }).length
+            }
           />
-        </DragDropContext>
-        <Button className="bookcaseButton" handler={addShelf}>
-          Add a shelf
-        </Button>
-        <Button className="bookcaseButton" handler={removeEmpties}>
-          Delete empty shelves
-        </Button>
-      </section>
-    </main>
+          <DragDropContext onDragEnd={handleDrop}>
+            <div id="shelves">
+              {uCase.shelves.map((shelf, shelfIndex) => {
+                return (
+                  <Shelf
+                    key={shelfIndex}
+                    shelfIndex={shelfIndex}
+                    uBooks={uBooks}
+                    uCase={uCase}
+                    uItems={items}
+                    uSetBooks={uSetBooks}
+                    uSetItems={setItems}
+                    uSetCase={uSetCase}
+                    uYear={uYear}
+                  />
+                );
+              })}
+            </div>
+            <Shelf
+              key="unshelved"
+              shelfIndex="unshelved"
+              uCase={uCase}
+              uBooks={uBooks}
+              uItems={items}
+              uSetBooks={uSetBooks}
+              uSetItems={setItems}
+              uSetCase={uSetCase}
+              uYear={uYear}
+              removing={setRemoving}
+            />
+          </DragDropContext>
+          <Button className="bookcaseButton" handler={addShelf}>
+            Add a shelf
+          </Button>
+          <Button className="bookcaseButton" handler={removeEmpties}>
+            Delete empty shelves
+          </Button>
+        </section>
+      </main>
+    </>
   );
 }
 

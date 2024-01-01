@@ -1,0 +1,69 @@
+main#faqContainer {
+  margin: 10px auto;
+  width: 90%;
+  font-size: 0.9rem;
+}
+
+#faqContainer h1 {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+
+#faqContainer a {
+  font-weight: bold;
+}
+
+#faqContainer p {
+  margin-top: 6px;
+}
+
+#faqContainer a:hover {
+  color: rgb(168, 138, 20);
+}
+
+#faqContainer dt {
+  font-weight: bold;
+  margin: 12px 0 6px;
+}
+
+#faqContainer dd {
+  padding-left: 9px;
+  border-left: 1px solid rgb(181, 148, 14);
+}
+
+#faqContainer li {
+  list-style-type: none;
+  list-style-position: inside;
+  border-top: 1px solid black;
+  font-size: 0.8rem;
+  padding: 4px 0;
+}
+
+#faqContainer ul {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+#faqContainer dd li:first-of-type {
+  border-top: 0;
+}
+
+@media screen and (min-width: 400px) {
+  main#faqContainer {
+    width: 75%;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  main#faqContainer {
+    width: 65%;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  main#faqContainer {
+    width: 50%;
+  }
+}

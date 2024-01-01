@@ -2,7 +2,14 @@
 
 import "./TitleBar.css";
 
-export function TitleBar({ type, uYear, uSetCase, uSetYear, uCase }) {
+export function TitleBar({
+  type,
+  uYear,
+  uSetCase,
+  uSetYear,
+  uCase,
+  bookCount,
+}) {
   // Get the current year for the selection menu
   const today = new Date();
   const thisYear = today.getFullYear();
@@ -27,7 +34,9 @@ export function TitleBar({ type, uYear, uSetCase, uSetYear, uCase }) {
           );
         })}
       </select>
-      <h1>{type}</h1>
+      <h1>
+        {type} ({bookCount} {`book${bookCount !== 1 ? "s" : ""}`})
+      </h1>
     </div>
   );
 }
