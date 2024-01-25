@@ -74,11 +74,12 @@ div#shelf-unshelved li {
 
 section#bookcase p#reference-link {
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   margin-top: 16px;
 }
 
 section#bookcase p#reference-link a {
+  display: block;
   text-decoration: underline;
   color: rgb(205, 162, 55);
   font-weight: bold;
