@@ -130,19 +130,29 @@ function AddBook({
     // Close everything
     handleClose();
     // If the selected book is already on the user's list for this year, don't add again
-    for (const book of uBooks.bookList) {
-      if (
-        book.bookId === selected.bookId &&
-        book.year === uYear &&
-        ((book.audio === undefined && !selected.audio) ||
-          book.audio === selected.audio)
-      ) {
-        handleClose();
-        return;
+    let unique = false;
+    let bid = selected.bookId;
+    let index = 1;
+    while (!unique) {
+      // have not yet matched the current bid
+      let matched = false;
+      for (const book of uBooks.bookList) {
+        // iterate over the book list
+        if (bid === book.bookId && book.year === uYear) {
+          // this book on the list has same ID and year, update the bid
+          bid = `${selected.bookId}-${index}`;
+          index++;
+          // note that we've got a match and have to re-check
+          matched = true;
+        }
       }
+      // No match? Then unique
+      if (!matched) unique = true;
     }
+    console.log(bid);
+
     // Prep the added book, then add it to the database
-    const submission = { ...selected };
+    const submission = { ...selected, bookId: bid };
     const vettedSubmission = setDefaults(submission);
     try {
       const { data } = await addBook({
