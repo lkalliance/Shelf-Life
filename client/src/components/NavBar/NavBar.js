@@ -1,12 +1,15 @@
 // This component renders the navbar
 
 import "./NavBar.css";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { About } from "..";
 
 import auth from "../../utils/auth";
 
 function NavBar({ showLogin, showAddBook, setShowAddBook }) {
+  const loc = useLocation().pathname.split("/");
+  const otherUser = loc.length > 3;
   // This function shows or hides the nav elements when window is narrow
   const showHide = (e) => {
     const navContainer = document.querySelector("#navbar-default");
@@ -70,22 +73,21 @@ function NavBar({ showLogin, showAddBook, setShowAddBook }) {
                       Your Bookcase
                     </Link>
                   </li>
-                  <li key="add-book" id="addLi">
-                    <a
-                      href="@"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        showHide(e);
-                        setShowAddBook(true);
-                      }}
-                      className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                    >
-                      Add a Book
-                    </a>
-                  </li>
-                  <li key="about">
-                    <About onClick={showHide} />
-                  </li>
+                  {!otherUser && (
+                    <li key="add-book" id="addLi">
+                      <a
+                        href="@"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          showHide(e);
+                          setShowAddBook(true);
+                        }}
+                        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                      >
+                        Add a Book
+                      </a>
+                    </li>
+                  )}
                   <li key="log-out">
                     <a
                       href="#"

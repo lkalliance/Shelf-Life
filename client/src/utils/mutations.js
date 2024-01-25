@@ -7,6 +7,7 @@ export const LOGIN = gql`
       user {
         _id
         userName
+        lookupName
         bookList {
           title
           authors

@@ -166,6 +166,22 @@ function App() {
             }
           />
           <Route
+            path="/profile/*"
+            element={
+              Auth.loggedIn() ? (
+                <Profile
+                  uBooks={books}
+                  uYear={year}
+                  uSetYear={setYear}
+                  uCase={bookCase}
+                  uSetCase={setBookCase}
+                />
+              ) : (
+                <Home />
+              )
+            }
+          />
+          <Route
             path="/profile"
             element={
               Auth.loggedIn() ? (
@@ -179,6 +195,19 @@ function App() {
               ) : (
                 <Home />
               )
+            }
+          />
+          <Route
+            path="/bookcase/:user/:year"
+            element={
+              <Bookcase
+                uBooks={books}
+                uCase={bookCase}
+                uSetBooks={setBooks}
+                uSetCase={setBookCase}
+                uYear={year}
+                uSetYear={setYear}
+              />
             }
           />
           <Route

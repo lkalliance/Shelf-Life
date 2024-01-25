@@ -19,6 +19,7 @@ const typeDefs = gql`
   type User {
     _id: ID
     userName: String
+    lookupName: String
     email: String
     password: String
     bookList: [Book]
@@ -27,6 +28,8 @@ const typeDefs = gql`
   type Bookcase {
     _id: ID
     user_id: ID
+    userName: String
+    lookupName: String
     year: String
     shelves: [Shelf]
     unshelved: [Book]
@@ -93,6 +96,7 @@ const typeDefs = gql`
   type Query {
     me(fetchMe: Boolean): User
     bookcase(year: String!, fetchMe: Boolean): Bookcase
+    userBookcase(year: String!, user: String!): Bookcase
   }
 
   type Mutation {

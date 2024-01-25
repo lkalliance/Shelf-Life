@@ -72,6 +72,18 @@ div#shelf-unshelved li {
   height: 170px;
 }
 
+section#bookcase p#reference-link {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 16px;
+}
+
+section#bookcase p#reference-link a {
+  text-decoration: underline;
+  color: rgb(205, 162, 55);
+  font-weight: bold;
+}
+
 @media screen and (max-width: 639px) {
   section#bookcase {
     flex-direction: column;

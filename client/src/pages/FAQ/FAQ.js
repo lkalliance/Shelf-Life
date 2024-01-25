@@ -7,10 +7,12 @@ export function FAQ({ showLogin, showSignup }) {
         What is <em>Shelf Life?</em>
       </h1>
       <p>
-        <em>Shelf Life</em> is a book journal and a creative outlet for avid
-        readers. Adding books to <em>Shelf Life?</em> not only adds them to a
-        list of your reads, but gives you the opportunity to populate a set of
-        digital bookshelves with them! Read on to learn how to use this app.
+        <em>Shelf Life</em> is a dedicated book diary with a creative twist.
+        Keep track of the books you've read, place them on your virtual
+        bookshelves, and rearrange them to your heart's conent by dragging and
+        dropping. Customize the look of the books with a series of colors, sizes
+        and styles. It's exactly the kind of creative outlet that many book
+        lovers crave!
       </p>
       <dl>
         <dt>How do I sign up?</dt>

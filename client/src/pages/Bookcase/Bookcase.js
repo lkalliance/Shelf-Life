@@ -2,9 +2,14 @@
 
 import "./Bookcase.css";
 import { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useParams } from "react-router-dom";
+import { useMutation, useQuery } from "@apollo/client";
 import { ARRANGE_BOOKCASE } from "../../utils/mutations";
-import { QUERY_ME, QUERY_BOOKCASE } from "../../utils/queries";
+import {
+  QUERY_ME,
+  QUERY_BOOKCASE,
+  QUERY_USER_BOOKCASE,
+} from "../../utils/queries";
 import { DragDropContext } from "@hello-pangea/dnd";
 import { Shelf, Button, TitleBar } from "../../components";
 import Auth from "../../utils/auth";
@@ -12,11 +17,41 @@ import { convert, noSpace } from "../../utils/dragUtils";
 import { cloneDeep } from "lodash";
 
 function Bookcase({ uCase, uBooks, uSetBooks, uSetCase, uYear, uSetYear }) {
+  const params = useParams();
+  const otherUser = params.user;
+  const otherYear = params.year;
+  const userData = Auth.loggedIn()
+    ? Auth.getProfile().data
+    : { lookupName: "" };
+
+  // If the user is logged in, construct the URL to share the bookcase
+  const loc = String(window.location.href).split("/");
+  let reference = `http://${loc[2]}/#/bookcase/${userData.lookupName}/${uYear}`;
+
   // If the user isn't logged in, send them to the home page
-  if (!Auth.loggedIn()) window.location.href = "/";
+  // if (!Auth.loggedIn()) window.location.href = "/";
+
+  // What if it's a different user?
+  const { loading: loadingCase, data: dataCase } = useQuery(
+    QUERY_USER_BOOKCASE,
+    {
+      variables: {
+        year: otherYear || "no-request",
+        user: otherUser || "no-request",
+      },
+    }
+  );
+
+  // We've made the bookcase query...are there shelves returned?
+  const userShelves = !(!loadingCase && !dataCase.userBookcase.shelves);
+  // If we've received some other user's bookcase use that...otherwise logged-in user's
+  const useThisCase = userShelves && dataCase ? dataCase.userBookcase : uCase;
+  const userLabel = loadingCase
+    ? "loading..."
+    : dataCase.userBookcase.userName || "none";
 
   // State to arrange books on shelves
-  const [items, setItems] = useState(convert(uCase));
+  const [items, setItems] = useState(convert(useThisCase));
   const [removing, setRemoving] = useState(false);
 
   // Mutation
@@ -174,10 +209,13 @@ function Bookcase({ uCase, uBooks, uSetBooks, uSetCase, uYear, uSetYear }) {
         <section id="bookcase">
           <TitleBar
             type="bookcase"
+            uName={userLabel}
             uYear={uYear}
             uSetYear={uSetYear}
             uCase={uCase}
             uSetCase={uSetCase}
+            otherUser={otherUser}
+            otherYear={otherYear}
             bookCount={
               uBooks.bookList.filter((book) => {
                 return book.year === uYear;
@@ -186,18 +224,19 @@ function Bookcase({ uCase, uBooks, uSetBooks, uSetCase, uYear, uSetYear }) {
           />
           <DragDropContext onDragEnd={handleDrop}>
             <div id="shelves">
-              {uCase.shelves.map((shelf, shelfIndex) => {
+              {useThisCase.shelves.map((shelf, shelfIndex) => {
                 return (
                   <Shelf
                     key={shelfIndex}
                     shelfIndex={shelfIndex}
                     uBooks={uBooks}
-                    uCase={uCase}
+                    uCase={useThisCase}
                     uItems={items}
                     uSetBooks={uSetBooks}
                     uSetItems={setItems}
                     uSetCase={uSetCase}
                     uYear={uYear}
+                    otherUser={otherUser && otherYear ? true : false}
                   />
                 );
               })}
@@ -205,22 +244,33 @@ function Bookcase({ uCase, uBooks, uSetBooks, uSetCase, uYear, uSetYear }) {
             <Shelf
               key="unshelved"
               shelfIndex="unshelved"
-              uCase={uCase}
+              uCase={useThisCase}
               uBooks={uBooks}
               uItems={items}
               uSetBooks={uSetBooks}
               uSetItems={setItems}
               uSetCase={uSetCase}
               uYear={uYear}
+              otherUser={otherUser && otherYear ? true : false}
               removing={setRemoving}
             />
           </DragDropContext>
-          <Button className="bookcaseButton" handler={addShelf}>
-            Add a shelf
-          </Button>
-          <Button className="bookcaseButton" handler={removeEmpties}>
-            Delete empty shelves
-          </Button>
+          {!otherUser && (
+            <>
+              <Button className="bookcaseButton" handler={addShelf}>
+                Add a shelf
+              </Button>
+              <Button className="bookcaseButton" handler={removeEmpties}>
+                Delete empty shelves
+              </Button>
+              <p id="reference-link">
+                Show your friends:{" "}
+                <a href={reference} target="_blank" rel="noreferrer">
+                  {reference}
+                </a>
+              </p>
+            </>
+          )}
         </section>
       </main>
     </>
