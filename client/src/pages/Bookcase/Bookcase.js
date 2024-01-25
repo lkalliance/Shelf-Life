@@ -26,7 +26,7 @@ function Bookcase({ uCase, uBooks, uSetBooks, uSetCase, uYear, uSetYear }) {
 
   // If the user is logged in, construct the URL to share the bookcase
   const loc = String(window.location.href).split("/");
-  let reference = `http://${loc[2]}/#/bookcase/${userData.lookupName}/${uYear}`;
+  let reference = `${loc[0]}//${loc[2]}/#/bookcase/${userData.lookupName}/${uYear}`;
 
   // If the user isn't logged in, send them to the home page
   // if (!Auth.loggedIn()) window.location.href = "/";
