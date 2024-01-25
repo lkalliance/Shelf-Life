@@ -18,6 +18,7 @@ function Shelf({
   uSetBooks,
   uSetItems,
   uYear,
+  otherUser,
   removing,
 }) {
   const books =
@@ -102,6 +103,7 @@ function Shelf({
             uSetCase={uSetCase}
             uSetBooks={uSetBooks}
             uSetItems={uSetItems}
+            otherUser={otherUser}
             uYear={uYear}
             removing={removing}
           />
@@ -118,6 +120,7 @@ function Shelf({
             uSetCase={uSetCase}
             uSetBooks={uSetBooks}
             uSetItems={uSetItems}
+            otherUser={otherUser}
             uYear={uYear}
             removing={removing}
           />
@@ -135,6 +138,7 @@ function Shelf({
           uSetCase={uSetCase}
           uSetBooks={uSetBooks}
           uSetItems={uSetItems}
+          otherUser={otherUser}
           uYear={uYear}
           removing={removing}
         />

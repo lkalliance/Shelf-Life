@@ -23,6 +23,7 @@ function Book({
   shelf,
   uYear,
   removing,
+  otherUser,
 }) {
   const [showModal, setShowModal] = useState(false);
   // Mutations
@@ -79,6 +80,8 @@ function Book({
   async function unshelveBook() {
     // This function moves a book from a shelf to unshelved
 
+    if (otherUser) return;
+
     const { 1: thisStack, 2: thisShelf } = stack.split("-");
     // If the book is already unshelved, never mind
     if (shelf === "unshelved") return;
@@ -108,6 +111,8 @@ function Book({
 
   async function deleteThisBook() {
     // This function removes a book from the user's list and bookcase
+
+    if (otherUser) return;
 
     const { 1: thisStack, 2: thisShelf } = stack.split("-");
     const allBooks = cloneDeep(uCase);
@@ -181,7 +186,12 @@ function Book({
         shelf={shelf}
         remover={deleteThisBook}
       />
-      <Draggable key={bookId} draggableId={bookId} index={bookIndex}>
+      <Draggable
+        key={bookId}
+        draggableId={bookId}
+        index={bookIndex}
+        isDragDisabled={otherUser}
+      >
         {(provided) => (
           <li
             ref={provided.innerRef}

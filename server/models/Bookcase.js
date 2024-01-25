@@ -8,6 +8,14 @@ const bookcaseSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
+  userName: {
+    type: String,
+    ref: "User",
+  },
+  lookupName: {
+    type: String,
+    ref: "User",
+  },
   year: {
     type: String,
   },

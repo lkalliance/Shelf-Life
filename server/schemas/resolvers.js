@@ -29,6 +29,19 @@ const resolvers = {
         "Either you are not logged in or you already have the data!"
       );
     },
+
+    userBookcase: async (parent, args) => {
+      const { user, year } = args;
+      console.log(user, year);
+      const scrubbedUser = user.toLowerCase().replace(/ /g, "");
+      if (!user || !year)
+        throw new Error("There was no user bookcase requested");
+      const thisCase = await Bookcase.findOne({
+        lookupName: scrubbedUser,
+        year: year,
+      });
+      return thisCase || false;
+    },
   },
 
   Mutation: {
@@ -36,10 +49,12 @@ const resolvers = {
       const today = new Date();
       const thisYear = today.getFullYear().toString();
       const { userName, email, password } = args;
+      const lookupName = userName.toLowerCase().replace(/ /g, "");
 
       // Create the new User
       const newUser = {
         userName,
+        lookupName,
         email,
         password,
         bookList: [],
@@ -52,6 +67,8 @@ const resolvers = {
       // Create the new bookcase tied to this uear and year
       const newBookcase = {
         user_id: user._id,
+        userName,
+        lookupName,
         year: thisYear,
         shelves: [
           { left: [], right: [] },
@@ -116,6 +133,8 @@ const resolvers = {
         if (!updateBook) {
           const newBookcase = {
             user_id: context.user._id,
+            userName: context.user.userName,
+            lookupName: context.user.lookupName,
             year: updatedArgs.year,
             shelves: [
               { left: [], right: [] },

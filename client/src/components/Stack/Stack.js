@@ -16,6 +16,7 @@ function Stack({
   clearHandler,
   uYear,
   removing,
+  otherUser,
 }) {
   return (
     <Droppable
@@ -43,6 +44,7 @@ function Stack({
                 bookId={`${book.bookId}${book.audio && "-aud"}`}
                 shelf={shelf}
                 stack={`shelf-${position}-${shelf}`}
+                otherUser={otherUser}
                 uYear={uYear}
                 removing={removing}
               />

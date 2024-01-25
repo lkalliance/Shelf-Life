@@ -90,3 +90,69 @@ export const QUERY_BOOKCASE = gql`
     }
   }
 `;
+
+export const QUERY_USER_BOOKCASE = gql`
+  query UserBookcase($year: String!, $user: String!) {
+    userBookcase(year: $year, user: $user) {
+      shelves {
+        left {
+          authors
+          bookId
+          color
+          text
+          textSize
+          comment
+          image
+          description
+          height
+          rating
+          style
+          thickness
+          title
+          shortTitle
+          audio
+          year
+        }
+        right {
+          authors
+          bookId
+          color
+          text
+          textSize
+          comment
+          image
+          description
+          height
+          rating
+          style
+          thickness
+          title
+          shortTitle
+          audio
+          year
+        }
+      }
+      unshelved {
+        authors
+        bookId
+        color
+        text
+        textSize
+        comment
+        image
+        description
+        height
+        rating
+        style
+        thickness
+        title
+        shortTitle
+        audio
+        year
+      }
+      user_id
+      userName
+      year
+    }
+  }
+`;
