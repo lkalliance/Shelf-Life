@@ -17,6 +17,7 @@ function Stack({
   uYear,
   removing,
   otherUser,
+  tilting,
 }) {
   return (
     <Droppable
@@ -47,6 +48,12 @@ function Stack({
                 otherUser={otherUser}
                 uYear={uYear}
                 removing={removing}
+                position={position}
+                tilting={
+                  tilting &&
+                  ((position === "left" && index === books.length - 1) ||
+                    (position === "right" && index === 0))
+                }
               />
             );
           })}

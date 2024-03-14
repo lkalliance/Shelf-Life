@@ -8,7 +8,12 @@ import { ARRANGE_BOOKCASE, REMOVE_BOOK } from "../../utils/mutations";
 import { QUERY_ME, QUERY_BOOKCASE } from "../../utils/queries";
 import { Draggable } from "@hello-pangea/dnd";
 import { ViewModal } from "../ViewModal";
-import { isTight, titleSmooshing, convert } from "../../utils/dragUtils";
+import {
+  isTight,
+  titleSmooshing,
+  convert,
+  calcTilt,
+} from "../../utils/dragUtils";
 
 function Book({
   uCase,
@@ -24,7 +29,10 @@ function Book({
   uYear,
   removing,
   otherUser,
+  position,
+  tilting,
 }) {
+  console.log(book.title, tilting);
   const [showModal, setShowModal] = useState(false);
   // Mutations
   const [arrangeBookcase, { error: arrangeError }] = useMutation(
@@ -197,6 +205,9 @@ function Book({
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
+            className={
+              tilting ? `book-container ${position} tilted` : "book-container"
+            }
           >
             <div
               // Class names added for original-style saved books
@@ -211,6 +222,9 @@ function Book({
                 backgroundColor: colorStyle ? book.color : "",
                 height: heightStyle ? `${book.height}px` : "",
                 width: thicknessStyle ? `${book.thickness}px` : "",
+                transform: tilting
+                  ? calcTilt(position, book.height, book.thickness)
+                  : "",
               }}
               onClick={clickHandler}
             >

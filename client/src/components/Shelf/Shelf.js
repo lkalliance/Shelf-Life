@@ -7,7 +7,7 @@ import { ARRANGE_BOOKCASE } from "../../utils/mutations";
 import { QUERY_BOOKCASE, QUERY_ME } from "../../utils/queries";
 
 import { Stack } from "../../components";
-import { convert } from "../../utils/dragUtils";
+import { convert, tilting } from "../../utils/dragUtils";
 
 function Shelf({
   shelfIndex,
@@ -23,6 +23,8 @@ function Shelf({
 }) {
   const books =
     shelfIndex === "unshelved" ? uCase.unshelved : uCase.shelves[shelfIndex];
+
+  const tilts = tilting(books);
 
   const leftItem = uItems[`shelf-left-${shelfIndex}`];
   const rightItem = uItems[`shelf-right-${shelfIndex}`];
@@ -106,6 +108,7 @@ function Shelf({
             otherUser={otherUser}
             uYear={uYear}
             removing={removing}
+            tilting={tilts.left}
           />
           <Stack
             drop="true"
@@ -123,6 +126,7 @@ function Shelf({
             otherUser={otherUser}
             uYear={uYear}
             removing={removing}
+            tilting={tilts.right}
           />
         </div>
       ) : (
@@ -141,6 +145,7 @@ function Shelf({
           otherUser={otherUser}
           uYear={uYear}
           removing={removing}
+          tilting={false}
         />
       )}
     </div>
