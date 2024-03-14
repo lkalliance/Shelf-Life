@@ -145,13 +145,13 @@ div#studio div#preview {
 }
 
 #studio #shortSample {
-  width: 125px;
+  width: 100px;
   height: 45px;
 }
 
 #studio #longSample {
   width: 160px;
-  height: 20px;
+  height: 18px;
 }
 
 /* form formatting */
