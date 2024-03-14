@@ -88,6 +88,13 @@ const thicknesses = {
   thick: 45,
 };
 
+const heights = {
+  // This is a reference to pixel widths of book types
+  tall: 160,
+  medium: 145,
+  short: 125,
+};
+
 export const noSpace = (shelf, newBook) => {
   // This utility determines if there is room on the shelf for a drop
 
@@ -188,4 +195,139 @@ export function convertUnicode(input) {
   return input.replace(/\\+u([0-9a-fA-F]{4})/g, (a, b) =>
     String.fromCharCode(parseInt(b, 16))
   );
+}
+
+export function tilting(books) {
+  // this utility determines if any books should be tilted
+
+  const convertNums = (string) => {
+    if (string === "thick" || string === "mid" || string === "thin")
+      return thicknesses[string];
+    if (string === "tall" || string === "medium" || string === "short")
+      return heights[string];
+    return parseInt(string);
+  };
+
+  // first check for space available
+  let available = 280;
+  let leftRoom = 0;
+  let rightRoom = 0;
+  if (books.left) {
+    books.left.forEach((book) => {
+      const thickness =
+        book.thickness === "thick"
+          ? 45
+          : book.thickness === "thin"
+          ? 20
+          : book.thickness === "mid"
+          ? 30
+          : parseInt(book.thickness);
+      leftRoom += thickness;
+    });
+  }
+  if (books.right) {
+    books.right.forEach((book) => {
+      const thickness =
+        book.thickness === "thick"
+          ? 45
+          : book.thickness === "thin"
+          ? 20
+          : book.thickness === "mid"
+          ? 30
+          : parseInt(book.thickness);
+      rightRoom += thickness;
+    });
+  }
+
+  available -= leftRoom + rightRoom;
+
+  // caldulate if any books can be tilted
+  // first, do they exist at all?
+  let leftTilt = books.left && books.left.length > 0;
+  let rightTilt = books.right && books.right.length > 0;
+
+  // next, is there enough space for at least one tilt?
+  if (available < 30) {
+    leftTilt = false;
+    rightTilt = false;
+  }
+
+  // next, is the last book too thick?
+  const leftBook = leftTilt ? books.left[books.left.length - 1] : null;
+  const rightBook = rightTilt ? books.right[0] : null;
+
+  if (leftTilt && convertNums(leftBook.thickness) >= 30) leftTilt = false;
+  if (rightTilt && convertNums(rightBook.thickness) >= 30) rightTilt = false;
+
+  // next, are the next two books at least as tall?
+  if (
+    leftTilt &&
+    books.left.length > 1 &&
+    convertNums(leftBook.height) >
+      convertNums(books.left[books.left.length - 2].height)
+  ) {
+    leftTilt = false;
+  }
+  if (
+    leftTilt &&
+    books.left.length > 2 &&
+    convertNums(leftBook.height) >
+      convertNums(books.left[books.left.length - 3].height)
+  ) {
+    leftTilt = false;
+  }
+
+  if (
+    rightTilt &&
+    books.right.length > 1 &&
+    convertNums(rightBook.height) > convertNums(books.right[1].height)
+  ) {
+    rightTilt = false;
+  }
+  if (
+    rightTilt &&
+    books.right.length > 2 &&
+    convertNums(rightBook.height) > convertNums(books.right[2].height)
+  ) {
+    rightTilt = false;
+  }
+
+  // finally, if both can be tilted and there's only room for one, determine which
+  if (leftTilt && rightTilt && available >= 30 && available < 50) {
+    if (leftRoom === rightRoom) {
+      if (books.right.length > books.left.length) leftTilt = false;
+      else rightTilt = false;
+    } else {
+      leftTilt = leftRoom > rightRoom;
+      rightTilt = !leftTilt;
+    }
+  }
+
+  return { left: leftTilt, right: rightTilt };
+}
+
+export function calcTilt(position, height, width) {
+  const heightNum =
+    height === "tall" || height === "medium" || height === "short"
+      ? heights[height]
+      : parseInt(height);
+  const widthNum =
+    width === "thick" || width === "mid" || width === "thin"
+      ? thicknesses[width]
+      : parseInt(width);
+
+  const radians = (5 * Math.PI) / 180;
+  const sine = Math.sin(radians);
+  const cosine = Math.cos(radians);
+
+  const horizDisplacement = Math.floor(
+    (sine * heightNum + cosine * widthNum - widthNum) / 2
+  );
+  const vertDisplacement = Math.floor(
+    (sine * widthNum + cosine * heightNum - heightNum) / 2
+  );
+
+  return `rotate(${position === "left" ? "-5deg" : "5deg"}) translate(${
+    position === "right" ? "-" : ""
+  }${horizDisplacement}px,-${vertDisplacement}px)`;
 }

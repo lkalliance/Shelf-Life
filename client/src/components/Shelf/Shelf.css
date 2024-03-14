@@ -20,4 +20,5 @@ div.shelf div.stacks {
   height: 100%;
   background-color: rgb(220, 177, 75);
   background-image: url("./wood.png");
+  overflow: hidden;
 }

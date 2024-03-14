@@ -173,7 +173,7 @@ export function Studio({ selected, setSelected, bookList }) {
           <label htmlFor="height">Height:</label>
           <input
             type="range"
-            min={125}
+            min={100}
             max={160}
             value={heightStyle ? selected.height : "145"}
             id="height"
@@ -184,7 +184,7 @@ export function Studio({ selected, setSelected, bookList }) {
           <label htmlFor="thickness">Width:</label>
           <input
             type="range"
-            min={20}
+            min={18}
             max={45}
             value={thicknessStyle ? selected.thickness : "30"}
             id="thickness"

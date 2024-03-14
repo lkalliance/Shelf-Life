@@ -53,6 +53,7 @@ function Bookcase({ uCase, uBooks, uSetBooks, uSetCase, uYear, uSetYear }) {
   // State to arrange books on shelves
   const [items, setItems] = useState(convert(useThisCase));
   const [removing, setRemoving] = useState(false);
+  const [showingModal, setShowingModal] = useState(false);
 
   // Mutation
   const [arrangeBookcase, { error }] = useMutation(ARRANGE_BOOKCASE, {
@@ -237,6 +238,8 @@ function Bookcase({ uCase, uBooks, uSetBooks, uSetCase, uYear, uSetYear }) {
                     uSetCase={uSetCase}
                     uYear={uYear}
                     otherUser={otherUser && otherYear ? true : false}
+                    showingModal={showingModal}
+                    setShowingModal={setShowingModal}
                   />
                 );
               })}
@@ -253,6 +256,8 @@ function Bookcase({ uCase, uBooks, uSetBooks, uSetCase, uYear, uSetYear }) {
               uYear={uYear}
               otherUser={otherUser && otherYear ? true : false}
               removing={setRemoving}
+              showingModal={showingModal}
+              setShowingModal={setShowingModal}
             />
           </DragDropContext>
           {!otherUser && (

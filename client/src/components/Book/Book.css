@@ -18,6 +18,14 @@
   );
 }
 
+li.book-container {
+  z-index: 100;
+}
+
+li.book-container.tilted {
+  z-index: 50;
+}
+
 .book.paperback {
   background-image: none;
 }

@@ -17,6 +17,9 @@ function Stack({
   uYear,
   removing,
   otherUser,
+  tilting,
+  showingModal,
+  setShowingModal,
 }) {
   return (
     <Droppable
@@ -47,6 +50,14 @@ function Stack({
                 otherUser={otherUser}
                 uYear={uYear}
                 removing={removing}
+                position={position}
+                showingModal={showingModal}
+                setShowingModal={setShowingModal}
+                tilting={
+                  tilting &&
+                  ((position === "left" && index === books.length - 1) ||
+                    (position === "right" && index === 0))
+                }
               />
             );
           })}
