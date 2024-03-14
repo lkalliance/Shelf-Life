@@ -20,6 +20,8 @@ function Shelf({
   uYear,
   otherUser,
   removing,
+  showingModal,
+  setShowingModal,
 }) {
   const books =
     shelfIndex === "unshelved" ? uCase.unshelved : uCase.shelves[shelfIndex];
@@ -109,6 +111,8 @@ function Shelf({
             uYear={uYear}
             removing={removing}
             tilting={tilts.left}
+            showingModal={showingModal}
+            setShowingModal={setShowingModal}
           />
           <Stack
             drop="true"
@@ -127,6 +131,8 @@ function Shelf({
             uYear={uYear}
             removing={removing}
             tilting={tilts.right}
+            showingModal={showingModal}
+            setShowingModal={setShowingModal}
           />
         </div>
       ) : (
@@ -146,6 +152,8 @@ function Shelf({
           uYear={uYear}
           removing={removing}
           tilting={false}
+          showingModal={showingModal}
+          setShowingModal={setShowingModal}
         />
       )}
     </div>

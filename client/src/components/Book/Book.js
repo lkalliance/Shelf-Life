@@ -31,8 +31,9 @@ function Book({
   otherUser,
   position,
   tilting,
+  showingModal,
+  setShowingModal,
 }) {
-  console.log(book.title, tilting);
   const [showModal, setShowModal] = useState(false);
   // Mutations
   const [arrangeBookcase, { error: arrangeError }] = useMutation(
@@ -83,6 +84,7 @@ function Book({
   function showInfo() {
     // Show the book details modal
     setShowModal(true);
+    setShowingModal(true);
   }
 
   async function unshelveBook() {
@@ -193,6 +195,7 @@ function Book({
         info={book}
         shelf={shelf}
         remover={deleteThisBook}
+        setShowingModal={setShowingModal}
       />
       <Draggable
         key={bookId}
@@ -206,7 +209,11 @@ function Book({
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             className={
-              tilting ? `book-container ${position} tilted` : "book-container"
+              showingModal
+                ? ""
+                : tilting
+                ? `book-container ${position} tilted`
+                : "book-container"
             }
           >
             <div

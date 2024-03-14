@@ -4,10 +4,11 @@ import "./ViewModal.css";
 import React from "react";
 import Star from "../../components/AddBook/Star";
 
-function ViewModal({ show, switcher, info, remover, shelf }) {
+function ViewModal({ show, switcher, info, remover, shelf, setShowingModal }) {
   const handleClose = () => {
     // This handler closes the modal
     switcher(false);
+    setShowingModal(false);
   };
 
   const createAuthors = (authors) => {
