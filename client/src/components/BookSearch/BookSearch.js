@@ -1,6 +1,7 @@
 // This component renders the title search for adding a book
 
 import "./BookSearch.css";
+import { useRef, useEffect } from "react";
 import { BookSearchResults } from "../../components/BookSearchResults";
 
 export function BookSearch({
@@ -13,6 +14,14 @@ export function BookSearch({
   selected,
   handleModalSelection,
 }) {
+  // make a reference to the search field for auto-focus
+  const searchRef = useRef(null);
+
+  // use an effect to automatically put focus on the search field
+  useEffect(() => {
+    searchRef.current.focus();
+  }, []);
+
   return (
     <div className="w-full max-w-xl max-h-full">
       <div
@@ -77,6 +86,7 @@ export function BookSearch({
             </div>
             <input
               type="search"
+              ref={searchRef}
               id="default-search"
               className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               name="searchInput"
